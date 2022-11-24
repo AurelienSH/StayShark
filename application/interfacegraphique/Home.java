@@ -15,10 +15,15 @@ public class Home
         frame.getContentPane().setBackground(Color.decode("#ffdfba"));
 
         // JLabel label1 = new JLabel("<html><div style='text-align:center; font-size: 440%'>Bienvenue sur StayShark !</div><br/><div style='text-align:center; font-size: 180%'>Êtes-vous professeur.e ou étudiant.e ?</div></html>",SwingConstants.CENTER); --> version qui marche que sur système windows et mac
+
+
         JLabel label1 = new JLabel("Bienvenue sur StayShark !");
-        label1.setFont(new Font("Verdana", Font.BOLD, 23));
+        label1.setFont(new Font("Verdana", Font.BOLD, 28));
         label1.setHorizontalAlignment(JLabel.CENTER);
         frame.add(label1);
+
+        // JTextArea label1 = new JTextArea("dflvhsdlfjlqksjdlkqd\n ekzhrfkejfde");
+        // frame.add(label1);
 
         // Définir les boutons
         JButton btn1 = new JButton("Professeur.e"); 
