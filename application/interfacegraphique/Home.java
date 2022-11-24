@@ -1,4 +1,4 @@
-package application;
+package application.interfacegraphique;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,14 +30,14 @@ public class Home
         panel.setBackground( Color.decode("#ffdfba") );
         panel.add(btn1); 
         panel.add(btn2);
-        JLabel shark = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage("./application/sharkDancing.gif")));
+        JLabel shark = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage("./application/interfacegraphique/médias/sharkDancing.gif")));
         frame.add(shark);
 
         // Ajouter label et panel au frame
         frame.setLayout(new GridLayout(3, 1));
         frame.add(panel);
 
-        Image logo = Toolkit.getDefaultToolkit().getImage("./application/shark.png");  
+        Image logo = Toolkit.getDefaultToolkit().getImage("./application/interfacegraphique/médias/shark.png");  
         frame.setIconImage(logo);
         frame.pack();
 
