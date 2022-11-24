@@ -3,7 +3,9 @@ package application.interfacegraphique;
 import javax.swing.*;
 import java.awt.*;
 
-//javac -encoding utf8 Home.java --> pour que ça affiche bien les caractères
+//javac -encoding utf8 ./application/interfacegraphique/Home.java --> pour que ça affiche bien les caractères
+// java application.interfacegraphique.Home
+
 public class Home 
 {
     public static void main(String[] args) 
@@ -12,7 +14,10 @@ public class Home
         JFrame frame = new JFrame("StayShark");
         frame.getContentPane().setBackground(Color.decode("#ffdfba"));
 
-        JLabel label1 = new JLabel("<html><div style='text-align:center; font-size: 440%'>Bienvenue sur StayShark !</div><br/><div style='text-align:center; font-size: 180%'>Êtes-vous professeur.e ou étudiant.e ?</div></html>",SwingConstants.CENTER);
+        // JLabel label1 = new JLabel("<html><div style='text-align:center; font-size: 440%'>Bienvenue sur StayShark !</div><br/><div style='text-align:center; font-size: 180%'>Êtes-vous professeur.e ou étudiant.e ?</div></html>",SwingConstants.CENTER); --> version qui marche que sur système windows et mac
+        JLabel label1 = new JLabel("Bienvenue sur StayShark !");
+        label1.setFont(new Font("Verdana", Font.BOLD, 23));
+        label1.setHorizontalAlignment(JLabel.CENTER);
         frame.add(label1);
 
         // Définir les boutons
