@@ -2,11 +2,13 @@ package application.interfacegraphique;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.event.*;
+import java.awt.event.*;
 
 //javac -encoding utf8 ./application/interfacegraphique/Home.java --> pour que ça affiche bien les caractères
 // java application.interfacegraphique.Home
 
-public class Home 
+public class Home implements ActionListener
 {
     public static void main(String[] args) 
     {
@@ -22,9 +24,6 @@ public class Home
         label1.setHorizontalAlignment(JLabel.CENTER);
         frame.add(label1);
 
-        // JTextArea label1 = new JTextArea("dflvhsdlfjlqksjdlkqd\n ekzhrfkejfde");
-        // frame.add(label1);
-
         // Définir les boutons
         JButton btn1 = new JButton("Professeur.e"); 
         btn1.setForeground(Color.white);
@@ -35,6 +34,12 @@ public class Home
         
         btn1.setBackground(Color.decode("#ffb3ba"));
         btn2.setBackground(Color.decode("#ffb3ba"));
+
+        Home instance = new Home();
+        btn1.addActionListener(instance);
+        //si la méthode action est appelée : 
+        // frame.setVisible(false); //you can't see me!
+        // frame.dispose();
   
         JPanel panel = new JPanel();
         panel.setBackground( Color.decode("#ffdfba") );
@@ -55,6 +60,13 @@ public class Home
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-          
     }
+    public void actionPerformed(ActionEvent e){
+        JFrame framebis = new JFrame("StayShark");
+        framebis.getContentPane().setBackground(Color.decode("#ffdfba"));
+        framebis.setSize(800, 600);
+        framebis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        framebis.setLocationRelativeTo(null);
+        framebis.setVisible(true);
+      }
 }
