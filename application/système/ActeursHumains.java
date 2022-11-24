@@ -1,4 +1,4 @@
-package application;
+package application.système;
 
 public interface ActeursHumains {
 /**
