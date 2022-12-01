@@ -34,12 +34,31 @@ public class Home implements ActionListener
         
         btn1.setBackground(Color.decode("#ffb3ba"));
         btn2.setBackground(Color.decode("#ffb3ba"));
-
-        Home instance = new Home();
-        btn1.addActionListener(instance);
-        //si la méthode action est appelée : 
-        // frame.setVisible(false); //you can't see me!
-        // frame.dispose();
+        //faire d'abord ptite frame login, nom, prénom puis  
+        btn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				frame.dispose();
+				JFrame framebis = new JFrame("StayShark");
+                Image logo = Toolkit.getDefaultToolkit().getImage("./application/interfacegraphique/médias/shark.png");  
+                framebis.setIconImage(logo);
+                framebis.getContentPane().setBackground(Color.decode("#ffdfba"));
+                framebis.setSize(800, 600);
+                framebis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                framebis.setLocationRelativeTo(null);
+                framebis.setVisible(true);
+			}});
+        btn2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				frame.dispose();
+				JFrame framebis = new JFrame("StayShark");
+                framebis.getContentPane().setBackground(Color.decode("#ffdfba"));
+                Image logo = Toolkit.getDefaultToolkit().getImage("./application/interfacegraphique/médias/shark.png");  
+                framebis.setIconImage(logo);
+                framebis.setSize(800, 600);
+                framebis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                framebis.setLocationRelativeTo(null);
+                framebis.setVisible(true);
+			}});
   
         JPanel panel = new JPanel();
         panel.setBackground( Color.decode("#ffdfba") );
