@@ -7,7 +7,7 @@ public class CsvReader {
     CSVReader reader = null;
     try {
       //parsing a CSV file into CSVReader class constructor  
-      reader = new CSVReader(new FileReader("C:\\Users\Dell\Desktop\csvDemo.csv"));
+      reader = new CSVReader(new FileReader("./application/"));
       String[] nextLine;
       //reads one line at a time  
       while ((nextLine = reader.readNext()) != null) {
