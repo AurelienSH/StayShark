@@ -1,7 +1,6 @@
 package application.système;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Random;
 import java.util.Collections;
 
 public class Exercice {
