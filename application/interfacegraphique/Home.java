@@ -39,7 +39,7 @@ public class Home implements ActionListener
 			public void actionPerformed(ActionEvent ae) {
 				frame.dispose();
 				JFrame framebis = new JFrame("StayShark");
-                Image logo = Toolkit.getDefaultToolkit().getImage("./application/interfacegraphique/médias/shark.png");  
+                Image logo = Toolkit.getDefaultToolkit().getImage("./application/data/médias/shark.png");  
                 framebis.setIconImage(logo);
                 framebis.getContentPane().setBackground(Color.decode("#ffdfba"));
                 framebis.setSize(800, 600);
@@ -52,7 +52,7 @@ public class Home implements ActionListener
 				frame.dispose();
 				JFrame framebis = new JFrame("StayShark");
                 framebis.getContentPane().setBackground(Color.decode("#ffdfba"));
-                Image logo = Toolkit.getDefaultToolkit().getImage("./application/interfacegraphique/médias/shark.png");  
+                Image logo = Toolkit.getDefaultToolkit().getImage("./application/data/médias/shark.png");  
                 framebis.setIconImage(logo);
                 framebis.setSize(800, 600);
                 framebis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,14 +64,14 @@ public class Home implements ActionListener
         panel.setBackground( Color.decode("#ffdfba") );
         panel.add(btn1); 
         panel.add(btn2);
-        JLabel shark = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage("./application/interfacegraphique/médias/sharkDancing.gif")));
+        JLabel shark = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage("./application/data/médias/sharkDancing.gif")));
         frame.add(shark);
 
         // Ajouter label et panel au frame
         frame.setLayout(new GridLayout(3, 1));
         frame.add(panel);
 
-        Image logo = Toolkit.getDefaultToolkit().getImage("./application/interfacegraphique/médias/shark.png");  
+        Image logo = Toolkit.getDefaultToolkit().getImage("./application/data/médias/shark.png");  
         frame.setIconImage(logo);
         frame.pack();
 
