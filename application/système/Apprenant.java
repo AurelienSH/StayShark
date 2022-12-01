@@ -17,7 +17,7 @@ public class Apprenant extends ActeurHumain {
             langueScore.put(ls.split(":")[0], Integer.parseInt(ls.split(":")[1]));
         }
         
-    } 
+    }
 
     public int getNiveau(String langue){
         int niveau=(langueScore.get(langue))/8;
