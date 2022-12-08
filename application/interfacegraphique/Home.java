@@ -35,15 +35,7 @@ public class Home implements ActionListener
         //faire d'abord ptite frame login, nom, prénom puis  
         btnprof.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				framehome.dispose();
-				JFrame framebis = new JFrame("StayShark");
-                Image logo = Toolkit.getDefaultToolkit().getImage("./application/data/médias/shark.png");  
-                framebis.setIconImage(logo);
-                framebis.getContentPane().setBackground(Color.decode("#ffdfba"));
-                framebis.setSize(800, 600);
-                framebis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                framebis.setLocationRelativeTo(null);
-                framebis.setVisible(true);
+                PageProf framebis = new PageProf(framehome);
 			}});
         btnEleve.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
@@ -60,8 +52,8 @@ public class Home implements ActionListener
   
         JPanel panel = new JPanel();
         panel.setBackground( Color.decode("#ffdfba") );
-        panel.add(btn1); 
-        panel.add(btn2);
+        panel.add(btnprof); 
+        panel.add(btnEleve);
         JLabel shark = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage("./application/data/médias/sharkDancing.gif")));
         framehome.add(shark);
 

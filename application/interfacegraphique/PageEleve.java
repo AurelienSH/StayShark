@@ -5,8 +5,8 @@ import java.awt.*;
 import javax.swing.event.*;
 import java.awt.event.*;
 
-public class PageProf extends Page {
-    PageProf(JFrame frameAJeter){
+public class PageEleve extends Page {
+    PageEleve(JFrame frameAJeter){
         frameAJeter.dispose();
 		JFrame framebis = new JFrame("StayShark");
         Image logo = Toolkit.getDefaultToolkit().getImage("./application/data/médias/shark.png");  
