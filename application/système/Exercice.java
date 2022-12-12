@@ -1,6 +1,6 @@
 package application.système;
 import java.util.ArrayList;
-import java.util.Scanner;
+// import java.util.Scanner;
 import java.util.Collections;
 
 public class Exercice {
@@ -16,17 +16,13 @@ public class Exercice {
 
     ArrayList<String> reponses = new ArrayList<String>();
 
-    // Niveau de l'exo
-    int niveau;
-
     // Points de l'exo
     int bareme;
 
     // Constructeur :
     // Prend une liste de chaines de caractères, une langue, un niveau et un bareme
-    Exercice(ArrayList<String> texte, String langVal, int niveauVal, int baremeVal){
+    Exercice(ArrayList<String> texte, String langVal, int baremeVal){
         langue=langVal;
-        niveau=niveauVal;
         bareme=baremeVal;
 
         // Création de la liste d'objets phrases
@@ -70,37 +66,14 @@ public class Exercice {
 
 
     //méthode de correction des exos (se déroule en parallèle de la demande de réponse de l'apprenant)
-    public float corrigerExo(){
-        
-        // compteur de reponses correctes
-        float reponses_correctes = 0;
-
+    public ArrayList<ArrayList<String>> getReponsesEleve(){
+        ArrayList<ArrayList<String>> reponsesEleve = new ArrayList<ArrayList<String>>();
         // boucle pour chaque phrase de l'exo
         for (Phrase question : this.questions){
-            // Affichage de la phrase en question
-            System.out.println("");
-            System.out.println("Pour la phrase :");
-            System.out.println(question.stringEleve());
-
-            // initialisation d'une boucle sur les mots de la phrase
-            int i=1;
-            for (String reponse : question.getReponses()){
-                System.out.println("Quel est le mot numéro "+i+"?");
-
-                // Utilisation d'un scanner pour demander les réponses dans le terminal
-                Scanner in = new Scanner(System.in);
-                String reponseEleve = in.nextLine();
-                boolean correct = (reponse.equals(reponseEleve));
-                if (correct){
-                    reponses_correctes+=1;
-            }
-            i++;
+            ArrayList<String> reponses = question.getReponseEleve();
+            reponsesEleve.add(reponses);
         }
-    }
-        float note = (reponses_correctes/reponses.size()*20);
-
-        
-        return note;
+        return reponsesEleve;
     }
 
 

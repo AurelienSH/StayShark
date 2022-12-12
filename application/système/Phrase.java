@@ -1,5 +1,6 @@
 package application.système;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Phrase {
 
@@ -42,6 +43,10 @@ public class Phrase {
     }
 
 
+
+    public String[] getTokens(){
+        return tokens;
+    }
     // Méthode retournant la chaîne de caractères que verra l'apprenant
     public String stringEleve(){
         ArrayList<String> stringEleve = new ArrayList<String>();
@@ -110,6 +115,7 @@ public class Phrase {
     }
     
     // Correction méchante après récupération de la réponse de l'élève
+    // On peut imaginer un moyen de modifier les points par mots par ex "Non Reconnu = 0, Faux = -1, Vrai = +1 modulable"
     boolean correction(ArrayList<String> reponseEleve){
 
 
@@ -118,7 +124,39 @@ public class Phrase {
         Faut faire une boucle sur les reponses et conserver les erreurs */
         return (reponseEleve == this.reponses);
     }
-}
+
+
+    public ArrayList<String> getReponseEleve(){
+        ArrayList<String> reponsesEleve= new ArrayList<Integer>();
+        for (String reponse : this.reponses){
+            System.out.println("Quel est le mot numéro "+i+"?");
+
+            // Utilisation d'un scanner pour demander les réponses dans le terminal
+            Scanner in = new Scanner(System.in);
+            String reponseEleve = in.nextLine();
+            /* 
+            correct = 1
+            incorrect = 2
+            NR = 0
+            */
+            if (reponseEleve != ""){
+                boolean correct = (reponse.equals(reponseEleve));
+                if (correct){
+                    reponsesEleve.add("correct");
+                }
+                else{
+                    reponsesEleve.add("incorrect");
+                }
+            }
+            else{
+                reponsesEleve.add("NR");
+            }
+            in.close();
+        }
+        return reponsesEleve;
+        }
+    
+    }
     
 //récupérer les réponses de l'élève dans une liste de listes
 //vérification (reponses) --> print dedans ou po (voir si correction??)
