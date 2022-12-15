@@ -1,5 +1,6 @@
 package application.système;
 import java.util.ArrayList;
+import java.util.HashMap;
 // import java.util.Scanner;
 import java.util.Collections;
 
@@ -76,7 +77,15 @@ public class Exercice {
         return reponsesEleve;
     }
 
-
+    public ArrayList<CorrectionPhrase> corrige(HashMap<String,Float> methodeEval){
+        ArrayList<CorrectionPhrase> phrasesCorrigees = new ArrayList<CorrectionPhrase>();
+        ArrayList<ArrayList<String>> reponsesEleve = this.getReponsesEleve();
+        for (ArrayList<String> reponse : reponsesEleve){
+            CorrectionPhrase phraseCorrigee = new CorrectionPhrase(reponse, methodeEval);
+            phrasesCorrigees.add(phraseCorrigee);
+        }
+        return phrasesCorrigees;
+    }
 
     public void afficherCorrection(){
         System.out.println("");

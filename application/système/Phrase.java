@@ -1,6 +1,7 @@
 package application.système;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class Phrase implements Question {
 
@@ -116,13 +117,13 @@ public class Phrase implements Question {
     
     // Correction méchante après récupération de la réponse de l'élève
     // On peut imaginer un moyen de modifier les points par mots par ex "Non Reconnu = 0, Faux = -1, Vrai = +1 modulable"
-    CorrectionPhrase correction(ArrayList<String> reponseEleve){
+    CorrectionPhrase correction(ArrayList<String> reponseEleve, HashMap<String,Float> methodeEval){
 
-
+        CorrectionPhrase phraseCorrigée = new CorrectionPhrase(reponseEleve, methodeEval);
         /* Si on voulait faire une réponse détaillée
         A faire pour chaque mot à trou 
         Faut faire une boucle sur les reponses et conserver les erreurs */
-        return (reponseEleve == this.reponses);
+        return phraseCorrigée;
     }
 
 
