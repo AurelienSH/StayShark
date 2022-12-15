@@ -2,7 +2,7 @@ package application.système;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Phrase {
+public class Phrase implements Question {
 
     private String[] tokens; //tous les tokens splités sur "#"
 
@@ -116,7 +116,7 @@ public class Phrase {
     
     // Correction méchante après récupération de la réponse de l'élève
     // On peut imaginer un moyen de modifier les points par mots par ex "Non Reconnu = 0, Faux = -1, Vrai = +1 modulable"
-    boolean correction(ArrayList<String> reponseEleve){
+    CorrectionPhrase correction(ArrayList<String> reponseEleve){
 
 
         /* Si on voulait faire une réponse détaillée
@@ -127,7 +127,7 @@ public class Phrase {
 
 
     public ArrayList<String> getReponseEleve(){
-        ArrayList<String> reponsesEleve= new ArrayList<Integer>();
+        ArrayList<String> reponsesEleve= new ArrayList<String>();
         for (String reponse : this.reponses){
             System.out.println("Quel est le mot numéro "+i+"?");
 

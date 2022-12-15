@@ -1,5 +1,4 @@
 package application.système;
-
-public abstract class Parseur {
-    protected abstract Phrase parse(String input);
+public interface Parseur {
+    public Phrase parse(String input);
 }
