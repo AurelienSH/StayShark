@@ -6,6 +6,7 @@ import javax.swing.event.*;
 import java.awt.event.*;
 
 public class PageProf extends Page {
+    JFrame frame;
     PageProf(JFrame frameAJeter){
         frameAJeter.dispose();
 		JFrame framebis = new JFrame("StayShark");
@@ -16,5 +17,6 @@ public class PageProf extends Page {
         framebis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         framebis.setLocationRelativeTo(null);
         framebis.setVisible(true);
+        frame=framebis; //permet d'utiliser la frame dans une autre méthode
     }
 }

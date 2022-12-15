@@ -12,6 +12,8 @@ public abstract class CsvReader {
     sc.useDelimiter(",");
     //setting comma as delimiter pattern
     while (sc.hasNext()) {
+      //récupérer variable qui contient le login écrit
+      //if le login entré == sc alors stop et ouvre le frame
       System.out.print(sc.next()+"\t");
     }
     sc.close();

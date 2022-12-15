@@ -35,19 +35,13 @@ public class Home implements ActionListener
         //faire d'abord ptite frame login, nom, prénom puis  
         btnprof.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+                //récupérer le login puis ouvrir le frame
                 PageProf framebis = new PageProf(framehome);
 			}});
         btnEleve.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				framehome.dispose();
-				JFrame framebis = new JFrame("StayShark");
-                framebis.getContentPane().setBackground(Color.decode("#ffdfba"));
-                Image logo = Toolkit.getDefaultToolkit().getImage("./application/data/médias/shark.png");  
-                framebis.setIconImage(logo);
-                framebis.setSize(800, 600);
-                framebis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                framebis.setLocationRelativeTo(null);
-                framebis.setVisible(true);
+                //récupérer le login puis ouvrir le frame
+                PageEleve framebis = new PageEleve(framehome);
 			}});
   
         JPanel panel = new JPanel();
