@@ -3,6 +3,7 @@ import java.io. * ;
 
 public class Test {
     public static void main(String[] args) throws FileNotFoundException {
-        CsvReader.liseurCsv("./application/data/dataeleve.csv");
+        System.out.print(CsvReader.liseurCsv("./application/data/dataeleve.csv"));
+        // méthode de vérification pour le login
     }
 }

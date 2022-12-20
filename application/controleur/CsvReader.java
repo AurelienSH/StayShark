@@ -9,7 +9,7 @@ import java.util.regex.*;
 //CSVReader.liseurCsv("path")
 
 public abstract class CsvReader {
-  public static void liseurCsv (String argument) throws FileNotFoundException{
+  public static Map liseurCsv (String argument) throws FileNotFoundException{
     Scanner sc = new Scanner(new File (argument),"utf-8");
     //parsing a CSV file into the constructor of Scanner class 
     sc.useDelimiter(",");
@@ -36,8 +36,9 @@ public abstract class CsvReader {
         temporaire += chiant + " ";
     }
     }
-    System.out.println(larousse);
+    
     sc.close();
+    return larousse;
     //closes the scanner  
   }
 }

@@ -8,6 +8,7 @@ import java.awt.event.*;
 //javac -encoding utf8 ./application/interfacegraphique/Home.java --> pour que ça affiche bien les caractères
 // java application.interfacegraphique.Home
 
+// faire une classe fenêtre avec les dimensions prédéfinies
 public class Home implements ActionListener
 {
     public static void main(String[] args) 
