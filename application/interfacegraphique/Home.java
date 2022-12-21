@@ -16,7 +16,7 @@ public class Home implements ActionListener
         //Fenêtre Home
 
         JFrame framehome = new JFrame("StayShark");
-        framehome.getContentPane().setBackground(Color.decode("#ffdfba"));
+        BaseFenetre.defautfenetre(framehome);
 
         JLabel labelhome = new JLabel("Bienvenue sur StayShark !");
         labelhome.setFont(new Font("Verdana", Font.BOLD, 28));
@@ -49,28 +49,19 @@ public class Home implements ActionListener
         panel.setBackground( Color.decode("#ffdfba") );
         panel.add(btnprof); 
         panel.add(btnEleve);
-        JLabel shark = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage("./application/data/médias/sharkDancing.gif")));
+        JLabel shark = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage("./application/data/medias/sharkDancing.gif")));
         framehome.add(shark);
 
         // Ajouter label et panel au frame
         framehome.setLayout(new GridLayout(3, 1));
         framehome.add(panel);
 
-        Image logo = Toolkit.getDefaultToolkit().getImage("./application/data/médias/shark.png");  
-        framehome.setIconImage(logo);
         framehome.pack();
-
-        framehome.setSize(800, 600);
-        framehome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         framehome.setLocationRelativeTo(null);
         framehome.setVisible(true);
     }
     public void actionPerformed(ActionEvent e){
         JFrame framebis = new JFrame("StayShark");
-        framebis.getContentPane().setBackground(Color.decode("#ffdfba"));
-        framebis.setSize(800, 600);
-        framebis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        framebis.setLocationRelativeTo(null);
-        framebis.setVisible(true);
+        BaseFenetre.defautfenetre(framebis);
       }
 }
