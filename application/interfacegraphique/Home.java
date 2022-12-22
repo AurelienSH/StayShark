@@ -37,16 +37,13 @@ public class Home implements ActionListener
         
         btnprof.setBackground(Color.decode("#ffb3ba"));
         btnEleve.setBackground(Color.decode("#ffb3ba"));
-        //faire d'abord ptite frame login, nom, prénom puis  
         btnprof.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-                //récupérer le login puis ouvrir le frame
-                PageProf framebis = new PageProf(framehome);
+                PageLogin framelogin = new PageLogin(framehome,"prof");
 			}});
         btnEleve.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-                //récupérer le login puis ouvrir le frame
-                PageEleve framebis = new PageEleve(framehome);
+                PageLogin framelogin = new PageLogin(framehome,"élève");
 			}});
   
         JPanel panel = new JPanel();
