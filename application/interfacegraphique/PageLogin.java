@@ -5,15 +5,15 @@ import java.awt.*;
 import javax.swing.event.*;
 import java.awt.event.*;
 
-public class PageProf extends Page {
+public class PageLogin extends Page {
     JFrame frame;
-    PageProf(JFrame frameAJeter){
-        frameAJeter.dispose();
+    PageLogin(){
 		JFrame framebis = new JFrame("StayShark");
-        BaseFenetre.defautfenetre(framebis,800,600);
+        BaseFenetre.defautfenetre(framebis,200,300);
         framebis.pack();
         framebis.setLocationRelativeTo(null);
         framebis.setVisible(true);
-        frame=framebis; //permet d'utiliser la frame dans une autre méthode
-    }
+        
+        frame=framebis;
+}
 }

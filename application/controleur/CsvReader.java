@@ -6,11 +6,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.*;
 
-//CSVReader.liseurCsv("path")
-
+/**
+ * CsvReader est une classe qui permet de convertir un csv en une HashMap.
+ * Il prend donc en entrée un csv et retourne une HashMap.<br/>
+ * Pour l'utiliser : CSVReader.liseurCsv("pathToCsv")
+ * @author Elisabeth et Aurélien
+ */
 public abstract class CsvReader {
-  public static Map liseurCsv (String argument) throws FileNotFoundException{
-    Scanner sc = new Scanner(new File (argument),"utf-8");
+  /**
+   * Méthode qui prend en entrée un fichier csv et retourne un dictionnaire.
+   * @param fichierCsv chemin du fichier csv
+   * @return une HashMap où la clé est le login et la valeur est le nom, prénom et langue de l'utilisateur
+   * @throws FileNotFoundException
+   */
+  public static Map liseurCsv (String fichierCsv) throws FileNotFoundException{
+    Scanner sc = new Scanner(new File (fichierCsv),"utf-8");
     //parsing a CSV file into the constructor of Scanner class 
     sc.useDelimiter(",");
     Map<String, String> larousse = new HashMap<String,String>();

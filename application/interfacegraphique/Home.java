@@ -8,7 +8,11 @@ import java.awt.event.*;
 //javac -encoding utf8 ./application/interfacegraphique/Home.java --> pour que ça affiche bien les caractères
 // java application.interfacegraphique.Home
 
-// faire une classe fenêtre avec les dimensions prédéfinies
+// TO DO :
+
+// faire une classe de home pour le mettre dans le contrôleur : cf --> https://www.javatpoint.com/login-form-java --> en gros le mettre dans le constructeur
+// déclarer en amont toutes les variables dans ma classe cPaBo
+
 public class Home implements ActionListener
 {
     public static void main(String[] args) 
@@ -16,7 +20,7 @@ public class Home implements ActionListener
         //Fenêtre Home
 
         JFrame framehome = new JFrame("StayShark");
-        BaseFenetre.defautfenetre(framehome);
+        BaseFenetre.defautfenetre(framehome,800,600);
 
         JLabel labelhome = new JLabel("Bienvenue sur StayShark !");
         labelhome.setFont(new Font("Verdana", Font.BOLD, 28));
@@ -62,6 +66,6 @@ public class Home implements ActionListener
     }
     public void actionPerformed(ActionEvent e){
         JFrame framebis = new JFrame("StayShark");
-        BaseFenetre.defautfenetre(framebis);
+        BaseFenetre.defautfenetre(framebis,800,600);
       }
 }

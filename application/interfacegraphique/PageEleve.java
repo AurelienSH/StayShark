@@ -10,7 +10,7 @@ public class PageEleve extends Page {
     PageEleve(JFrame frameAJeter){
         frameAJeter.dispose();
 		JFrame framebis = new JFrame("StayShark");
-        BaseFenetre.defautfenetre(framebis);
+        BaseFenetre.defautfenetre(framebis,800,600);
         framebis.pack();
         framebis.setLocationRelativeTo(null);
         framebis.setVisible(true);
