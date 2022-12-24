@@ -57,9 +57,15 @@ public abstract class CsvReader {
     return larousse; // on retourne le dico
   }
 
+  /**
+   * Méthode qui retourne vrai ou faux selon si la string (le login) existe dans le fichier ou non.
+   * @param login String à chercher dans le fichier
+   * @param fichier String qui est le chemin du fichier
+   * @return vrai (si la string existe dans le fichier) ou faux (si la string n'existe pas dans le fichier)
+   * @throws FileNotFoundException
+   */
   public static boolean loginExiste(String login, String fichier) throws FileNotFoundException {
     Map<String,String> bloub = CsvReader.liseurCsv(fichier);
     return bloub.containsKey(login);
 }
-
 }
