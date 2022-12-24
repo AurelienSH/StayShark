@@ -7,9 +7,8 @@ import java.util.Map;
 import java.util.regex.*;
 
 /**
- * CsvReader est une classe qui contient une méthode qui permet de convertir un csv en une HashMap où la clé est le login de l'utilisateur.
+ * C'est une classe qui contient deux méthodes : <br/>- une qui permet de convertir un csv en une HashMap où la clé est le login de l'utilisateur. <br/>- une qui dit par vrai ou faux si la string prise en paramètre existe dans le fichier indiqué en paramètre.
  * Il prend donc en entrée un csv et retourne une HashMap.<br/>
- * Pour l'utiliser : CSVReader.liseurCsv("pathToCsv")
  * @author Elisabeth et Aurélien
  */
 public abstract class CsvReader {
@@ -17,7 +16,7 @@ public abstract class CsvReader {
    * Méthode qui prend en entrée un fichier csv et retourne un dictionnaire.
    * @param fichierCsv chemin du fichier csv
    * @return une HashMap où la clé est le login et la valeur est le nom, prénom et langue de l'utilisateur
-   * @throws FileNotFoundException
+   * @throws FileNotFoundException Au cas où le fichier n'existe pas
    */
   public static Map liseurCsv (String fichierCsv) throws FileNotFoundException{
 
@@ -62,7 +61,7 @@ public abstract class CsvReader {
    * @param login String à chercher dans le fichier
    * @param fichier String qui est le chemin du fichier
    * @return vrai (si la string existe dans le fichier) ou faux (si la string n'existe pas dans le fichier)
-   * @throws FileNotFoundException
+   * @throws FileNotFoundException Au cas où le fichier n'existe pas
    */
   public static boolean loginExiste(String login, String fichier) throws FileNotFoundException {
     Map<String,String> bloub = CsvReader.liseurCsv(fichier);
