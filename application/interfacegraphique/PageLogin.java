@@ -6,7 +6,15 @@ import javax.swing.event.*;
 import java.awt.event.*;
 import application.controleur.CsvReader;
 
+/**
+ * Créé la petite frame qui permet de se logger pour le prof ou l'élève.
+ */
 public class PageLogin extends Page {
+  /**
+   * Créé une fenêtre qui permet de se logger au professeur ou à l'élève.
+   * @param frameAJeter le frame qui sera tué si jamais le login est réussi.
+   * @param personne "prof" ou "élève" en fonction de qui se connecte
+   */
     PageLogin(JFrame frameAJeter, String personne){
       JFrame framebis = new JFrame("StayShark");
       BaseFenetre.defautfenetre(framebis,400,150);

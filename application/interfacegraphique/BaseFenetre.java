@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public abstract class BaseFenetre {
     /**
-     * Méthode qui prend la frame à modifier en entrée et va mettre les paramètres par défauts (choisi par nous) du visuel de la fenêtre.
+     * Prend la frame à modifier en entrée et va mettre les paramètres par défauts (choisi par nous) du visuel de la fenêtre.
      * @param frame fenêtre qu'on va modifier
      * @param width largeur de la fenêtre en px
      * @param height hauteur de la fenêtre en px

@@ -5,22 +5,27 @@ import java.awt.*;
 import javax.swing.event.*;
 import java.awt.event.*;
 
-//javac -encoding utf8 ./application/interfacegraphique/Home.java --> pour que ça affiche bien les caractères
-// java application.interfacegraphique.Home
-
-public class PageHome extends Page implements ActionListener
+/**
+ * Contient la frame et ses objets de la page d'accueil et toutes les actions qui résultent de cette page (redirection vers PageProf ou PageEleve après login).
+ */
+public class PageHome extends Page
 {
-    public PageHome(){//Fenêtre Home
+    /**
+     * Création de la frame d'accueil de l'application et redirection vers la page de l'élève ou du prof après login.
+     */
+    public PageHome(){
 
+        // Définition de la frame
         JFrame framehome = new JFrame("StayShark");
         BaseFenetre.defautfenetre(framehome,800,600);
 
+        // Texte de la frame
         JLabel labelhome = new JLabel("Bienvenue sur StayShark !");
         labelhome.setFont(new Font("Verdana", Font.BOLD, 28));
         labelhome.setHorizontalAlignment(JLabel.CENTER);
         framehome.add(labelhome);
 
-        // Définir les boutons
+        // Boutons de la frame
         JButton btnprof = new JButton("Professeur.e"); 
         btnprof.setForeground(Color.white);
         btnprof.setFont(new Font("Apple Casual", Font.BOLD, 25));
@@ -30,6 +35,8 @@ public class PageHome extends Page implements ActionListener
         
         btnprof.setBackground(Color.decode("#ffb3ba"));
         btnEleve.setBackground(Color.decode("#ffb3ba"));
+
+        // Liens vers les autres fenêtres (prof-élève) de l'appli + login
         btnprof.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
                 PageLogin framelogin = new PageLogin(framehome,"prof");
@@ -38,7 +45,8 @@ public class PageHome extends Page implements ActionListener
 			public void actionPerformed(ActionEvent ae) {
                 PageLogin framelogin = new PageLogin(framehome,"élève");
 			}});
-  
+        
+        // Définition du panel
         JPanel panel = new JPanel();
         panel.setBackground( Color.decode("#ffdfba") );
         panel.add(btnprof); 
@@ -46,7 +54,7 @@ public class PageHome extends Page implements ActionListener
         JLabel shark = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage("./application/data/medias/sharkDancing.gif")));
         framehome.add(shark);
 
-        // Ajouter label et panel au frame
+        // Ajout gif et panel au frame
         framehome.setLayout(new GridLayout(3, 1));
         framehome.add(panel);
 
@@ -54,7 +62,4 @@ public class PageHome extends Page implements ActionListener
         framehome.setLocationRelativeTo(null);
         framehome.setVisible(true);
     }
-    public void actionPerformed(ActionEvent e){
-        JFrame framebis = new JFrame("StayShark");
-        BaseFenetre.defautfenetre(framebis,800,600);}
 }
