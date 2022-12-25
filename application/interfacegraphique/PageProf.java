@@ -18,6 +18,18 @@ public class PageProf extends Page {
         frameAJeter.dispose();
 		JFrame framebis = new JFrame("StayShark");
         BaseFenetre.defautfenetre(framebis,800,600);
+
+        // TO DO
+        /*
+         * - plateforme de récupération : 
+         *                  récupérer langue prof, si plusieurs langues demander pour laquelle il dépose ses exos 
+         *                  demander pour quel level (si on fait système de lvl) ou alors c'est beaucoup d'exos et le système de lvl se fait seul
+         *                  demander le niveau de dureté de notation ptet??
+         *                  --> les mettre sous forme de csv ou txt? (pour qu'ils soient récupérable pour après)
+         * - plateforme de suivi des notes/levels : 
+         *                  demander élève à checker ou alors tous les afficher et système de recherche?
+         */
+
         framebis.pack();
         framebis.setLocationRelativeTo(null);
         framebis.setVisible(true);

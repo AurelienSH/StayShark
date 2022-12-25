@@ -18,6 +18,20 @@ public class PageEleve extends Page {
         frameAJeter.dispose();
 		JFrame framebis = new JFrame("StayShark");
         BaseFenetre.defautfenetre(framebis,800,600);
+
+        // TO DO
+        /*
+         * - plateforme de suivi de ses notes/level : 
+         *                      demander langue si jamais il y en plusieurs
+         *                      afficher lvl
+         *                      afficher historique des notes
+         *                      afficher dans combien de temps le lvl est atteint
+         * - plateforme d'exos : 
+         *                      choix de la langue si plusieurs
+         *                      exos
+         *                      récap de toutes les fautes après l'exo ou pendant?
+         */
+
         framebis.pack();
         framebis.setLocationRelativeTo(null);
         framebis.setVisible(true);
