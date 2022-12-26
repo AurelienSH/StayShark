@@ -1,4 +1,4 @@
 package application.système;
 public interface Parseur {
-    public Phrase parse(String input);
+    public Question parse(String input);
 }

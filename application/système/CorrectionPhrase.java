@@ -1,7 +1,7 @@
 package application.système;
 import java.util.ArrayList;
 import java.util.HashMap;
-public class CorrectionPhrase {
+public class CorrectionPhrase extends Correction {
     private ArrayList<String> reponses;
     private float note=0;
 

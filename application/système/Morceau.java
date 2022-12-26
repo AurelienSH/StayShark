@@ -5,4 +5,12 @@ public class Morceau {
     Morceau(String txt){
         texte=txt;
     }
+
+    public String reponse(){
+        return texte;
+    }
+
+    public String question(){
+        return texte;
+    }
 }

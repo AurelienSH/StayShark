@@ -23,12 +23,15 @@ public class Exercice {
     // Constructeur :
     // Prend une liste de chaines de caractères, une langue, un niveau et un bareme
     Exercice(ArrayList<String> texte, String langVal, int baremeVal){
+
+        ParseurExoTrou parseur = new ParseurExoTrou();
+
         langue=langVal;
         bareme=baremeVal;
 
         // Création de la liste d'objets phrases
         for (String question : texte){
-            Phrase phraseQuestion = new Phrase(question);
+            Phrase phraseQuestion = parseur.parse(question);
             reponses.addAll(phraseQuestion.getReponses());
             questions.add(phraseQuestion);
         }
@@ -77,8 +80,8 @@ public class Exercice {
         return reponsesEleve;
     }
 
-    public ArrayList<CorrectionPhrase> corrige(HashMap<String,Float> methodeEval){
-        ArrayList<CorrectionPhrase> phrasesCorrigees = new ArrayList<CorrectionPhrase>();
+    public ArrayList<Correction> corrige(HashMap<String,Float> methodeEval){
+        ArrayList<Correction> phrasesCorrigees = new ArrayList<Correction>();
         ArrayList<ArrayList<String>> reponsesEleve = this.getReponsesEleve();
         for (ArrayList<String> reponse : reponsesEleve){
             CorrectionPhrase phraseCorrigee = new CorrectionPhrase(reponse, methodeEval);
