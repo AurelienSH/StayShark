@@ -5,6 +5,11 @@ import java.awt.*;
 import javax.swing.event.*;
 import java.awt.event.*;
 
+/*
+ * TO DO : 
+ * ajouter espace de crédit des gifs/photos?
+ */
+
 /**
  * Contient la frame et ses objets de la page d'accueil et toutes les actions qui résultent de cette page (redirection vers PageProf ou PageEleve après login).
  */
@@ -17,7 +22,7 @@ public class PageHome extends Page
 
         // Définition de la frame
         JFrame framehome = new JFrame("StayShark");
-        BaseFenetre.defautfenetre(framehome,800,600);
+        Page.basefenetre(framehome,800,600);
 
         // Texte de la frame
         JLabel labelhome = new JLabel("Bienvenue sur StayShark !");
