@@ -3,6 +3,11 @@ package application.interfacegraphique;
 import javax.swing.*;
 import java.awt.*;
 
+/*
+ * TO DO :
+ * - implémenter une interface dans la classe mère/classe mère abstraite  (d'ailleurs toutes les classes abstraites s'appellent AbstractPage par exemple)
+ */
+
 /**
  * Classe mère de toutes les pages qui contient une méthode qui fixe par défaut le visuel de la frame.
  * @author Aurélien et Elisabeth

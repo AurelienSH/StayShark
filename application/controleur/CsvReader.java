@@ -6,10 +6,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.*;
 
+/*
+ * TO DO
+ * méthode : modifier csv
+ * voir : http://super-csv.github.io/super-csv/examples_partial_reading.html
+ * pour une meilleure lecture ptet?
+ */
+
 /**
  * Contient deux méthodes traitant les fichiers Csv.
  * Les deux méthodes : <br/>- une qui permet de convertir un csv en une HashMap où la clé est le login de l'utilisateur. <br/>- une qui dit par vrai ou faux si la string prise en paramètre existe dans le fichier indiqué en paramètre.
- * Il prend donc en entrée un csv et retourne une HashMap.<br/>
+ * Il prend donc en entrée un csv et retourne une HashMap.
  * @author Elisabeth et Aurélien
  */
 public abstract class CsvReader {
