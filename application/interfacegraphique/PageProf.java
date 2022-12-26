@@ -17,7 +17,7 @@ public class PageProf extends Page {
     public PageProf(JFrame frameAJeter){
         frameAJeter.dispose();
 		JFrame framebis = new JFrame("StayShark");
-        BaseFenetre.defautfenetre(framebis,800,600);
+        Page.basefenetre(framebis,800,600);
 
         // TO DO
         /*

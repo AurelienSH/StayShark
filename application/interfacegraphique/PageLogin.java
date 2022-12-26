@@ -17,7 +17,7 @@ public class PageLogin extends Page {
    */
     PageLogin(JFrame frameAJeter, String personne){
       JFrame framebis = new JFrame("StayShark");
-      BaseFenetre.defautfenetre(framebis,400,150);
+      Page.basefenetre(framebis,400,150);
 
       JLabel userLabel = new JLabel();  
       userLabel.setText("Votre login");
