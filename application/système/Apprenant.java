@@ -1,5 +1,6 @@
 package application.système;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Apprenant extends ActeurHumain {
     String login;
@@ -27,5 +28,20 @@ public class Apprenant extends ActeurHumain {
     public int getScore(String langue){
         int score=(langueScore.get(langue));
         return score;
+    }
+
+    public HashMap<String, String> csv(){
+        HashMap<String,String> csv = new HashMap<>();
+        ArrayList<String> langueScoreList = new ArrayList<>();
+        for (String langue : langueScore.keySet()){
+            langueScoreList.add(String.format("%s:%d",langue,langueScore.get(langue)));
+        }
+        String langueScoreString;
+        langueScoreString = String.join("|",langueScoreList);
+        csv.put("login",login);
+        csv.put("nom",nom);
+        csv.put("prénom",prenom);
+        csv.put("LangueExpérience",langueScoreString);
+        return csv;
     }
 }
