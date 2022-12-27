@@ -1,5 +1,8 @@
 package application.système;
 
-public class Correction {
-    
+public abstract class Correction {
+    float note;
+    public float getNote(){
+        return note;
+    }
 }

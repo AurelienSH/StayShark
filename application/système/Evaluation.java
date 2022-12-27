@@ -1,5 +1,7 @@
 package application.système;
 
-public class Evaluation {
-    
+public abstract class Evaluation {
+    public static void evalue(Apprenant apprenant, CorrectionExo correction){
+
+    }
 }
