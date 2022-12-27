@@ -19,8 +19,10 @@ public class Phrase implements Question {
     public ArrayList<Morceau> getTokens(){
         return tokens;
     }
+
+
     // Méthode retournant la chaîne de caractères que verra l'apprenant
-    public String stringEleve(){
+    public ArrayList<String> getQuestion(){
         ArrayList<String> stringEleve = new ArrayList<String>();
 
         // Ajout de tous les tokens dans une nouvelle liste
@@ -28,19 +30,7 @@ public class Phrase implements Question {
             stringEleve.add(m.question());
         }
 
-        // Utilisation d'un StringBuffer pour réécrire la chaine de caractère
-        StringBuffer joiner = new StringBuffer();
-
-        for (String token : stringEleve){
-            joiner.append(token);
-            joiner.append(" ");
-        }
-
-        // Transformation en chaine de caractère
-
-        String str = joiner.toString();
-
-        return str;
+        return stringEleve;
     }
 
     public String stringCorrecte(){
@@ -70,7 +60,9 @@ public class Phrase implements Question {
     public ArrayList<String> getReponses(){
         ArrayList<String> reponses = new ArrayList<>();
         for (Morceau m : tokens){
-            reponses.add(m.reponse());
+            if (m instanceof MorceauVariable){
+                reponses.add(m.reponse());
+            }
         }
         return reponses;
     }
@@ -110,7 +102,7 @@ public class Phrase implements Question {
                 }
             }
             else{
-                reponsesEleve.add("NR");
+                reponsesEleve.add("");
             }
             in.close();
         }
