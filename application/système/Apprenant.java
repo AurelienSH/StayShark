@@ -30,6 +30,11 @@ public class Apprenant extends ActeurHumain {
         return score;
     }
 
+    public void addScore(String langue, int mod){
+        int newScore = langueScore.get(langue)+mod;
+        langueScore.put(langue,newScore);
+    }
+
     public HashMap<String, String> csv(){
         HashMap<String,String> csv = new HashMap<>();
         ArrayList<String> langueScoreList = new ArrayList<>();
