@@ -50,7 +50,6 @@ public class PageLogin extends Page {
                       JOptionPane.showMessageDialog(framebis, "Bienvenue "+userlogin+" !");
                       framebis.dispose();
                       PageProf framebis = new PageProf(frameAJeter);
-                      
               }else{
                   JOptionPane.showMessageDialog(framebis, "Login incorrect");
               }}

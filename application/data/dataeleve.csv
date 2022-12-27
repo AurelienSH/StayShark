@@ -1,6 +1,6 @@
-Login,Nom,Prenom,Langues,Expérience
-,111,Dupont,Léa,Anglais|Hébreu,10
-,222,Halbout,Julie,Français,0
-,333,Mathieu,Mireille,Irlandais|Français,50
-,444,Généreux,Jean-Marc,Hébreu,3
-,555,De Milet,Thalès,Grecque,6
+Login,Nom,Prenom,LangueExpérience
+,111,Dupont,Léa,Anglais:132|Hébreu:33
+,222,Halbout,Julie,Français:43
+,333,Mathieu,Mireille,Irlandais:50|Français:24
+,444,Généreux,Jean-Marc,Hébreu:3
+,555,De Milet,Thalès,Grecque:6

@@ -24,12 +24,11 @@ public class PageEleve extends Page {
          * - plateforme de suivi de ses notes/level : 
          *                      demander langue si jamais il y en plusieurs
          *                      afficher lvl
-         *                      afficher historique des notes
-         *                      afficher dans combien de temps le lvl est atteint
+         *                      afficher dans combien de temps le lvl est atteint --> appli pas prof
          * - plateforme d'exos : 
          *                      choix de la langue si plusieurs
          *                      exos
-         *                      récap de toutes les fautes après l'exo ou pendant?
+         *                      récap de toutes les fautes après l'exo
          */
 
         framebis.pack();
