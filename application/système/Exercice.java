@@ -7,7 +7,7 @@ import java.util.Collections;
 public class Exercice {
 
     // Langue de l'exercice
-    String langue;
+    final String langue;
 
     // Liste des questions de l'exo
     ArrayList<ArrayList<String>> questions = new ArrayList<>();
@@ -18,11 +18,11 @@ public class Exercice {
     ArrayList<String> reponses = new ArrayList<>();
 
     // Points de l'exo
-    int bareme;
+    final int bareme;
 
     // Constructeur :
     // Prend une liste de chaines de caractères, une langue, un niveau et un bareme
-    Exercice(ArrayList<String> texte, String langVal, int baremeVal){
+    Exercice(ArrayList<String> textePhrases, String langVal, int baremeVal){
 
         ParseurExoTrou parseur = new ParseurExoTrou();
 
@@ -30,7 +30,7 @@ public class Exercice {
         bareme=baremeVal;
 
         // Création de la liste d'objets phrases
-        for (String question : texte){
+        for (String question : textePhrases){
             Phrase phraseQuestion = parseur.parse(question);
             phrases.add(phraseQuestion);
             questions.add(phraseQuestion.getQuestion());
@@ -79,6 +79,10 @@ public class Exercice {
             System.out.println(i+". "+p.stringCorrecte());
             i++;
         }
+    }
+
+    public String toString(){
+        return("Exercice en"+langue+"\n");
     }
 
     /* Méthode d'affichage de l'exo (avec plusieurs questions) à l'élève

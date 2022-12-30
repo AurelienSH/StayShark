@@ -1,19 +1,19 @@
 package application.système;
 
-public class ActeurHumain {
+public abstract class ActeurHumain {
 /**
  * @param login;
  * @param nom;
  * @param prenom;
 */
-    String login;
-    String nom;
-    String prenom;
+    final String login;
+    final String nom;
+    final String prenom;
 
-    ActeurHumain(String str1, String str2, String str3){
-        login = str1;
-        nom=str2;
-        prenom=str3;
+    ActeurHumain(String login, String nom, String prenom){
+        this.login = login;
+        this.nom=nom;
+        this.prenom=prenom;
 
     }
 }

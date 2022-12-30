@@ -3,19 +3,16 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 public class Apprenant extends ActeurHumain {
-    String login;
-    String nom;
-    String prenom;
     HashMap<String, Integer> langueScore = new HashMap<String, Integer>();
 
 
-    Apprenant(String str1, String str2, String str3, String str4){
-        super(str1, str2, str3);
+    Apprenant(String login, String nom, String prenom, String langueScore){
+        super(login, nom, prenom);
 
-        String[] langueScore_list=str4.split("|");
+        String[] langueScore_list=langueScore.split("|");
 
         for (String ls : langueScore_list) {
-            langueScore.put(ls.split(":")[0], Integer.parseInt(ls.split(":")[1]));
+            this.langueScore.put(ls.split(":")[0], Integer.parseInt(ls.split(":")[1]));
         }
         
     }
@@ -48,5 +45,13 @@ public class Apprenant extends ActeurHumain {
         csv.put("prénom",prenom);
         csv.put("LangueExpérience",langueScoreString);
         return csv;
+    }
+
+    public void faireExo(){
+
+    }
+
+    public String toString(){
+        return("Etudiant"+prenom+nom);
     }
 }

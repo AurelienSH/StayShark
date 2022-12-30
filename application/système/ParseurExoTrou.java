@@ -2,6 +2,9 @@ package application.système;
 import java.util.ArrayList;
 
 public class ParseurExoTrou implements Parseur {
+    ParseurExoTrou(){
+        
+    }
     public Phrase parse(String input){
 
         Phrase nouvellePhrase;
