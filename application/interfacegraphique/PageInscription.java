@@ -123,8 +123,11 @@ public class PageInscription extends Page {
                         System.out.println("ALERTE PROBLEME "+e.getClass());
                     } 
                 }
-                JOptionPane.showMessageDialog(framebis, "Bienvenue ! Votre login dorénavant est : "+newUser.get("login")+". Notez le quelque part 😊"); 
-                framebis.dispose();
+                if(newUser.get("login")==null){
+                    JOptionPane.showMessageDialog(framebis, "Oh mince vous avez oublié de sélectionner si vous êtes étudiant.e ou professeur.e ! ");
+                }else{JOptionPane.showMessageDialog(framebis, "Bienvenue ! Votre login dorénavant est : "+newUser.get("login")+". Notez le quelque part ! 😊 "); 
+                framebis.dispose();}
+                
             }
         });
 
