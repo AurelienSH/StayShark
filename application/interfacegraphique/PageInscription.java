@@ -8,6 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 import application.controleur.CsvReader;
 
+/*
+ * TO DO
+ * faire les ptites modifs du "haut cas où l'utilisateur fait du caca"
+ */
+
 public class PageInscription extends Page {
     PageInscription(){
 
@@ -23,8 +28,15 @@ public class PageInscription extends Page {
         JLabel shark = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage("./application/data/medias/sharkSwimming.gif")), SwingConstants.LEFT);
         newPanel.add(shark);
         JLabel phrase = new JLabel("Vous vous inscrivez en tant que :", SwingConstants.CENTER);
+        phrase.setFont(new Font("Apple Casual", Font.BOLD, 12));
         String choix[] = { "","professeur.e", "étudiant.e"};
         JComboBox<String> choixBoite = new JComboBox<>(choix);
+        choixBoite.setBackground(Color.decode("#ffb3ba"));
+        choixBoite.setForeground(Color.WHITE);
+        choixBoite.setFont(new Font("Apple Casual", Font.BOLD, 12));
+        DefaultListCellRenderer listRenderer = new DefaultListCellRenderer();
+        listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER); // center-aligned items
+        choixBoite.setRenderer(listRenderer);
         newPanel.add(phrase);
         newPanel.add(choixBoite, BorderLayout.CENTER);
 
@@ -37,12 +49,21 @@ public class PageInscription extends Page {
                 //ajouter un check ou si la personne a sélectionné vide alors c'est pas bon
         }});
         
-        JLabel userNom = new JLabel("Votre nom :", SwingConstants.CENTER);  
-        JTextField reponseNom = new JTextField("Vador",15);
-        JLabel userPrenom = new JLabel("Votre prénom :", SwingConstants.CENTER);  
-        JTextField reponsePrenom = new JTextField("Dark",15);
+        JLabel userNom = new JLabel("Votre nom :", SwingConstants.CENTER);
+        userNom.setFont(new Font("Apple Casual", Font.BOLD, 12));  
+        JTextField reponseNom = new JTextField("Vador",50);
+        reponseNom.setHorizontalAlignment(JTextField.CENTER);
+        reponseNom.setFont(new Font("Apple Casual", Font.PLAIN, 12)); 
+        JLabel userPrenom = new JLabel("Votre prénom :", SwingConstants.CENTER);
+        userPrenom.setFont(new Font("Apple Casual", Font.BOLD, 12));  
+        JTextField reponsePrenom = new JTextField("Dark",50);
+        reponsePrenom.setHorizontalAlignment(JTextField.CENTER);
+        reponsePrenom.setFont(new Font("Apple Casual", Font.PLAIN, 12));
         JLabel userLangue = new JLabel("Langue(s) que vous voulez apprendre ou enseigner :", SwingConstants.CENTER);
-        JTextField reponseLangue = new JTextField("Espéranto Anglais",50);
+        userLangue.setFont(new Font("Apple Casual", Font.BOLD, 12));
+        JTextField reponseLangue = new JTextField("Français Anglais",50);
+        reponseLangue.setHorizontalAlignment(JTextField.CENTER);
+        reponseLangue.setFont(new Font("Apple Casual", Font.PLAIN, 12));
         // faire traitement ou je mets tout en minuscule avec une lettre majuscule
         newPanel.add(userNom);
         newPanel.add(reponseNom);
@@ -51,7 +72,8 @@ public class PageInscription extends Page {
         newPanel.add(userLangue);
         newPanel.add(reponseLangue);
 
-        JButton inscription = new JButton("S'inscrire"); 
+        JButton inscription = new JButton("S'inscrire");
+        inscription.setFont(new Font("Apple Casual", Font.BOLD, 20)); 
         inscription.setForeground(Color.white);
         inscription.setBackground(Color.decode("#ffb3ba"));
         newPanel.add(new JSeparator(SwingConstants.VERTICAL));
