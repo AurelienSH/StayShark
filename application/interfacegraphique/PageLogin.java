@@ -19,16 +19,18 @@ public class PageLogin extends Page {
       JFrame framebis = new JFrame("StayShark");
       Page.basefenetre(framebis,400,150);
 
-      JLabel userLabel = new JLabel();  
-      userLabel.setText("Votre login");
+      JLabel userLabel = new JLabel("Votre login", SwingConstants.CENTER);  
       JTextField textField1 = new JTextField(15);
-      JButton b1 = new JButton("Se connecter"); 
-      JPanel newPanel = new JPanel(new GridLayout(2, 1));  
+      JButton connect = new JButton("Se connecter"); 
+      connect.setForeground(Color.white);
+      connect.setBackground(Color.decode("#ffb3ba"));
+      JPanel newPanel = new JPanel(new GridLayout(2, 1));
+      newPanel.setBackground( Color.decode("#ffdfba") );  
       newPanel.add(userLabel);
       newPanel.add(textField1); 
-      newPanel.add(b1); 
+      newPanel.add(connect); 
       framebis.add(newPanel, BorderLayout.CENTER); 
-      b1.addActionListener(new ActionListener() {
+      connect.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent ae) {
               String userlogin = textField1.getText();
               if(personne == "élève"){

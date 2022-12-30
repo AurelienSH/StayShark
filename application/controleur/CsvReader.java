@@ -4,7 +4,6 @@ import java.io. * ;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.*;
 
 /*
  * TO DO
@@ -27,41 +26,22 @@ public abstract class CsvReader {
    * @throws FileNotFoundException Au cas où le fichier n'existe pas
    */
   public static Map liseurCsv (String fichierCsv) throws FileNotFoundException{
-
-    Scanner liseurCsv; // le liseur
-    Map<String, String> larousse; //le dico retourné
-    Pattern p_fin; // le pattern de fin de ligne
-    String temporaire; // stocke la valeur (prénom, nom, langues) de la clé
-    String login; // stocke la clé (le login) de l'utilisateur
-
-    liseurCsv = new Scanner(new File (fichierCsv),"utf-8");
-    liseurCsv.useDelimiter(","); //on parse le csv
-    larousse = new HashMap<String,String>();
-    p_fin = Pattern.compile(".+[\n\r]+");
-    temporaire = "";
-    login = "";
-
-    //boucle qui s'arrête quand le token n'a pas de token après lui; 
-    //à chaque fin de ligne : ajoute dans le dictionnaire la clé (login) et sa valeur (prénom, nom, langues)
-    while (liseurCsv.hasNext()) {
-      String tokenLu = liseurCsv.next();
-      Matcher input = p_fin.matcher(tokenLu);
-      if (tokenLu.equals("Login") || tokenLu.equals("Nom") || tokenLu.equals("Prenom") || tokenLu.contains("Langues")){
-        continue;
-      }else if (input.find()){
-        temporaire += tokenLu;
-        larousse.put(login,temporaire);
-        temporaire="";
-      }else if (Character.isDigit(tokenLu.charAt(0))){
-      login = "";
-      login = tokenLu;
-    } else if (!tokenLu.equals(input.find())){
-        temporaire += tokenLu + " ";
-    }
-    }
-    
-    liseurCsv.close(); // on ferme le scanner
-    return larousse; // on retourne le dico
+      Map<String,String> dicoUsers = new HashMap<String,String>();
+      FileInputStream file = new FileInputStream(fichierCsv);       
+      Scanner scanneur = new Scanner(file,"utf-8");
+      int lines = 0;
+      while(scanneur.hasNextLine()){ 
+          String ligne = scanneur.nextLine();
+          if(lines==0){
+              lines++;
+              continue;
+          }
+          String[] words = ligne.split(",");
+          lines++;
+          dicoUsers.put(words[0],words[1]+","+words[2]+","+words[3]);
+      }
+      scanneur.close(); 
+      return dicoUsers;
   }
 
   /**
@@ -75,4 +55,22 @@ public abstract class CsvReader {
     Map<String,String> bloub = CsvReader.liseurCsv(fichier);
     return bloub.containsKey(login);
 }
+
+  public static void inscription(String fichier)throws FileNotFoundException, IOException{
+    FileWriter fstream = new FileWriter(fichier, true);
+    BufferedWriter out = new BufferedWriter(fstream);
+		out.write("something");
+		out.newLine();
+    out.close();
+  }
+
+  // public static int compteur(String fichier)throws FileNotFoundException, IOException{
+  //   BufferedReader reader = new BufferedReader(new FileReader(fichier));
+  //   int lines = 0;
+  //   while (reader.readLine() != null) {
+  //     lines++;} 
+  //   reader.close();
+  //   return lines;
+  // }
+
 }

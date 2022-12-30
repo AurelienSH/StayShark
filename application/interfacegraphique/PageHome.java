@@ -37,9 +37,13 @@ public class PageHome extends Page
         JButton btnEleve = new JButton("Etudiant.e");
         btnEleve.setForeground(Color.white);
         btnEleve.setFont(new Font("Apple Casual", Font.BOLD, 25));
+        JButton btnInscription = new JButton("Inscription");
+        btnInscription.setForeground(Color.white);
+        btnInscription.setFont(new Font("Apple Casual", Font.BOLD, 25));
         
         btnprof.setBackground(Color.decode("#ffb3ba"));
         btnEleve.setBackground(Color.decode("#ffb3ba"));
+        btnInscription.setBackground(Color.decode("#ffb3ba"));
 
         // Liens vers les autres fenêtres (prof-élève) de l'appli + login
         btnprof.addActionListener(new ActionListener() {
@@ -50,12 +54,17 @@ public class PageHome extends Page
 			public void actionPerformed(ActionEvent ae) {
                 PageLogin framelogin = new PageLogin(framehome,"élève");
 			}});
+        btnInscription.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+                PageInscription frameinscription = new PageInscription();
+			}});
         
         // Définition du panel
         JPanel panel = new JPanel();
         panel.setBackground( Color.decode("#ffdfba") );
         panel.add(btnprof); 
         panel.add(btnEleve);
+        panel.add(btnInscription);
         JLabel shark = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage("./application/data/medias/sharkDancing.gif")));
         framehome.add(shark);
 
