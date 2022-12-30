@@ -20,12 +20,19 @@ public class Exercice {
     // Points de l'exo
     final int bareme;
 
+    // Niveau de l'exo
+    final int niveau;
+
+    final HashMap<String,Float> methodeEval;
+
     // Constructeur :
     // Prend une liste de chaines de caractères, une langue, un niveau et un bareme
-    Exercice(ArrayList<String> textePhrases, String langVal, int baremeVal){
+    Exercice(ArrayList<String> textePhrases, String langVal, int baremeVal, int niveauVal, HashMap<String,Float> methodeEvalVal){
 
         ParseurExoTrou parseur = new ParseurExoTrou();
 
+        methodeEval=methodeEvalVal;
+        niveau=niveauVal;
         langue=langVal;
         bareme=baremeVal;
 
@@ -60,11 +67,11 @@ public class Exercice {
         return reponsesEleve;
     }
 
-    public ArrayList<Correction> corrige(HashMap<String,Float> methodeEval){
+    public ArrayList<Correction> corrige(){
         ArrayList<Correction> phrasesCorrigees = new ArrayList<Correction>();
         ArrayList<ArrayList<String>> reponsesEleve = this.getReponsesEleve();
         for (ArrayList<String> reponse : reponsesEleve){
-            CorrectionPhrase phraseCorrigee = new CorrectionPhrase(reponse, methodeEval);
+            CorrectionPhrase phraseCorrigee = new CorrectionPhrase(reponse, this);
             phrasesCorrigees.add(phraseCorrigee);
         }
         return phrasesCorrigees;

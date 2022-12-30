@@ -1,15 +1,14 @@
 package application.système;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Arrays;
 public class CorrectionPhrase extends Correction {
     private ArrayList<String> reponses;
     private float note=0;
 
-    CorrectionPhrase(ArrayList<String> reponsesEleve, HashMap<String,Float> methodeEval){
+    CorrectionPhrase(ArrayList<String> reponsesEleve, Exercice exo){
         this.reponses=reponsesEleve;
         for (String rep : reponsesEleve){
-            note+=methodeEval.get(rep);
+            note+=exo.methodeEval.get(rep);
         }
     }
 
