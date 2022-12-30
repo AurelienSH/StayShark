@@ -1,9 +1,9 @@
 package application.système;
 import java.util.ArrayList;
 public class CorrectionExo {
-    ArrayList<Correction> phrasesCorrigees;
-    float note=0;
-    float modifPointsApprenant;
+    private ArrayList<Correction> phrasesCorrigees;
+    private float note=0;
+    private float modifPointsApprenant;
 
     CorrectionExo(Exercice exo){
         phrasesCorrigees = exo.corrige();
@@ -11,5 +11,9 @@ public class CorrectionExo {
             note+=phraseCorrigee.getNote();
         }
         modifPointsApprenant = this.note*exo.bareme*exo.niveau;
+    }
+
+    public float getModifPointsApprenant() {
+        return modifPointsApprenant;
     }
 }

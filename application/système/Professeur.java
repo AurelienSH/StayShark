@@ -5,8 +5,8 @@ public class Professeur extends ActeurHumain {
         super(str1,str2,str3);
     }
     
-    Integer voirNiveau(Apprenant bob, String langue){
-        int niveau = bob.getNiveau(langue);
+    Float voirNiveau(Apprenant bob, String langue){
+        float niveau = bob.getNiveau(langue);
         return niveau;
     }
 }

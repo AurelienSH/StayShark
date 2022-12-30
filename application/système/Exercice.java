@@ -23,6 +23,7 @@ public class Exercice {
     // Niveau de l'exo
     final int niveau;
 
+    // Methode d'évaluation de l'exo
     final HashMap<String,Float> methodeEval;
 
     // Constructeur :
@@ -54,6 +55,10 @@ public class Exercice {
         ArrayList<String> randomReponses = new ArrayList<>(reponses);
         Collections.shuffle(randomReponses);
         return randomReponses;
+    }
+
+    public String getLangue(){
+        return this.langue;
     }
 
     //méthode de correction des exos (se déroule en parallèle de la demande de réponse de l'apprenant)

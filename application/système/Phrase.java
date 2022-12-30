@@ -7,11 +7,16 @@ public class Phrase implements Question {
 
     private ArrayList<Morceau> tokens; //tous les tokens splités sur "#"
 
-
+    private ArrayList<String> reponses = new ArrayList<>(); //liste des réponses dans l'ordre
 
     // input : la phrase du prof écrite avec les "#"
     Phrase(ArrayList<Morceau> tokens){
         this.tokens=tokens;
+        for (Morceau m : tokens){
+            if (m instanceof MorceauVariable){
+                reponses.add(m.reponse());
+            }
+        }
     }
 
 
@@ -69,9 +74,9 @@ public class Phrase implements Question {
     
     // Correction méchante après récupération de la réponse de l'élève
     // On peut imaginer un moyen de modifier les points par mots par ex "Non Reconnu = 0, Faux = -1, Vrai = +1 modulable"
-    public Correction correction(ArrayList<String> reponseEleve, HashMap<String,Float> methodeEval){
+    public Correction correction(ArrayList<String> reponseEleve, Exercice exo){
 
-        CorrectionPhrase phraseCorrigée = new CorrectionPhrase(reponseEleve, methodeEval);
+        CorrectionPhrase phraseCorrigée = new CorrectionPhrase(reponseEleve, exo);
         /* Si on voulait faire une réponse détaillée
         A faire pour chaque mot à trou 
         Faut faire une boucle sur les reponses et conserver les erreurs */
@@ -82,11 +87,8 @@ public class Phrase implements Question {
     public ArrayList<String> getReponseEleve(){
         ArrayList<String> reponsesEleve= new ArrayList<String>();
         for (String reponse : this.reponses){
-            System.out.println("Quel est le mot numéro "+i+"?");
 
-            // Utilisation d'un scanner pour demander les réponses dans le terminal
-            Scanner in = new Scanner(System.in);
-            String reponseEleve = in.nextLine();
+            String reponseEleve = machin.getReponseFromInterface();
             /* 
             correct = 1
             incorrect = 2
@@ -104,7 +106,6 @@ public class Phrase implements Question {
             else{
                 reponsesEleve.add("");
             }
-            in.close();
         }
         return reponsesEleve;
         }

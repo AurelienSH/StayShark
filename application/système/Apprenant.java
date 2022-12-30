@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 public class Apprenant extends ActeurHumain {
-    HashMap<String, Integer> langueScore = new HashMap<String, Integer>();
+    HashMap<String, Float> langueScore = new HashMap<String, Float>();
 
 
     Apprenant(String login, String nom, String prenom, String langueScore){
@@ -12,23 +12,23 @@ public class Apprenant extends ActeurHumain {
         String[] langueScore_list=langueScore.split("|");
 
         for (String ls : langueScore_list) {
-            this.langueScore.put(ls.split(":")[0], Integer.parseInt(ls.split(":")[1]));
+            this.langueScore.put(ls.split(":")[0], Float.parseFloat(ls.split(":")[1]));
         }
         
     }
 
-    public int getNiveau(String langue){
-        int niveau=(langueScore.get(langue))/8;
+    public float getNiveau(String langue){
+        float niveau=(langueScore.get(langue))/8;
         return niveau;
     }
 
-    public int getScore(String langue){
-        int score=(langueScore.get(langue));
+    public float getScore(String langue){
+        float score=(langueScore.get(langue));
         return score;
     }
 
-    public void addScore(String langue, int mod){
-        int newScore = langueScore.get(langue)+mod;
+    public void addScore(String langue, float mod){
+        float newScore = langueScore.get(langue)+mod;
         langueScore.put(langue,newScore);
     }
 
