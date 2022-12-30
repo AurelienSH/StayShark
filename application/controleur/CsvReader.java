@@ -4,6 +4,7 @@ import java.io. * ;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
+import java.nio.charset.StandardCharsets;
 
 /*
  * TO DO
@@ -56,21 +57,11 @@ public abstract class CsvReader {
     return bloub.containsKey(login);
 }
 
-  public static void inscription(String fichier)throws FileNotFoundException, IOException{
-    FileWriter fstream = new FileWriter(fichier, true);
-    BufferedWriter out = new BufferedWriter(fstream);
-		out.write("something");
+  public static void inscription(String fichier, String truc)throws FileNotFoundException, IOException{
+    BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichier, true),StandardCharsets.UTF_8));
+		out.write(truc);
 		out.newLine();
     out.close();
   }
-
-  // public static int compteur(String fichier)throws FileNotFoundException, IOException{
-  //   BufferedReader reader = new BufferedReader(new FileReader(fichier));
-  //   int lines = 0;
-  //   while (reader.readLine() != null) {
-  //     lines++;} 
-  //   reader.close();
-  //   return lines;
-  // }
 
 }

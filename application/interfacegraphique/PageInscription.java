@@ -41,8 +41,8 @@ public class PageInscription extends Page {
         JTextField reponseNom = new JTextField("Vador",15);
         JLabel userPrenom = new JLabel("Votre prénom :", SwingConstants.CENTER);  
         JTextField reponsePrenom = new JTextField("Dark",15);
-        JLabel userLangue = new JLabel("Langue que vous voulez apprendre ou enseigner :", SwingConstants.CENTER);
-        JTextField reponseLangue = new JTextField("Pour plusieurs langues : Français Espéranto Anglais",50);
+        JLabel userLangue = new JLabel("Langue(s) que vous voulez apprendre ou enseigner :", SwingConstants.CENTER);
+        JTextField reponseLangue = new JTextField("Espéranto Anglais",50);
         // faire traitement ou je mets tout en minuscule avec une lettre majuscule
         newPanel.add(userNom);
         newPanel.add(reponseNom);
@@ -60,11 +60,9 @@ public class PageInscription extends Page {
             public void actionPerformed(ActionEvent ae){
                 newUser.put("nom",reponseNom.getText());
                 newUser.put("prénom",reponsePrenom.getText());
-                newUser.put("langue","");
-                String langue = reponseLangue.getText();
+                newUser.put("langue",reponseLangue.getText());
                 if(newUser.get("rôle") == "étudiant.e"){
                     try {
-                        System.out.println(CsvReader.liseurCsv("./application/data/dataeleve.csv"));
                         if(CsvReader.loginExiste(newUser.get("nom").replaceAll(" ","")+"1","./application/data/dataeleve.csv")){
                             int i=1;
                             while(true){
@@ -79,13 +77,56 @@ public class PageInscription extends Page {
                     }
                     catch(Exception e){
                         System.out.println("ALERTE PROBLEME "+e.getClass());
-                    }                    
+                    } 
+                    String[] words = newUser.get("langue").split(" "); 
+                    String temporaire = "";
+                    for(String word : words){
+                        if(temporaire.contains("word")){continue;} // on vérifie qu'il n'y a pas de doublons
+                        temporaire += word+":0|";
+                    }
+                    temporaire = temporaire.substring(0,temporaire.length()-1);
+                    newUser.replace("langue",temporaire);
+                    try{
+                        CsvReader.inscription("./application/data/dataeleve.csv", newUser.get("login")+","+newUser.get("nom")+","+newUser.get("prénom")+","+newUser.get("langue"));
+                    }catch(Exception e){
+                        System.out.println("ALERTE PROBLEME "+e.getClass());
+                    } 
                 }
-                System.out.println(newUser.get("login")+" "+newUser.get("rôle")+" "+newUser.get("nom")+" "+newUser.get("prénom")+" "+langue);
+                else if(newUser.get("rôle") == "professeur.e"){
+                    try {
+                        if(CsvReader.loginExiste(newUser.get("nom").replaceAll(" ","")+"1","./application/data/dataprof.csv")){
+                            int i=1;
+                            while(true){
+                                if(CsvReader.loginExiste(newUser.get("nom").replaceAll(" ","")+i,"./application/data/dataprof.csv")){
+                                    i++;
+                                }else{break;}
+                            }
+                            newUser.put("login",newUser.get("nom").replaceAll(" ","")+i);
+                        }else{
+                            newUser.put("login",newUser.get("nom").replaceAll(" ","")+"1");
+                        }
+                    }
+                    catch(Exception e){
+                        System.out.println("ALERTE PROBLEME "+e.getClass());
+                    } 
+                    String[] words = newUser.get("langue").split(" "); 
+                    String temporaire = "";
+                    for(String word : words){
+                        if(temporaire.contains("word")){continue;} // on vérifie qu'il n'y a pas de doublons
+                        temporaire += word+"|";
+                    }
+                    temporaire = temporaire.substring(0,temporaire.length()-1);
+                    newUser.replace("langue",temporaire);
+                    try{
+                        CsvReader.inscription("./application/data/dataprof.csv", newUser.get("login")+","+newUser.get("nom")+","+newUser.get("prénom")+","+newUser.get("langue"));
+                    }catch(Exception e){
+                        System.out.println("ALERTE PROBLEME "+e.getClass());
+                    } 
+                }
+                JOptionPane.showMessageDialog(framebis, "Bienvenue ! Votre login dorénavant est : "+newUser.get("login")+". Notez le quelque part 😊"); 
+                framebis.dispose();
             }
         });
-
-        // faire frame qui dit le nouveau login à la personne
 
         newPanel.setLayout(new GridLayout(12,1)); 
         framebis.add(newPanel);

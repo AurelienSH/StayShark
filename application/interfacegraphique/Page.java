@@ -20,7 +20,7 @@ public abstract class Page {
      * @param height hauteur de la fenêtre en px
      */
     public static void basefenetre(JFrame frame, int width, int height){
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //méthode de fermeture de frame
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //méthode de fermeture de frame
         frame.getContentPane().setBackground(Color.decode("#ffdfba")); // définition de la couleur de fond de la frame
         frame.setPreferredSize(new Dimension(width, height)); //définition de la taille de la frame
         Image logo = Toolkit.getDefaultToolkit().getImage("./application/data/medias/shark.png");  // logo de la frame
