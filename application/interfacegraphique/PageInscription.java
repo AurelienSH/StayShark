@@ -8,11 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import application.controleur.CsvReader;
 
-/*
- * TO DO
- * faire les ptites modifs du "haut cas où l'utilisateur fait du caca"
- */
-
 public class PageInscription extends Page {
     PageInscription(){
 
@@ -35,7 +30,7 @@ public class PageInscription extends Page {
         choixBoite.setForeground(Color.WHITE);
         choixBoite.setFont(new Font("Apple Casual", Font.BOLD, 12));
         DefaultListCellRenderer listRenderer = new DefaultListCellRenderer();
-        listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER); // center-aligned items
+        listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
         choixBoite.setRenderer(listRenderer);
         newPanel.add(phrase);
         newPanel.add(choixBoite, BorderLayout.CENTER);
@@ -44,9 +39,7 @@ public class PageInscription extends Page {
             public void actionPerformed(ActionEvent e) {
 				e.getSource();
 				String role=(String) choixBoite.getSelectedItem();
-                int index = choixBoite.getSelectedIndex(); 
                 newUser.replace("rôle",role);
-                //ajouter un check ou si la personne a sélectionné vide alors c'est pas bon
         }});
         
         JLabel userNom = new JLabel("Votre nom :", SwingConstants.CENTER);
@@ -64,7 +57,6 @@ public class PageInscription extends Page {
         JTextField reponseLangue = new JTextField("Français Anglais",50);
         reponseLangue.setHorizontalAlignment(JTextField.CENTER);
         reponseLangue.setFont(new Font("Apple Casual", Font.PLAIN, 12));
-        // faire traitement ou je mets tout en minuscule avec une lettre majuscule
         newPanel.add(userNom);
         newPanel.add(reponseNom);
         newPanel.add(userPrenom);
@@ -80,9 +72,13 @@ public class PageInscription extends Page {
         newPanel.add(inscription);
         inscription.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
-                newUser.put("nom",reponseNom.getText());
-                newUser.put("prénom",reponsePrenom.getText());
-                newUser.put("langue",reponseLangue.getText());
+                String temporaire=reponseNom.getText().toLowerCase();
+                temporaire = temporaire.substring(0,1).toUpperCase()+temporaire.substring(1,temporaire.length());
+                newUser.put("nom",temporaire);
+                temporaire=reponsePrenom.getText().toLowerCase();
+                temporaire = temporaire.substring(0,1).toUpperCase()+temporaire.substring(1,temporaire.length());
+                newUser.put("prénom",temporaire);
+                newUser.put("langue",reponseLangue.getText().toLowerCase());
                 if(newUser.get("rôle") == "étudiant.e"){
                     try {
                         if(CsvReader.loginExiste(newUser.get("nom").replaceAll(" ","")+"1","./application/data/dataeleve.csv")){
@@ -101,9 +97,10 @@ public class PageInscription extends Page {
                         System.out.println("ALERTE PROBLEME "+e.getClass());
                     } 
                     String[] words = newUser.get("langue").split(" "); 
-                    String temporaire = "";
+                    temporaire = "";
                     for(String word : words){
-                        if(temporaire.contains("word")){continue;} // on vérifie qu'il n'y a pas de doublons
+                        if(temporaire.contains(word.substring(0,1).toUpperCase()+word.substring(1,word.length()))){continue;} // on vérifie qu'il n'y a pas de doublons
+                        word=word.substring(0,1).toUpperCase()+word.substring(1,word.length());
                         temporaire += word+":0|";
                     }
                     temporaire = temporaire.substring(0,temporaire.length()-1);
@@ -132,9 +129,10 @@ public class PageInscription extends Page {
                         System.out.println("ALERTE PROBLEME "+e.getClass());
                     } 
                     String[] words = newUser.get("langue").split(" "); 
-                    String temporaire = "";
+                    temporaire = "";
                     for(String word : words){
-                        if(temporaire.contains("word")){continue;} // on vérifie qu'il n'y a pas de doublons
+                        if(temporaire.contains(word.substring(0,1).toUpperCase()+word.substring(1,word.length()))){continue;} // on vérifie qu'il n'y a pas de doublons
+                        word=word.substring(0,1).toUpperCase()+word.substring(1,word.length());
                         temporaire += word+"|";
                     }
                     temporaire = temporaire.substring(0,temporaire.length()-1);
