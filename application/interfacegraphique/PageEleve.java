@@ -20,6 +20,13 @@ public class PageEleve extends Page {
         frameAJeter.dispose();
 		JFrame framebis = new JFrame("StayShark");
         Page.basefenetre(framebis,800,600);
+        System.out.println(infoUser.get("langue"));
+        String[] nbLangues = infoUser.get("langue").toString().split("&");
+        for(String word : nbLangues){
+            System.out.println(word);
+        }
+        System.out.println(nbLangues.length);
+        System.out.println(nbLangues);
 
         // TO DO
         /*

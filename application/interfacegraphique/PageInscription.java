@@ -104,7 +104,7 @@ public class PageInscription extends Page {
                     for(String word : words){
                         if(temporaire.contains(word.substring(0,1).toUpperCase()+word.substring(1,word.length()))){continue;} // on vérifie qu'il n'y a pas de doublons dans le choix des langues
                         word=word.substring(0,1).toUpperCase()+word.substring(1,word.length());
-                        temporaire += word+":0|"; // 0 --> on rajoute l'expérience
+                        temporaire += word+":0&"; // 0 --> on rajoute l'expérience
                     }
                     temporaire = temporaire.substring(0,temporaire.length()-1);
                     newUser.replace("langue",temporaire);
@@ -136,7 +136,7 @@ public class PageInscription extends Page {
                     for(String word : words){
                         if(temporaire.contains(word.substring(0,1).toUpperCase()+word.substring(1,word.length()))){continue;} // on vérifie qu'il n'y a pas de doublons
                         word=word.substring(0,1).toUpperCase()+word.substring(1,word.length());
-                        temporaire += word+"|";
+                        temporaire += word+"&";
                     }
                     temporaire = temporaire.substring(0,temporaire.length()-1);
                     newUser.replace("langue",temporaire);
