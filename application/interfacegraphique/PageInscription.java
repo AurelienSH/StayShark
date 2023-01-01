@@ -70,8 +70,10 @@ public class PageInscription extends Page {
         inscription.setBackground(Color.decode("#ffb3ba"));
         newPanel.add(new JSeparator(SwingConstants.VERTICAL));
         newPanel.add(inscription);
+
         inscription.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
+                // on gère les cas comme : "patAteS" pour le nom prénom et un peu en avance pour langue
                 String temporaire=reponseNom.getText().toLowerCase();
                 temporaire = temporaire.substring(0,1).toUpperCase()+temporaire.substring(1,temporaire.length());
                 newUser.put("nom",temporaire);
@@ -79,11 +81,12 @@ public class PageInscription extends Page {
                 temporaire = temporaire.substring(0,1).toUpperCase()+temporaire.substring(1,temporaire.length());
                 newUser.put("prénom",temporaire);
                 newUser.put("langue",reponseLangue.getText().toLowerCase());
+                //traitement pour étudiant.e
                 if(newUser.get("rôle") == "étudiant.e"){
-                    try {
+                    try { // on gère les cas où "Dupont" existe déjà dans les données pour lui attribuer un login différent (login=Nom1)
                         if(CsvReader.loginExiste(newUser.get("nom").replaceAll(" ","")+"1","./application/data/dataeleve.csv")){
                             int i=1;
-                            while(true){
+                            while(true){ // on essaye "Dupont2","Dupont3"...
                                 if(CsvReader.loginExiste(newUser.get("nom").replaceAll(" ","")+i,"./application/data/dataeleve.csv")){
                                     i++;
                                 }else{break;}
@@ -95,22 +98,22 @@ public class PageInscription extends Page {
                     }
                     catch(Exception e){
                         System.out.println("ALERTE PROBLEME "+e.getClass());
-                    } 
+                    } // on va gérer les soucis comme "fRançAis"
                     String[] words = newUser.get("langue").split(" "); 
                     temporaire = "";
                     for(String word : words){
-                        if(temporaire.contains(word.substring(0,1).toUpperCase()+word.substring(1,word.length()))){continue;} // on vérifie qu'il n'y a pas de doublons
+                        if(temporaire.contains(word.substring(0,1).toUpperCase()+word.substring(1,word.length()))){continue;} // on vérifie qu'il n'y a pas de doublons dans le choix des langues
                         word=word.substring(0,1).toUpperCase()+word.substring(1,word.length());
-                        temporaire += word+":0|";
+                        temporaire += word+":0|"; // 0 --> on rajoute l'expérience
                     }
                     temporaire = temporaire.substring(0,temporaire.length()-1);
                     newUser.replace("langue",temporaire);
-                    try{
+                    try{ // inscription de l'élève dans le csv qui a tout les élèves de la plateforme
                         CsvReader.inscription("./application/data/dataeleve.csv", newUser.get("login")+","+newUser.get("nom")+","+newUser.get("prénom")+","+newUser.get("langue"));
                     }catch(Exception e){
                         System.out.println("ALERTE PROBLEME "+e.getClass());
                     } 
-                }
+                } // traitement pour professeur.e (presque pareil qu'étudiant)
                 else if(newUser.get("rôle") == "professeur.e"){
                     try {
                         if(CsvReader.loginExiste(newUser.get("nom").replaceAll(" ","")+"1","./application/data/dataprof.csv")){
@@ -143,7 +146,7 @@ public class PageInscription extends Page {
                         System.out.println("ALERTE PROBLEME "+e.getClass());
                     } 
                 }
-                if(newUser.get("login")==null){
+                if(newUser.get("login")==null){ // on vérifie que l'utilisateur a bien choisi un rôle
                     JOptionPane.showMessageDialog(framebis, "Oh mince vous avez oublié de sélectionner si vous êtes étudiant.e ou professeur.e ! ");
                 }else{JOptionPane.showMessageDialog(framebis, "Bienvenue ! Votre login dorénavant est : "+newUser.get("login")+". Notez le quelque part ! 😊 "); 
                 framebis.dispose();}

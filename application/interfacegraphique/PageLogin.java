@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.event.*;
 import java.awt.event.*;
+import java.util.HashMap;
+import java.util.Map;
 import application.controleur.CsvReader;
 
 /**
@@ -36,9 +38,22 @@ public class PageLogin extends Page {
               if(personne == "élève"){
                 try{
                   if(CsvReader.loginExiste(userlogin,"./application/data/dataeleve.csv")){
-                      JOptionPane.showMessageDialog(framebis, "Bienvenue "+userlogin+" !");
+                    Map<String,String> preinfoUser=CsvReader.liseurCsv("./application/data/dataeleve.csv");
+                    Map<String, String> infoUser = new HashMap<String,String>();
+                    for(Map.Entry<String, String> entry : preinfoUser.entrySet()){
+                      String login = entry.getKey();
+                      if(userlogin.contains(login)){
+                        String[] infos = entry.getValue().split(",");
+                        infoUser.put("login",login);
+                        infoUser.put("nom",infos[0]);
+                        infoUser.put("prénom",infos[1]);
+                        infoUser.put("langue",infos[2]);
+                      }
+                    }
+                    //ajouter fonction de lecture du csv pour choper nom login itout
+                      JOptionPane.showMessageDialog(framebis, "Bienvenue "+infoUser.get("prénom")+" "+infoUser.get("nom")+" !");
                       framebis.dispose();
-                      PageEleve framebis = new PageEleve(frameAJeter);
+                      PageEleve framebis = new PageEleve(frameAJeter,infoUser);
                       
               }else{
                   JOptionPane.showMessageDialog(framebis, "Login incorrect");
@@ -49,9 +64,21 @@ public class PageLogin extends Page {
               }else if (personne == "prof"){
                 try{
                   if(CsvReader.loginExiste(userlogin,"./application/data/dataprof.csv")){
-                      JOptionPane.showMessageDialog(framebis, "Bienvenue "+userlogin+" !");
+                    Map<String,String> preinfoUser=CsvReader.liseurCsv("./application/data/dataprof.csv");
+                    Map<String, String> infoUser = new HashMap<String,String>();
+                    for(Map.Entry<String, String> entry : preinfoUser.entrySet()){
+                      String login = entry.getKey();
+                      if(userlogin.contains(login)){
+                        String[] infos = entry.getValue().split(",");
+                        infoUser.put("login",login);
+                        infoUser.put("nom",infos[0]);
+                        infoUser.put("prénom",infos[1]);
+                        infoUser.put("langue",infos[2]);
+                      }
+                    }
+                      JOptionPane.showMessageDialog(framebis, "Bienvenue "+infoUser.get("prénom")+" "+infoUser.get("nom")+" !");
                       framebis.dispose();
-                      PageProf framebis = new PageProf(frameAJeter);
+                      PageProf framebis = new PageProf(frameAJeter, infoUser);
               }else{
                   JOptionPane.showMessageDialog(framebis, "Login incorrect");
               }}

@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.event.*;
 import java.awt.event.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Créé la page que l'élève verra.
@@ -14,7 +16,7 @@ public class PageEleve extends Page {
      * Page que l'élève verra dans l'application (contenant les exos et ses notes)
      * @param frameAJeter Jframe (PageHome) qui sera tué avant la création de la frame pour l'élève
      */
-    public PageEleve(JFrame frameAJeter){
+    public PageEleve(JFrame frameAJeter, Map infoUser){
         frameAJeter.dispose();
 		JFrame framebis = new JFrame("StayShark");
         Page.basefenetre(framebis,800,600);
