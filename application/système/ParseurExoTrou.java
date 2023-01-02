@@ -50,7 +50,7 @@ public class ParseurExoTrou implements Parseur {
         // Séparation des cas pairs ou impairs pour la récupération des bonnes réponses
         // En vue de les réutiliser dans la tokens
         for (int i = 0; i < l; i+=1){
-            if (i+morceauVariableFinder%2 == 0){
+            if ((i+morceauVariableFinder)%2 == 0){
                 tmp_tok = new MorceauVariable(tokensString[i]);
                 tokens.add(tmp_tok);
             }
