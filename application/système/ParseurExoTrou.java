@@ -1,13 +1,29 @@
 package application.système;
+
 import java.util.ArrayList;
 
+/**
+ * La classe ParseurExoTrou implémente l'interface Parseur et permet de parser des chaînes de caractères en instances de la classe QuestionTrou.
+ */
 public class ParseurExoTrou implements Parseur {
-    ParseurExoTrou(){
-        
-    }
-    public Phrase parse(String input){
 
-        Phrase nouvellePhrase;
+    /**
+     * Constructeur par défaut de la classe ParseurExoTrou.
+     */
+    public ParseurExoTrou() {
+        // Constructeur vide par défaut
+    }
+
+    /**
+     * Transforme une chaîne de caractères en une instance de la classe QuestionTrou.
+     *
+     * @param input la chaîne de caractères à parser
+     * @return une instance de la classe QuestionTrou représentant la chaîne de caractères parsée
+     */
+    @Override
+    public QuestionTrou parse(String input){
+
+        QuestionTrou nouvelleQuestionTrou;
 
         boolean pair=input.startsWith("#", 0);
 
@@ -44,9 +60,15 @@ public class ParseurExoTrou implements Parseur {
             }
         }
 
-        nouvellePhrase = new Phrase(tokens);
+        nouvelleQuestionTrou = new QuestionTrou(tokens);
 
-        return nouvellePhrase;
+        return nouvelleQuestionTrou;
         
     }
+
+    @Override
+    public String toString() {
+        return "ParseurExoTrou{}";
+    }
+
 }

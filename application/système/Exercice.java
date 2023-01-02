@@ -1,9 +1,13 @@
 package application.système;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-// import java.util.Scanner;
 import java.util.Collections;
 
+/**
+ * Cette classe représente un exercice qui peut être composé de plusieurs questions.
+ * Chaque question est représentée par une instance de l'interface `Question`.
+ */
 public class Exercice {
 
     // Langue de l'exercice
@@ -13,7 +17,7 @@ public class Exercice {
     ArrayList<ArrayList<String>> questions = new ArrayList<>();
 
     // Liste des phrases de l'exo
-    ArrayList<Phrase> phrases = new ArrayList<>();
+    ArrayList<QuestionTrou> phrases = new ArrayList<>();
 
     ArrayList<String> reponses = new ArrayList<>();
 
@@ -26,76 +30,146 @@ public class Exercice {
     // Methode d'évaluation de l'exo
     final HashMap<String,Float> methodeEval;
 
-    // Constructeur :
-    // Prend une liste de chaines de caractères, une langue, un niveau et un bareme
-    Exercice(ArrayList<String> textePhrases, String langVal, int baremeVal, int niveauVal, HashMap<String,Float> methodeEvalVal){
-
-        ParseurExoTrou parseur = new ParseurExoTrou();
-
-        methodeEval=methodeEvalVal;
-        niveau=niveauVal;
-        langue=langVal;
-        bareme=baremeVal;
+    /**
+     * Crée un nouvel objet Exercice avec la liste des questions données, la langue, le niveau, le bareme et la méthode d'évaluation.
+     *
+     * @param textePhrases liste de chaînes de caractères représentant les questions de l'exercice
+     * @param langVal la langue de l'exercice
+     * @param baremeVal le nombre de points maximum de l'exercice
+     * @param niveauVal le niveau de difficulté de l'exercice
+     * @param methodeEvalVal la méthode d'évaluation de l'exercice
+     */
+    public Exercice(ArrayList<String> textePhrases, String langVal, int baremeVal, int niveauVal, HashMap<String,Float> methodeEvalVal){
+        // Initialisation des champs de la classe
+        methodeEval = methodeEvalVal;
+        niveau = niveauVal;
+        langue = langVal;
+        bareme = baremeVal;
 
         // Création de la liste d'objets phrases
+        ParseurExoTrou parseur = new ParseurExoTrou();
         for (String question : textePhrases){
-            Phrase phraseQuestion = parseur.parse(question);
+            QuestionTrou phraseQuestion = parseur.parse(question);
             phrases.add(phraseQuestion);
             questions.add(phraseQuestion.getQuestion());
             reponses.addAll(phraseQuestion.getReponses());
         }
-        
     }
 
-    public ArrayList<ArrayList<String>> getQuestions(){
+
+    /**
+     * Récupère la liste des questions de l'exercice.
+     *
+     * @return La liste des questions de l'exercice.
+     */
+    public ArrayList<ArrayList<String>> getQuestions() {
         return questions;
     }
 
-    public ArrayList<String> randomReponses(){
+
+    /**
+     * Méthode permettant de mélanger l'ordre des réponses de l'exercice.
+     *
+     * @return une liste de réponses mélangées
+     */
+    public ArrayList<String> randomReponses() {
         ArrayList<String> randomReponses = new ArrayList<>(reponses);
         Collections.shuffle(randomReponses);
         return randomReponses;
     }
+  
 
-    public String getLangue(){
+    /**
+     * Renvoie la langue de l'exercice.
+     * 
+     * @return la langue de l'exercice
+     */
+    public String getLangue() {
         return this.langue;
     }
 
-    //méthode de correction des exos (se déroule en parallèle de la demande de réponse de l'apprenant)
-    public ArrayList<ArrayList<String>> getReponsesEleve(){
-        ArrayList<ArrayList<String>> reponsesEleve = new ArrayList<ArrayList<String>>();
-        // boucle pour chaque phrase de l'exo
-        for (Phrase question : this.phrases){
-            ArrayList<String> reponses = question.getReponseEleve();
-            reponsesEleve.add(reponses);
+
+    /**
+     * Récupère les réponses saisies par l'apprenant pour chaque phrase de l'exercice.
+     * @return Un ArrayList de ArrayList de String contenant les réponses saisies par l'apprenant pour chaque phrase de l'exercice.
+     */
+    public ArrayList<ArrayList<String>> getReponsesEleve() {
+        ArrayList<ArrayList<String>> reponsesEleve = new ArrayList<>();
+        // Pour chaque phrase de l'exercice, récupère les réponses de l'apprenant
+        // en appelant la méthode getReponseEleve de l'objet QuestionTrou correspondant,
+        // puis ajoute ces réponses à la liste de réponses de l'exercice.
+        for (QuestionTrou question : this.phrases) {
+            reponsesEleve.add(question.getReponseEleve());
         }
         return reponsesEleve;
     }
 
-    public ArrayList<Correction> corrige(){
-        ArrayList<Correction> phrasesCorrigees = new ArrayList<Correction>();
-        ArrayList<ArrayList<String>> reponsesEleve = this.getReponsesEleve();
-        for (ArrayList<String> reponse : reponsesEleve){
-            CorrectionPhrase phraseCorrigee = new CorrectionPhrase(reponse, this);
-            phrasesCorrigees.add(phraseCorrigee);
+
+    /**
+     * Méthode qui corrige l'exercice en cours en retournant une liste de corrections
+     * pour chaque question de l'exercice.
+     * 
+     * @return la liste de corrections de l'exercice
+     */
+    public ArrayList<Correction> corrige() {
+        ArrayList<Correction> phrasesCorrigees = new ArrayList<>(); // liste des corrections
+        ArrayList<ArrayList<String>> reponsesEleve = this.getReponsesEleve(); // récupération des réponses de l'élève
+
+        // boucle sur les questions de l'exercice
+        for (QuestionTrou question : this.phrases) {
+            CorrectionQuestionTrou phraseCorrigee = new CorrectionQuestionTrou(question.getReponseEleve(), this); // création de la correction de la question
+            phrasesCorrigees.add(phraseCorrigee); // ajout de la correction à la liste
         }
+
         return phrasesCorrigees;
     }
 
-    public void afficherCorrection(){
+    /**
+     * Affiche la correction de l'exercice dans la console.
+     */
+    public void afficherCorrection() {
+        // On affiche un saut de ligne pour séparer la correction du reste du programme
         System.out.println("");
-        int i=1;
+        // On affiche un message indiquant le début de la correction
         System.out.println("Voici la correction :");
-        for (Phrase p : phrases){
 
-            System.out.println(i+". "+p.stringCorrecte());
+        // On initialise un compteur pour numéroter les phrases de l'exercice
+        int i = 1;
+        // Pour chaque phrase de l'exercice...
+        for (QuestionTrou p : phrases) {
+            // On affiche le numéro de la phrase suivi de la chaîne de caractères correcte
+            System.out.println(i + ". " + p.stringCorrecte());
+            // On incrémente le compteur
             i++;
         }
     }
 
-    public String toString(){
-        return("Exercice en"+langue+"\n");
+    /**
+     * Retourne une représentation sous forme de chaîne de caractères de l'exercice.
+     *
+     * @return une chaîne de caractères contenant les informations suivantes :
+     *         - la langue de l'exercice
+     *         - le niveau de l'exercice
+     *         - le barème de l'exercice
+     *         - la méthode d'évaluation de l'exercice
+     *         - la liste des questions de l'exercice
+     *         - la liste des réponses de l'exercice
+     */
+    @Override
+    public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Langue de l'exercice : ").append(langue).append("\n");
+    sb.append("Niveau de l'exercice : ").append(niveau).append("\n");
+    sb.append("Bareme de l'exercice : ").append(bareme).append("\n");
+    sb.append("Methode d'évaluation de l'exercice : ").append(methodeEval).append("\n");
+    sb.append("Questions de l'exercice : \n");
+    for (ArrayList<String> question : questions) {
+        sb.append("\t").append(question).append("\n");
     }
+    sb.append("Réponses de l'exercice : ").append(reponses).append("\n");
+    return sb.toString();
+}
+
 
     /* Méthode d'affichage de l'exo (avec plusieurs questions) à l'élève
     public void montrerExo (){
@@ -118,7 +192,7 @@ public class Exercice {
         System.out.println("");
         //On affiche les questions à répondre
         i = 1;
-        for (Phrase phrase : phrases){
+        for (QuestionTrou phrase : phrases){
             System.out.println(i+". "+phrase.stringEleve());
             i++; 
         }
