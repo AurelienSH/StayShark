@@ -57,7 +57,7 @@ public abstract class CsvReader {
     return bloub.containsKey(login);
 }
 
-  public static void inscription(String fichier, String truc)throws FileNotFoundException, IOException{
+  public static void ecriture(String fichier, String truc)throws FileNotFoundException, IOException{
     BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichier, true),StandardCharsets.UTF_8));
 		out.write(truc);
 		out.newLine();

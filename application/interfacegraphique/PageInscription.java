@@ -109,7 +109,7 @@ public class PageInscription extends Page {
                     temporaire = temporaire.substring(0,temporaire.length()-1);
                     newUser.replace("langue",temporaire);
                     try{ // inscription de l'élève dans le csv qui a tout les élèves de la plateforme
-                        CsvReader.inscription("./application/data/dataeleve.csv", newUser.get("login")+","+newUser.get("nom")+","+newUser.get("prénom")+","+newUser.get("langue"));
+                        CsvReader.ecriture("./application/data/dataeleve.csv", newUser.get("login")+","+newUser.get("nom")+","+newUser.get("prénom")+","+newUser.get("langue"));
                     }catch(Exception e){
                         System.out.println("ALERTE PROBLEME "+e.getClass());
                     } 
@@ -141,7 +141,7 @@ public class PageInscription extends Page {
                     temporaire = temporaire.substring(0,temporaire.length()-1);
                     newUser.replace("langue",temporaire);
                     try{
-                        CsvReader.inscription("./application/data/dataprof.csv", newUser.get("login")+","+newUser.get("nom")+","+newUser.get("prénom")+","+newUser.get("langue"));
+                        CsvReader.ecriture("./application/data/dataprof.csv", newUser.get("login")+","+newUser.get("nom")+","+newUser.get("prénom")+","+newUser.get("langue"));
                     }catch(Exception e){
                         System.out.println("ALERTE PROBLEME "+e.getClass());
                     } 

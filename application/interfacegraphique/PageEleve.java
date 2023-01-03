@@ -20,13 +20,35 @@ public class PageEleve extends Page {
         frameAJeter.dispose();
 		JFrame framebis = new JFrame("StayShark");
         Page.basefenetre(framebis,800,600);
-        System.out.println(infoUser.get("langue"));
+        JPanel panel = new JPanel(new GridLayout(4, 1));
+        panel.setBackground(Color.decode("#ffdfba"));
+
         String[] nbLangues = infoUser.get("langue").toString().split("&");
-        for(String word : nbLangues){
-            System.out.println(word);
+        if(nbLangues.length>1){
+            for(String word : nbLangues){
+                String[] langueExp = word.split(":");
+                panel.add(new JButton(langueExp[0]),BorderLayout.NORTH);
+            }
+        }else{
+            String[] langueExp = nbLangues[0].split(":");
+            JLabel langue = new JLabel(langueExp[0], SwingConstants.CENTER);
+            langue.setFont(new Font("Apple Casual", Font.BOLD, 21));
+            panel.add(langue);
+            panel.add(new JSeparator(SwingConstants.VERTICAL));
+            ImageIcon image = new ImageIcon("./application/data/medias/exercices.png");
+            JButton exo = new JButton("",image);
+            exo.setPreferredSize(new Dimension(390, 150));
+            exo.setBackground(Color.decode("#ffdfba"));
+            JPanel sizePanel = new JPanel();
+            sizePanel.setBackground(Color.decode("#ffdfba"));
+            sizePanel.add(exo,BorderLayout.CENTER);
+            panel.add(sizePanel);
+            panel.add(new JSeparator(SwingConstants.VERTICAL));
+            exo.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                    //création de l'exo 
+            }});
         }
-        System.out.println(nbLangues.length);
-        System.out.println(nbLangues);
 
         // TO DO
         /*
@@ -39,7 +61,8 @@ public class PageEleve extends Page {
          *                      exos
          *                      récap de toutes les fautes après l'exo
          */
-
+        
+        framebis.add(panel);
         framebis.pack();
         framebis.setLocationRelativeTo(null);
         framebis.setVisible(true);
