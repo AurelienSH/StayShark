@@ -19,6 +19,22 @@ public class PageProf extends Page {
      * @param frameAJeter Jframe (PageHome) qui sera tué avant la création de la frame pour le prof
      */
     public PageProf(JFrame frameAJeter, Map infoUser){
+
+        // TO DO
+        /*
+         * - plateforme de récupération : ✔️
+         *                  récupérer langue prof, si plusieurs langues demander pour laquelle il dépose ses exos ✔️
+         *                  demander pour quel level (si on fait système de lvl) ou alors c'est beaucoup d'exos et le système de lvl se fait seul✔️
+         *                  demander le niveau de dureté de notation ✔️
+         *                  --> les mettre sous forme de csv✔️
+         * #### A VOIR #####
+         * voir le soucis où on créé un exo1.csv par dépot mais vu que le prof choisi la dureté de la correction les autres profs ne peuvent pas mettre leurs phrases à la suite de l'exo donc comment faire? créer des exos selon les profs et l'élève choisi ou alors donner les exos au hasard à l'élève qui choisit le lvl?
+         * ##################
+         * 
+         * - plateforme de suivi des notes/levels : 
+         *                  demander élève à checker (plus simple) ou alors tous les afficher et système de recherche(chiant à faire)?
+         */
+
         frameAJeter.dispose();
 		JFrame framebis = new JFrame("StayShark");
         Page.basefenetre(framebis,800,600);
@@ -30,12 +46,12 @@ public class PageProf extends Page {
         exo.setPreferredSize(new Dimension(390, 150));
         exo.setBackground(Color.decode("#ffdfba"));
         ImageIcon image2 = new ImageIcon("./application/data/medias/suiviEleve.png");
-        JButton exo2 = new JButton("",image2);
-        exo2.setPreferredSize(new Dimension(390, 150));
-        exo2.setBackground(Color.decode("#ffdfba"));
+        JButton suivi = new JButton("",image2);
+        suivi.setPreferredSize(new Dimension(390, 150));
+        suivi.setBackground(Color.decode("#ffdfba"));
         
-        JPanel daronne = new JPanel();
-        daronne.setBackground(Color.decode("#ffdfba"));
+        JPanel panelMere = new JPanel();
+        panelMere.setBackground(Color.decode("#ffdfba"));
         JPanel reaPanel = new JPanel();
         reaPanel.setBackground(Color.decode("#ffdfba"));
         reaPanel.setPreferredSize(new Dimension(800, 500));
@@ -44,7 +60,7 @@ public class PageProf extends Page {
         vide.setPreferredSize(new Dimension(800, 100));
         
         reaPanel.add(exo,BorderLayout.CENTER);
-        reaPanel.add(exo2,BorderLayout.CENTER);
+        reaPanel.add(suivi,BorderLayout.CENTER);
         
         exo.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
@@ -57,6 +73,7 @@ public class PageProf extends Page {
 
                 String[] choixlangueArray = new String[nbLangues.length+1];
                 choixlangueArray[0] = "";
+                // à revoir pour les profs qui ont plusieurs langues
                 if(nbLangues.length>1){
                     int ii = 0;
                     for(int i = 1; i < nbLangues.length; i++){
@@ -107,11 +124,11 @@ public class PageProf extends Page {
 
                 exosPanel.add(choixCorrectionLabel,BorderLayout.CENTER);
                 exosPanel.add(choixCorrection,BorderLayout.CENTER);
-                exosPanel.add(valider0,BorderLayout.CENTER);
                 exosPanel.add(choixlangueLabel,BorderLayout.CENTER);
                 exosPanel.add(choixlangue,BorderLayout.CENTER);
                 exosPanel.add(choixlvlLabel,BorderLayout.CENTER);
                 exosPanel.add(choixlvl,BorderLayout.CENTER);
+                exosPanel.add(valider0,BorderLayout.CENTER);
                 exosPanel.add(phrasesLabel1,BorderLayout.CENTER);
                 exosPanel.add(phrasesLabel2,BorderLayout.CENTER);
                 exosPanel.add(phrases,BorderLayout.CENTER);
@@ -119,7 +136,7 @@ public class PageProf extends Page {
 
                 reaPanel.add(exosPanel,BorderLayout.CENTER);
                 exo.setVisible(false);
-                exo2.setVisible(false);
+                suivi.setVisible(false);
                 exosPanel.setVisible(true);
 
                 choixlangue.addActionListener(new ActionListener(){
@@ -143,8 +160,8 @@ public class PageProf extends Page {
 
                 valider0.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
+                        //on va tester si le path de l'exo existe si oui on en créé un nouveau pour l'exo
                         String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/exo1.csv";
-                        // tester si le fichier existe avec CsvReader.fileexiste()
                             int i = 2;
                             while(true){
                                 if(CsvReader.fileExiste(path)==true){
@@ -152,7 +169,6 @@ public class PageProf extends Page {
                                     i++;
                                 }else{break;}
                             }
-                            System.out.println(path);
 
                         if(CsvReader.fileExiste(path)==false){
                             try{
@@ -161,20 +177,23 @@ public class PageProf extends Page {
                                 System.out.println("PROBLEME");
                             }
                         }
+                        choixCorrectionLabel.setVisible(false);
+                        choixCorrection.setVisible(false);
+                        valider0.setVisible(false);
+                        choixlangueLabel.setVisible(false);
+                        choixlangue.setVisible(false);
+                        choixlvlLabel.setVisible(false);
+                        choixlvl.setVisible(false);
                 }});
 
                 valider.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                         if(phrases.getText().contains("STOP")){
                             exo.setVisible(true);
-                            exo2.setVisible(true);
+                            suivi.setVisible(true);
                             exosPanel.setVisible(false);
                             JOptionPane.showMessageDialog(framebis, "Vos phrases ont bien été ajoutés !");
                         }else{
-                            choixlangueLabel.setVisible(false);
-                            choixlangue.setVisible(false);
-                            choixlvlLabel.setVisible(false);
-                            choixlvl.setVisible(false);
                             try{
                                 String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/exo1.csv";
                                 CsvReader.ecriture(path,phrases.getText());
@@ -188,20 +207,10 @@ public class PageProf extends Page {
                         
                 }});
         }});
-        // TO DO
-        /*
-         * - plateforme de récupération : 
-         *                  récupérer langue prof, si plusieurs langues demander pour laquelle il dépose ses exos 
-         *                  demander pour quel level (si on fait système de lvl) ou alors c'est beaucoup d'exos et le système de lvl se fait seul
-         *                  demander le niveau de dureté de notation ptet??
-         *                  --> les mettre sous forme de csv ou txt? (pour qu'ils soient récupérable pour après)
-         * - plateforme de suivi des notes/levels : 
-         *                  demander élève à checker ou alors tous les afficher et système de recherche?
-         */
 
-        daronne.add(vide);
-        daronne.add(reaPanel);
-        framebis.add(daronne);
+        panelMere.add(vide);
+        panelMere.add(reaPanel);
+        framebis.add(panelMere);
         framebis.pack();
         framebis.setLocationRelativeTo(null);
         framebis.setVisible(true);
