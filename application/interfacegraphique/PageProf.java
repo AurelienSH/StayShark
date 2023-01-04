@@ -70,16 +70,15 @@ public class PageProf extends Page {
                 Map<String, String> infoExo = new HashMap<String,String>();
                 
                 JLabel choixlangueLabel = new JLabel("Choisissez la langue de votre exercice : ",SwingConstants.CENTER);
-
                 String[] choixlangueArray = new String[nbLangues.length+1];
                 choixlangueArray[0] = "";
                 // à revoir pour les profs qui ont plusieurs langues
-                if(nbLangues.length>1){
-                    int ii = 0;
-                    for(int i = 1; i < nbLangues.length; i++){
-                        choixlangueArray[i] = nbLangues[ii];
-                        ii++;
-                    }   
+                if(nbLangues.length!=1){
+                    int i = 1;
+                    for(String word : nbLangues){
+                        choixlangueArray[i] = word; 
+                        i++;
+                    }
                 }else{
                     choixlangueArray[1] = nbLangues[0];
                     }
@@ -206,6 +205,40 @@ public class PageProf extends Page {
                     }
                         
                 }});
+        }});
+
+        suivi.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                exo.setVisible(false);
+                suivi.setVisible(false);
+
+                JPanel suiviPanel = new JPanel(new GridLayout(2,1,10,10));
+                suiviPanel.setBackground(Color.decode("#ffdfba"));
+
+                JLabel choixlangueLabel = new JLabel("Pour quelle langue voulez vous suivre les notes des élèves?");
+
+                String[] choixlangueArray = new String[nbLangues.length+1];
+                choixlangueArray[0] = "";
+                // à revoir pour les profs qui ont plusieurs langues
+                if(nbLangues.length>1){
+                    int i = 1;
+                    for(String word : nbLangues){
+                        choixlangueArray[i] = word; 
+                        i++;
+                    }  
+                }else{
+                    choixlangueArray[1] = nbLangues[0];
+                    }
+                
+                JComboBox<String> choixlangue = new JComboBox<>(choixlangueArray);
+                choixlangue.setBackground(Color.decode("#ffb3ba"));
+                choixlangue.setForeground(Color.WHITE);
+                choixlangue.setFont(new Font("Apple Casual", Font.BOLD, 12));
+                DefaultListCellRenderer listRenderer1 = new DefaultListCellRenderer();
+                listRenderer1.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
+                choixlangue.setRenderer(listRenderer1);
+                
+
         }});
 
         panelMere.add(vide);
