@@ -52,15 +52,15 @@ public class PageProf extends Page {
         
         JPanel panelMere = new JPanel();
         panelMere.setBackground(Color.decode("#ffdfba"));
-        JPanel reaPanel = new JPanel();
-        reaPanel.setBackground(Color.decode("#ffdfba"));
-        reaPanel.setPreferredSize(new Dimension(800, 500));
+        JPanel realPanel = new JPanel();
+        realPanel.setBackground(Color.decode("#ffdfba"));
+        realPanel.setPreferredSize(new Dimension(800, 500));
         JPanel vide = new JPanel();
         vide.setBackground(Color.decode("#ffdfba"));
         vide.setPreferredSize(new Dimension(800, 100));
         
-        reaPanel.add(exo,BorderLayout.CENTER);
-        reaPanel.add(suivi,BorderLayout.CENTER);
+        realPanel.add(exo,BorderLayout.CENTER);
+        realPanel.add(suivi,BorderLayout.CENTER);
         
         exo.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
@@ -133,7 +133,7 @@ public class PageProf extends Page {
                 exosPanel.add(phrases,BorderLayout.CENTER);
                 exosPanel.add(valider,BorderLayout.CENTER);
 
-                reaPanel.add(exosPanel,BorderLayout.CENTER);
+                realPanel.add(exosPanel,BorderLayout.CENTER);
                 exo.setVisible(false);
                 suivi.setVisible(false);
                 exosPanel.setVisible(true);
@@ -212,6 +212,8 @@ public class PageProf extends Page {
                 exo.setVisible(false);
                 suivi.setVisible(false);
 
+                Map<String, String> infoSuivi = new HashMap<String,String>();
+
                 JPanel suiviPanel = new JPanel(new GridLayout(2,1,10,10));
                 suiviPanel.setBackground(Color.decode("#ffdfba"));
 
@@ -237,12 +239,90 @@ public class PageProf extends Page {
                 DefaultListCellRenderer listRenderer1 = new DefaultListCellRenderer();
                 listRenderer1.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
                 choixlangue.setRenderer(listRenderer1);
+
+                JButton choixlangueButton = new JButton("Valider");
+
+                suiviPanel.add(choixlangueLabel,BorderLayout.CENTER);
+                suiviPanel.add(choixlangue,BorderLayout.CENTER);
+                suiviPanel.add(choixlangueButton,BorderLayout.CENTER);
+
+                realPanel.add(suiviPanel);
+                suiviPanel.setVisible(true);
+
+                choixlangue.addActionListener(new ActionListener(){
+                    public void actionPerformed(ActionEvent e) {
+                        e.getSource();
+                        String langueChoisie = (String) choixlangue.getSelectedItem();
+                        infoSuivi.put("langue choisie",langueChoisie);
+                }});
+
+                choixlangueButton.addActionListener(new ActionListener(){
+                    public void actionPerformed(ActionEvent e) {
+                        JPanel suiviPanelAffiche = new JPanel();
+                        suiviPanelAffiche.setBackground(Color.decode("#ffdfba"));
+                        vide.setVisible(false);
+                        suiviPanel.setVisible(false);
+
+                        JButton quitter = new JButton("Quitter");
+
+                        quitter.addActionListener(new ActionListener(){
+                            public void actionPerformed(ActionEvent e) {
+                                suiviPanelAffiche.setVisible(false);
+                                vide.setVisible(true);
+                                exo.setVisible(true);
+                                suivi.setVisible(true);
+                        }});
+
+                        try {
+                            Map<String,String> infosEleves = CsvReader.liseurCsv("./application/data/dataeleve.csv");
+
+                            Map<String,String> elevesAAfficher = new HashMap<String,String>();
+
+                            for(Map.Entry<String, String> entry : infosEleves.entrySet()){
+                                String clé = entry.getKey();
+                                String valeur = entry.getValue();
+                                if(valeur.contains(infoSuivi.get("langue choisie"))){
+                                    String[] infosEleveString = valeur.split(",");
+                                    String[] languesEleve = infosEleveString[2].split("&");
+                                    for(String word : languesEleve){
+                                        if(word.contains(infoSuivi.get("langue choisie"))){
+                                            elevesAAfficher.put(infosEleveString[0]+","+infosEleveString[1],word);
+                                        }
+                                    }
+                                }
+                            }
+                            String[] columns = new String[] {"Nom","Prénom","Points"};
+                            Object[][] data = new Object[elevesAAfficher.size()][columns.length];
+                            int i=0;
+                            for(Map.Entry<String, String> entry : elevesAAfficher.entrySet()){
+                                String[] clé = entry.getKey().split(",");
+                                String[] valeur = entry.getValue().split(":");
+                                data[i][0] = clé[0];
+                                data[i][1] = clé[1];
+                                data[i][2] = valeur[1];
+                                i++;
+                            }
+                        JTable table = new JTable(data, columns);
+                        JScrollPane scroll = new JScrollPane(table);
+                        table.setFillsViewportHeight(true);
+                        JLabel labelHead = new JLabel("Liste des élèves",SwingConstants.CENTER);
+
+                        suiviPanelAffiche.add(labelHead,BorderLayout.NORTH);
+                        suiviPanelAffiche.add(scroll,BorderLayout.CENTER);
+                        suiviPanelAffiche.add(quitter,BorderLayout.CENTER);
+                        realPanel.add(suiviPanelAffiche,BorderLayout.CENTER);
+                        suiviPanelAffiche.setVisible(true);
+
+                        }catch(Exception FileNotFoundException){
+                            System.out.println("PROBLEME FileNotFoundException");
+                        }
+                }});
                 
 
         }});
 
         panelMere.add(vide);
-        panelMere.add(reaPanel);
+        panelMere.add(realPanel);
         framebis.add(panelMere);
         framebis.pack();
         framebis.setLocationRelativeTo(null);
