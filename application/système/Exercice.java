@@ -8,7 +8,7 @@ import java.util.Collections;
  * Cette classe représente un exercice qui peut être composé de plusieurs questions.
  * Chaque question est représentée par une instance de l'interface `Question`.
  */
-public class Exercice {
+public class Exercice implements Niveau {
 
     // Langue de l'exercice
     final String langue;
@@ -25,7 +25,7 @@ public class Exercice {
     final int bareme;
 
     // Niveau de l'exo
-    final int niveau;
+    final String niveau;
 
     // Methode d'évaluation de l'exo
     final HashMap<String,Float> methodeEval;
@@ -39,7 +39,7 @@ public class Exercice {
      * @param niveauVal le niveau de difficulté de l'exercice
      * @param methodeEvalVal la méthode d'évaluation de l'exercice
      */
-    public Exercice(ArrayList<String> textePhrases, String langVal, int baremeVal, int niveauVal, HashMap<String,Float> methodeEvalVal){
+    public Exercice(ArrayList<String> textePhrases, String langVal, int baremeVal, String niveauVal, HashMap<String,Float> methodeEvalVal){
         // Initialisation des champs de la classe
         methodeEval = methodeEvalVal;
         niveau = niveauVal;
@@ -86,6 +86,18 @@ public class Exercice {
      */
     public String getLangue() {
         return this.langue;
+    }
+    /**
+     * Renvoie le niveau de l'exercice.
+     * 
+     * @return le niveau de l'exercice
+     */
+    public String getNiveau() {
+        return this.niveau;
+    }
+
+    public int getIntNiveau() {
+        return Evaluation.getNiveauVal(this.niveau);
     }
 
 
