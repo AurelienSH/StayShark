@@ -27,12 +27,12 @@ public class PageProf extends Page {
          *                  demander pour quel level (si on fait système de lvl) ou alors c'est beaucoup d'exos et le système de lvl se fait seul✔️
          *                  demander le niveau de dureté de notation ✔️
          *                  --> les mettre sous forme de csv✔️
-         * #### A VOIR #####
-         * voir le soucis où on créé un exo1.csv par dépot mais vu que le prof choisi la dureté de la correction les autres profs ne peuvent pas mettre leurs phrases à la suite de l'exo donc comment faire? créer des exos selon les profs et l'élève choisi ou alors donner les exos au hasard à l'élève qui choisit le lvl?
-         * ##################
+         * ⚠️ A VOIR ⚠️
+         * voir le soucis où on créé un exo1.csv par dépot mais vu que le prof choisi la dureté de la correction les autres profs ne peuvent pas mettre leurs phrases à la suite de l'exo donc comment faire? créer des exos selon les profs et l'élève choisi ou alors donner les exos au hasard à l'élève qui choisit le lvl? Ou alors tous les exos du lvl sont donnés à l'élève?
+         * ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
          * 
          * - plateforme de suivi des notes/levels : 
-         *                  demander élève à checker (plus simple) ou alors tous les afficher et système de recherche(chiant à faire)?
+         *                  demander élève à checker (plus simple) ou alors tous les afficher et système de recherche(chiant à faire)? finalement affiche de tous les élèves selon la langue choisie✔️
          */
 
         frameAJeter.dispose();
