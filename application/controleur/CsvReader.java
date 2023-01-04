@@ -58,10 +58,16 @@ public abstract class CsvReader {
 }
 
   public static void ecriture(String fichier, String truc)throws FileNotFoundException, IOException{
+
     BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichier, true),StandardCharsets.UTF_8));
 		out.write(truc);
 		out.newLine();
     out.close();
+  }
+
+  public static boolean fileExiste (String fichier){
+    File tmpDir = new File(fichier);
+    return tmpDir.exists();
   }
 
 }

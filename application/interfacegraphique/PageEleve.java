@@ -47,6 +47,7 @@ public class PageEleve extends Page {
             exo.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
                     //création de l'exo 
+                    
             }});
         }
 
