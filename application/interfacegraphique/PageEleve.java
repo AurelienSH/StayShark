@@ -9,6 +9,7 @@ import java.util.Map;
 import application.système.*;
 import application.controleur.*;
 import java.util.ArrayList;
+import java.io.File;
 
 /**
  * Créé la page que l'élève verra.
@@ -66,6 +67,7 @@ public class PageEleve extends Page {
 
         String[] nbLangues = infoUser.get("langue").toString().split("&");
         
+        // Panel qui contient le choix de la langue et du level de l'exo //
         exo.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 vide.setVisible(false);
@@ -73,7 +75,7 @@ public class PageEleve extends Page {
 
                 Map<String, String> infoExo = new HashMap<String,String>();
 
-                JPanel exoPanelMere = new JPanel(new GridLayout(7,1));
+                JPanel exoPanelMere = new JPanel(new GridLayout(10,1));
                 exoPanelMere.setBackground(Color.decode("#ffdfba"));
                 exoPanelMere.setPreferredSize(new Dimension(600, 400));
 
@@ -144,6 +146,7 @@ public class PageEleve extends Page {
                 exoPanelMere.add(choixLvlPanel,BorderLayout.CENTER);
                 exoPanelMere.add(validerPanel,BorderLayout.CENTER);
                 panelMere.add(exoPanelMere,BorderLayout.CENTER);
+                
                 exoPanelMere.setVisible(true);
 
                 choixlangue.addActionListener(new ActionListener(){
@@ -158,99 +161,149 @@ public class PageEleve extends Page {
                         String lvlchoisi = (String) choixlvl.getSelectedItem();
                         infoExo.put("lvl choisi",lvlchoisi);
                 }});
+
+                // Panel qui contient le choix de l'exo //
                 valider.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
-                        choixlangueLabel.setVisible(false);
-                        choixLanguePanel.setVisible(false);
-                        choixlvlLabel.setVisible(false);
-                        choixLvlPanel.setVisible(false);
-                        validerPanel.setVisible(false);
-                        JPanel testPanel = new JPanel(new GridLayout(3,1,10,10));
-                        //récupérer quel exo élève veut dans le lvl pour le path
-                        // String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/"+"exo1.csv"; //à changer
-                        String path = "exo1.csv";
-                        HashMap methodeEval = new HashMap<String,Integer>();
-                        methodeEval.put("NR", 0);
-                        methodeEval.put("incorrect", -1);
-                        methodeEval.put("correct", 1);
-                        try{
-                            Exercice exoTest = new Exercice(CsvReader.liseurExo(path), infoExo.get("langue choisie"), 0, infoExo.get("lvl choisi"), methodeEval);
+                        exoPanelMere.setVisible(false);
+                        vide.setVisible(true);
 
-                        
-                        String motsTroués = AfficheurExo.randomReponses(exoTest);
-                        ArrayList<ArrayList<String>> questionsTroués = AfficheurExo.listeQuestions(exoTest);
-                        //l'exo : skfjkfjh sjfhgkjfg #texfield# jkdfhkjds
+                        JPanel choixExoPathPanel = new JPanel(new GridLayout(3,1,10,10));
+                        choixExoPathPanel.setBackground(Color.decode("#ffdfba"));
 
-                        JButton validerTest = new JButton("valider");
-                        JLabel labelTest = new JLabel(motsTroués);
-                        JLabel labelTest2 = new JLabel(questionsTroués.get(0).get(0));
-                        JTextField reponseTest = new JTextField();
-                        System.out.println(motsTroués);
-                        testPanel.add(labelTest,BorderLayout.CENTER);
-                        testPanel.add(labelTest2,BorderLayout.CENTER);
-                        testPanel.add(validerTest,BorderLayout.CENTER);
-                        exoPanelMere.add(testPanel,BorderLayout.CENTER);
-                        
-                        valider.addActionListener(new ActionListener(){
-                            public void actionPerformed(ActionEvent e) {
-                            String reponseEleveTest = reponseTest.getText();
-                            System.out.println(reponseEleveTest);
-                            /* 
-                             * for question in questionTrouées :
-                             *  Elisabeth affiche une phrase à trous (avec des TextField)
-                             *  Elles stocke les TextFields dans une ArrayList d'ArrayList de TextFields
-                             * 
-                            */
-                            ArrayList<ArrayList<String>> stockReponsesEleve = new ArrayList<>(); //mettre toutes les réponses où élève répond (textfields) --> Aurélien récupère
-                            /* 
-                             * for question in questionTrouées :
-                             *  On crée une arrayList vide
-                             *  for trou in question
-                             *      On remplit l'arraylist de la réponse
-                             *  On ajoute l'arrayList à stockReponsesEleve
-                             *   
-                            */
-                            
-                            /* 
-                             * Aurélien crée un objet correction à partir des réponses
-                             * Il doit renvoyer, les indices et couleurs des endroits à changer
-                             */
-                            CorrectionExo c = new CorrectionExo();
-                            AfficheurExo.listeReponses(exoTest, c);
-                            
-                            /*
-                            * AfficheurCorrection -> ArrayList<AfficheurReeponse>
-                            * 
-                            * AfficheurReponse :
-                            * AfficheurReponse.text -> "je suis des prouts et toi ?"
-                            * AfficheurReponse.Indices -> [[8,11],[22,25]]
-                            * AfficheurReponse.Couleurs -> [["RED"],["YELLOW"]]
-                            */
+                        JLabel choixexoLabel = new JLabel("Choisissez l'exercice que vous souhaitez faire : ",SwingConstants.CENTER);
+                        choixexoLabel.setFont(new Font("Apple Casual", Font.BOLD, 18));
 
-                            //affichage correction : on montre toute les phrases et mots troués sont en vert (quand bon) et rouge(quand pas bon)
-                                /*JLabel monLabel = new JLabel("Mon label");
-                                Highlighter h = new DefaultHighlighter();
-                                HighlightPainter p = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);
-                                try {
-                                    h.addHighlight(0, 1, p);
-                                } catch (BadLocationException e) {
-                                    e.printStackTrace();
-                                }
-                                monLabel.setHighlighter(h); */
-
-                                /*
-                                 * Apprenant a;
-                                 * a.csv(); //{login : 57467, nom : Dupont, prénom : Clause, LangueExperienc : "Anglais:123&Français:18"}
-                                 * --> faire une méthode qui modifie le csv avec ça
-                                 */
-                        }});
-                            }
-                            catch(Exception FileNotFoundException){
-                                StackTraceElement[] stackTrace = FileNotFoundException.getStackTrace();
-                                for (StackTraceElement line : stackTrace){
-                                System.out.println("Erreur dans la méthode " + line.getMethodName() + " ligne " + line.getLineNumber());
-                                }
+                        File folder = new File("./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/");
+                        File[] listOfFiles = folder.listFiles();
+                        String choixexos[] = new String[listOfFiles.length];
+                        int i = 0;
+                        for(File file : listOfFiles){
+                            choixexos[i] = file.toString();
+                            i++;
                         }
+                        JComboBox<String> choixexosBox = new JComboBox<>(choixexos);
+                        choixexosBox.setBackground(Color.decode("#ffb3ba"));
+                        choixexosBox.setForeground(Color.WHITE);
+                        choixexosBox.setFont(new Font("Apple Casual", Font.BOLD, 12));
+                        DefaultListCellRenderer listRendererExos = new DefaultListCellRenderer();
+                        listRendererExos.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
+                        choixexosBox.setRenderer(listRendererExos);
+
+                        JPanel choixexoPanel = new JPanel();
+                        choixexoPanel.setBackground(Color.decode("#ffdfba"));
+                        choixexoPanel.setSize(new Dimension(120, 100));
+
+                        choixexoPanel.add(choixexosBox);
+
+                        JButton valider2 = new JButton("Valider");
+
+                        JPanel validerPanel2 = new JPanel();
+                        validerPanel2.setBackground(Color.decode("#ffdfba"));
+                        validerPanel2.setSize(new Dimension(100, 100));
+
+                        validerPanel2.add(valider2);
+
+                        choixExoPathPanel.add(choixexoLabel,BorderLayout.CENTER);
+                        choixExoPathPanel.add(choixexoPanel,BorderLayout.CENTER);
+                        choixExoPathPanel.add(validerPanel2,BorderLayout.CENTER);
+                        panelMere.add(choixExoPathPanel,BorderLayout.CENTER);
+                
+                        choixExoPathPanel.setVisible(true);
+
+                        // Panel qui contient l'exo en lui-même //
+                        valider2.addActionListener(new ActionListener(){
+                            public void actionPerformed(ActionEvent e) {
+                                choixExoPathPanel.setVisible(false);
+
+                                JPanel testPanel = new JPanel(new GridLayout(3,1,10,10));
+                                //récupérer quel exo élève veut dans le lvl pour le path
+                                // String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/"+"exo1.csv"; //à changer
+                                String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/"+"exo1.csv";
+                                HashMap methodeEval = new HashMap<String,Integer>();
+                                methodeEval.put("NR", 0);
+                                methodeEval.put("incorrect", -1);
+                                methodeEval.put("correct", 1);
+                                try{
+                                    Exercice exoTest = new Exercice(CsvReader.liseurExo(path), infoExo.get("langue choisie"), 0, infoExo.get("lvl choisi"), methodeEval);
+
+                                
+                                String motsTroués = AfficheurExo.randomReponses(exoTest);
+                                ArrayList<ArrayList<String>> questionsTroués = AfficheurExo.listeQuestions(exoTest);
+                                //l'exo : skfjkfjh sjfhgkjfg #texfield# jkdfhkjds
+
+                                JButton validerTest = new JButton("valider");
+                                JLabel labelTest = new JLabel(motsTroués);
+                                JLabel labelTest2 = new JLabel(questionsTroués.get(0).get(0));
+                                JTextField reponseTest = new JTextField();
+                                System.out.println(motsTroués);
+                                testPanel.add(labelTest,BorderLayout.CENTER);
+                                testPanel.add(labelTest2,BorderLayout.CENTER);
+                                testPanel.add(validerTest,BorderLayout.CENTER);
+                                panelMere.add(testPanel,BorderLayout.CENTER);
+                                
+                                validerTest.addActionListener(new ActionListener(){
+                                    public void actionPerformed(ActionEvent e) {
+                                    String reponseEleveTest = reponseTest.getText();
+                                    System.out.println(reponseEleveTest);
+                                    /* 
+                                    * for question in questionTrouées :
+                                    *  Elisabeth affiche une phrase à trous (avec des TextField)
+                                    *  Elles stocke les TextFields dans une ArrayList d'ArrayList de TextFields
+                                    * 
+                                    */
+                                    ArrayList<ArrayList<String>> stockReponsesEleve = new ArrayList<>(); //mettre toutes les réponses où élève répond (textfields) --> Aurélien récupère
+                                    /* 
+                                    * for question in questionTrouées :
+                                    *  On crée une arrayList vide
+                                    *  for trou in question
+                                    *      On remplit l'arraylist de la réponse
+                                    *  On ajoute l'arrayList à stockReponsesEleve
+                                    *   
+                                    */
+                                    
+                                    /* 
+                                    * Aurélien crée un objet correction à partir des réponses
+                                    * Il doit renvoyer, les indices et couleurs des endroits à changer
+                                    */
+                                    CorrectionExo c = new CorrectionExo();
+                                    AfficheurExo.listeReponses(exoTest, c);
+                                    
+                                    /*
+                                    * AfficheurCorrection -> ArrayList<AfficheurReeponse>
+                                    * 
+                                    * AfficheurReponse :
+                                    * AfficheurReponse.text -> "je suis des prouts et toi ?"
+                                    * AfficheurReponse.Indices -> [[8,11],[22,25]]
+                                    * AfficheurReponse.Couleurs -> [["RED"],["YELLOW"]]
+                                    */
+
+                                    //affichage correction : on montre toute les phrases et mots troués sont en vert (quand bon) et rouge(quand pas bon)
+                                        /*JLabel monLabel = new JLabel("Mon label");
+                                        Highlighter h = new DefaultHighlighter();
+                                        HighlightPainter p = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);
+                                        try {
+                                            h.addHighlight(0, 1, p);
+                                        } catch (BadLocationException e) {
+                                            e.printStackTrace();
+                                        }
+                                        monLabel.setHighlighter(h); */
+
+                                        /*
+                                        * Apprenant a;
+                                        * a.csv(); //{login : 57467, nom : Dupont, prénom : Clause, LangueExperienc : "Anglais:123&Français:18"}
+                                        * --> faire une méthode qui modifie le csv avec ça
+                                        */
+                                }});
+                                    }
+                                    catch(Exception FileNotFoundException){
+                                        StackTraceElement[] stackTrace = FileNotFoundException.getStackTrace();
+                                        for (StackTraceElement line : stackTrace){
+                                        System.out.println("Erreur dans la méthode " + line.getMethodName() + " ligne " + line.getLineNumber());
+                                        }
+                                    }
+                        }});
+
                 }});
                 
         }});
