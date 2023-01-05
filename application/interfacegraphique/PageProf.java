@@ -29,10 +29,7 @@ public class PageProf extends Page {
          *                  --> les mettre sous forme de csv✔️
          * 
          * ⚠️A faire⚠️
-         * vérifier lors de l'écriture dans exo1.csv alors qu'il doit écrire dans exo2.csv
-         * ⚠️ A VOIR ⚠️
-         * voir le soucis où on créé un exo1.csv par dépot mais vu que le prof choisi la dureté de la correction les autres profs ne peuvent pas mettre leurs phrases à la suite de l'exo donc comment faire? créer des exos selon les profs et l'élève choisi ou alors donner les exos au hasard à l'élève qui choisit le lvl? Ou alors tous les exos du lvl sont donnés à l'élève?
-         * ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+         * Ecrire le bon truc lors du choix de la difficultée de correction
          * 
          * - plateforme de suivi des notes/levels : 
          *                  demander élève à checker (plus simple) ou alors tous les afficher et système de recherche(chiant à faire)? finalement affiche de tous les élèves selon la langue choisie✔️
@@ -164,13 +161,12 @@ public class PageProf extends Page {
                         //on va tester si le path de l'exo existe si oui on en créé un nouveau pour l'exo
                         String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/exo1.csv";
                         int i = 2;
-                            while(true){
-                                if(CsvReader.fileExiste(path)==true){
-                                    path=path.substring(0,path.length()-5)+i+".csv";
-                                    i++;
-                                }else{break;}
-                            }
-                        System.out.println(path);
+                        while(true){
+                            if(CsvReader.fileExiste(path)==true){
+                                path=path.substring(0,path.length()-5)+i+".csv";
+                                i++;
+                            }else{break;}
+                        }
                             try{
                                 CsvReader.ecriture(path, "truc à écrire pour la correction"); // à voir avec le dico d'Aurélien
                             }catch(Exception IOException){
@@ -195,6 +191,16 @@ public class PageProf extends Page {
                         }else{
                             try{
                                 String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/exo1.csv";
+                                int i = 2;
+                                while(true){
+                                    if(CsvReader.fileExiste(path)==true){
+                                        path=path.substring(0,path.length()-5)+i+".csv";
+                                        i++;
+                                    }else{
+                                        break;}
+                                } 
+                                i=i-2;
+                                path=path.substring(0,path.length()-5)+i+".csv";
                                 CsvReader.ecriture(path,phrases.getText());
                                 phrases.setText("");
                             }
