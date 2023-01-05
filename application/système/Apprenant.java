@@ -15,7 +15,7 @@ public class Apprenant extends ActeurHumain implements Niveau {
     
     
     /** Map associant une langue à un score */
-    protected final HashMap<String, Float> langueScore = new HashMap<>();
+    protected HashMap<String, Float> langueScore = new HashMap<>();
 
     /**
      * Constructeur de l'apprenant.
@@ -58,8 +58,6 @@ public class Apprenant extends ActeurHumain implements Niveau {
         String nivLang = this.langueNiveau.get(langue);
         return Evaluation.getNiveauVal(nivLang);
     }
-
-
     // Méthode de classe pour déterminer le niveau de l'apprenant en fonction de ses points
     private static String determinerNiveau(float points) {
         if (points > 800) {

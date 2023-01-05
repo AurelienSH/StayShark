@@ -17,12 +17,14 @@ public class CorrectionExo {
      * 
      * @param exo l'exercice à corriger
      */
+    public CorrectionExo(){};
+
     public CorrectionExo(Exercice exo){
         phrasesCorrigees = exo.corrige(); // récupération de la liste de corrections de phrases
         for (Correction phraseCorrigee : phrasesCorrigees){
             note+=phraseCorrigee.getNote(); // calcul de la note finale de l'exercice
         }
-        modifPointsApprenant = this.note*exo.bareme*exo.niveau; // calcul de la modification des points de l'apprenant
+        // modifPointsApprenant = this.note*exo.bareme*exo.niveau; // calcul de la modification des points de l'apprenant
     }
 
     /**

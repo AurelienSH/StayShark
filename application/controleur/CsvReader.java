@@ -2,6 +2,7 @@ package application.controleur;
 
 import java.io. * ;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.nio.charset.StandardCharsets;
@@ -80,5 +81,23 @@ public abstract class CsvReader {
     File tmpDir = new File(fichier);
     return tmpDir.exists();
   }
+
+  public static ArrayList<String> liseurExo (String fichierCsv) throws FileNotFoundException{
+    ArrayList<String> phrasesExo = new ArrayList<String>();
+    FileInputStream file = new FileInputStream(fichierCsv);       
+    Scanner scanneur = new Scanner(file,"utf-8");
+    int lines = 0;
+    while(scanneur.hasNextLine()){ 
+        String ligne = scanneur.nextLine();
+        if(lines==0){
+            lines++;
+            continue;
+        }
+        lines++;
+        phrasesExo.add(ligne);
+    }
+    scanneur.close(); 
+    return phrasesExo;
+}
 
 }

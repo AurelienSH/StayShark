@@ -6,6 +6,9 @@ import javax.swing.event.*;
 import java.awt.event.*;
 import java.util.HashMap;
 import java.util.Map;
+import application.système.*;
+import application.controleur.*;
+import java.util.ArrayList;
 
 /**
  * Créé la page que l'élève verra.
@@ -26,6 +29,7 @@ public class PageEleve extends Page {
          *                     💤 afficher lvl
          *                     💤 afficher dans combien de temps le lvl est atteint --> appli pas prof
          * 💤
+         * ⚠️faire un retour en arrière pour barre d'xp⚠️
          * - barre d'xp danc combien de temps on atteint le lvl ✔️
          * - plateforme d'exos : 
          *                      choix de la langue si plusieurs ✔️
@@ -159,8 +163,94 @@ public class PageEleve extends Page {
                         choixlvlLabel.setVisible(false);
                         choixLvlPanel.setVisible(false);
                         validerPanel.setVisible(false);
-                        //Création de l'exo (on a comme info le lvl et la langue)
+                        JPanel testPanel = new JPanel(new GridLayout(3,1,10,10));
+                        //récupérer quel exo élève veut dnas le lvl pour le path
+                        // String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/"+"exo1.csv"; //à changer
+                        String path = "exo1.csv";
+                        HashMap methodeEval = new HashMap<String,Integer>();
+                        methodeEval.put("NR", 0);
+                        methodeEval.put("incorrect", -1);
+                        methodeEval.put("correct", 1);
+                        try{
+                            Exercice exoTest = new Exercice(CsvReader.liseurExo(path), infoExo.get("langue choisie"), 0, infoExo.get("lvl choisi"), methodeEval);
+
+                        
+                        String motsTroués = AfficheurExo.randomReponses(exoTest);
+                        ArrayList<ArrayList<String>> questionsTroués = AfficheurExo.listeQuestions(exoTest);
+                        //l'exo : skfjkfjh sjfhgkjfg #texfield# jkdfhkjds
+
+                        JButton validerTest = new JButton("valider");
+                        JLabel labelTest = new JLabel(motsTroués);
+                        JLabel labelTest2 = new JLabel(questionsTroués.get(0).get(0));
+                        JTextField reponseTest = new JTextField();
+                        System.out.println(motsTroués);
+                        testPanel.add(labelTest,BorderLayout.CENTER);
+                        testPanel.add(labelTest2,BorderLayout.CENTER);
+                        testPanel.add(validerTest,BorderLayout.CENTER);
+                        exoPanelMere.add(testPanel,BorderLayout.CENTER);
+                        
+                        valider.addActionListener(new ActionListener(){
+                            public void actionPerformed(ActionEvent e) {
+                            String reponseEleveTest = reponseTest.getText();
+                            System.out.println(reponseEleveTest);
+                            /* 
+                             * for question in questionTrouées :
+                             *  Elisabeth affiche une phrase à trous (avec des TextField)
+                             *  Elles stocke les TextFields dans une ArrayList d'ArrayList de TextFields
+                             * 
+                            */
+                            ArrayList<ArrayList<String>> stockReponsesEleve = new ArrayList<>(); //mettre toutes les réponses où élève répond (textfields) --> Aurélien récupère
+                            /* 
+                             * for question in questionTrouées :
+                             *  On crée une arrayList vide
+                             *  for trou in question
+                             *      On remplit l'arraylist de la réponse
+                             *  On ajoute l'arrayList à stockReponsesEleve
+                             *   
+                            */
+                            
+                            /* 
+                             * Aurélien crée un objet correction à partir des réponses
+                             * Il doit renvoyer, les indices et couleurs des endroits à changer
+                             */
+                            CorrectionExo c = new CorrectionExo();
+                            AfficheurExo.listeReponses(exoTest, c);
+                            
+                            /*
+                            * AfficheurCorrection -> ArrayList<AfficheurReeponse>
+                            * 
+                            * AfficheurReponse :
+                            * AfficheurReponse.text -> "je suis des prouts et toi ?"
+                            * AfficheurReponse.Indices -> [[8,11],[22,25]]
+                            * AfficheurReponse.Couleurs -> [["RED"],["YELLOW"]]
+                            */
+
+                            //affichage correction : on montre toute les phrases et mots troués sont en vert (quand bon) et rouge(quand pas bon)
+                                /*JLabel monLabel = new JLabel("Mon label");
+                                Highlighter h = new DefaultHighlighter();
+                                HighlightPainter p = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);
+                                try {
+                                    h.addHighlight(0, 1, p);
+                                } catch (BadLocationException e) {
+                                    e.printStackTrace();
+                                }
+                                monLabel.setHighlighter(h); */
+
+                                /*
+                                 * Apprenant a;
+                                 * a.csv(); //{login : 57467, nom : Dupont, prénom : Clause, LangueExperienc : "Anglais:123&Français:18"}
+                                 * --> faire une méthode qui modifie le csv
+                                 */
+                        }});
+                            }
+                            catch(Exception FileNotFoundException){
+                                StackTraceElement[] stackTrace = FileNotFoundException.getStackTrace();
+                                for (StackTraceElement line : stackTrace){
+                                System.out.println("Erreur dans la méthode " + line.getMethodName() + " ligne " + line.getLineNumber());
+                                }
+                        }
                 }});
+                
         }});
 
         suivi.addActionListener(new ActionListener(){

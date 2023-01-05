@@ -8,7 +8,7 @@ import java.util.Collections;
  * Cette classe représente un exercice qui peut être composé de plusieurs questions.
  * Chaque question est représentée par une instance de l'interface `Question`.
  */
-public class Exercice implements Niveau {
+public class Exercice {
 
     // Langue de l'exercice
     final String langue;

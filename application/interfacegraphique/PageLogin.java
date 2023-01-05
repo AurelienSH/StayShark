@@ -22,7 +22,7 @@ public class PageLogin extends Page {
       Page.basefenetre(framebis,400,150);
 
       JLabel userLabel = new JLabel("Votre login", SwingConstants.CENTER);  
-      JTextField textField1 = new JTextField(15);
+      JTextField textField1 = new JTextField("Halbout1",15);
       JButton connect = new JButton("Se connecter"); 
       connect.setForeground(Color.white);
       connect.setBackground(Color.decode("#ffb3ba"));

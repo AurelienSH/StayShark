@@ -27,6 +27,9 @@ public class PageProf extends Page {
          *                  demander pour quel level (si on fait système de lvl) ou alors c'est beaucoup d'exos et le système de lvl se fait seul✔️
          *                  demander le niveau de dureté de notation ✔️
          *                  --> les mettre sous forme de csv✔️
+         * 
+         * ⚠️A faire⚠️
+         * vérifier lors de l'écriture dans exo1.csv alors qu'il doit écrire dans exo2.csv
          * ⚠️ A VOIR ⚠️
          * voir le soucis où on créé un exo1.csv par dépot mais vu que le prof choisi la dureté de la correction les autres profs ne peuvent pas mettre leurs phrases à la suite de l'exo donc comment faire? créer des exos selon les profs et l'élève choisi ou alors donner les exos au hasard à l'élève qui choisit le lvl? Ou alors tous les exos du lvl sont donnés à l'élève?
          * ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
@@ -103,7 +106,7 @@ public class PageProf extends Page {
 
                 JLabel choixCorrectionLabel = new JLabel("Choisissez la difficulté de votre correction : ",SwingConstants.CENTER);
 
-                String choixCorrectionArray[] = { "","1","2","3","4","5"}; // ajouter selon le dictionnaire de dureté de correction d'Aurélien
+                String choixCorrectionArray[] = { "","permissive","intransigeante","aucune erreur"}; 
                 JComboBox<String> choixCorrection = new JComboBox<>(choixCorrectionArray);
                 choixCorrection.setBackground(Color.decode("#ffb3ba"));
                 choixCorrection.setForeground(Color.WHITE);
@@ -160,21 +163,19 @@ public class PageProf extends Page {
                     public void actionPerformed(ActionEvent e) {
                         //on va tester si le path de l'exo existe si oui on en créé un nouveau pour l'exo
                         String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/exo1.csv";
-                            int i = 2;
+                        int i = 2;
                             while(true){
                                 if(CsvReader.fileExiste(path)==true){
                                     path=path.substring(0,path.length()-5)+i+".csv";
                                     i++;
                                 }else{break;}
                             }
-
-                        if(CsvReader.fileExiste(path)==false){
+                        System.out.println(path);
                             try{
                                 CsvReader.ecriture(path, "truc à écrire pour la correction"); // à voir avec le dico d'Aurélien
                             }catch(Exception IOException){
                                 System.out.println("PROBLEME");
                             }
-                        }
                         choixCorrectionLabel.setVisible(false);
                         choixCorrection.setVisible(false);
                         valider0.setVisible(false);
