@@ -33,7 +33,6 @@ public class PageEleve extends Page {
          * 
          * 
          * A FAIRE
-         * faire récupération de l'exo du lvl à passer (liste des exos)
          * modifieur csv en fonction de hashmap
          * les phrases à trou pour récup les réponses à bien mettre
          * faire un jpanel correction quand valider exo
@@ -223,42 +222,85 @@ public class PageEleve extends Page {
                         valider2.addActionListener(new ActionListener(){
                             public void actionPerformed(ActionEvent e) {
                                 choixExoPathPanel.setVisible(false);
+                                vide.setVisible(false);
 
-                                JPanel testPanel = new JPanel(new GridLayout(3,1,10,10));
+                                JPanel exerciceATrouPanelMere = new JPanel(new GridLayout(3,1,10,10));
+                                exerciceATrouPanelMere.setBackground(Color.decode("#ffdfba"));
+                                
+
+                                JPanel exerciceATrouPanel = new JPanel(new GridLayout(2,1,10,10));
+                                exerciceATrouPanel.setBackground(Color.decode("#ffdfba"));
+
+
                                 String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/"+infoExo.get("exo choisi");
-                                System.out.println(path);
+
+                                //choper le dico correction
                                 HashMap methodeEval = new HashMap<String,Integer>();
                                 methodeEval.put("NR", 0);
                                 methodeEval.put("incorrect", -1);
                                 methodeEval.put("correct", 1);
                                 try{
-                                    Exercice exoTest = new Exercice(CsvReader.liseurExo(path), infoExo.get("langue choisie"), 0, infoExo.get("lvl choisi"), methodeEval);
+                                    Exercice exoTest = new Exercice(CsvReader.liseurExo(path), infoExo.get("langue choisie"), 0, infoExo.get("lvl choisi"), methodeEval); // Aurélien gogogo
 
                                 
                                 String motsTroués = AfficheurExo.randomReponses(exoTest);
-                                ArrayList<ArrayList<String>> questionsTroués = AfficheurExo.listeQuestions(exoTest);
-                                //l'exo : skfjkfjh sjfhgkjfg #texfield# jkdfhkjds
 
-                                JButton validerTest = new JButton("valider");
-                                JLabel labelTest = new JLabel(motsTroués);
-                                JLabel labelTest2 = new JLabel(questionsTroués.get(0).get(0));
-                                JTextField reponseTest = new JTextField();
-                                System.out.println(motsTroués);
-                                testPanel.add(labelTest,BorderLayout.CENTER);
-                                testPanel.add(labelTest2,BorderLayout.CENTER);
-                                testPanel.add(validerTest,BorderLayout.CENTER);
-                                panelMere.add(testPanel,BorderLayout.CENTER);
+                                ArrayList<ArrayList<String>> questionsTroués = AfficheurExo.listeQuestions(exoTest);
+
+                                JPanel questionsATrouPanel = new JPanel(new GridLayout(questionsTroués.size()+questionsTroués.size(),1));
+                                questionsATrouPanel.setBackground(Color.decode("#ffdfba"));
+
+                                JSeparator sep = new JSeparator(SwingConstants.VERTICAL);
+                                sep.setForeground(Color.decode("#ffdfba"));
+                                sep.setBackground(Color.decode("#ffdfba"));
+                                Integer i = 1;
+                                for(ArrayList<String> innerList : questionsTroués) {
+                                    JLabel nombre = new JLabel(i.toString()+". ");
+                                    questionsATrouPanel.add(nombre);
+                                    i++;
+                                    for(String words : innerList) {
+                                        if(words.contains("...")){
+                                            JTextField motATrouver = new JTextField("?",words.length());
+                                            questionsATrouPanel.add(motATrouver);
+                                        }else{
+                                            JLabel mots = new JLabel(words);
+                                            questionsATrouPanel.add(mots);
+                                        }
+                                    }
+                                }
+
+                                JButton validerATrou = new JButton("valider");
+                                JPanel validerATrouPanel = new JPanel();
+                                validerATrouPanel.setBackground(Color.decode("#ffdfba"));
+                                validerATrouPanel.setSize(new Dimension(100, 100));
+
+                                validerATrouPanel.add(validerATrou);
+
+                                JLabel enonceATrou = new JLabel("Ecrivez le bon mot dans le bon trou dans les phrases suivantes en utilisant ces mots : ");
+                                JLabel labelATrou = new JLabel(motsTroués);
+
+                                exerciceATrouPanel.add(enonceATrou,BorderLayout.CENTER);
+                                exerciceATrouPanel.add(labelATrou,BorderLayout.CENTER);
+                                exerciceATrouPanelMere.add(exerciceATrouPanel,BorderLayout.CENTER);
+                                exerciceATrouPanelMere.add(questionsATrouPanel,BorderLayout.CENTER);
+                                exerciceATrouPanelMere.add(validerATrouPanel,BorderLayout.CENTER);
+                                panelMere.add(exerciceATrouPanelMere,BorderLayout.CENTER);
                                 
-                                validerTest.addActionListener(new ActionListener(){
+                                validerATrou.addActionListener(new ActionListener(){
                                     public void actionPerformed(ActionEvent e) {
-                                    String reponseEleveTest = reponseTest.getText();
-                                    System.out.println(reponseEleveTest);
                                     /* 
                                     * for question in questionTrouées :
                                     *  Elisabeth affiche une phrase à trous (avec des TextField)
                                     *  Elles stocke les TextFields dans une ArrayList d'ArrayList de TextFields
                                     * 
                                     */
+                                    ArrayList<String> reponsesEleve = new ArrayList<>();
+                                    for (Component component : questionsATrouPanel.getComponents()) {
+                                        if (component instanceof JTextField) {
+                                            reponsesEleve.add(((JTextField) component).getText());
+                                        }
+                                    }
+                                    System.out.println(reponsesEleve);
                                     ArrayList<ArrayList<String>> stockReponsesEleve = new ArrayList<>(); //mettre toutes les réponses où élève répond (textfields) --> Aurélien récupère
                                     /* 
                                     * for question in questionTrouées :
