@@ -29,7 +29,7 @@ public class Apprenant extends ActeurHumain implements Niveau {
         super(login, nom, prenom);
 
         // Sépare la chaîne de caractères en langues et scores
-        String[] langueScoreList = langueScore.split("|");
+        String[] langueScoreList = langueScore.split("&");
 
         // Ajoute chaque langue et score à la map
         for (String ls : langueScoreList) {
