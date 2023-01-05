@@ -11,12 +11,12 @@ import java.awt.event.*;
  */
 
 /**
- * Contient la frame et ses objets de la page d'accueil et toutes les actions qui résultent de cette page (redirection vers PageProf ou PageEleve après login).
+ * Contient la frame et ses objets de la page d'accueil et toutes les actions qui résultent de cette page (redirection vers PageProf ou PageEleve après login ou redirection vers l'inscription).
  */
 public class PageHome extends Page
 {
     /**
-     * Création de la frame d'accueil de l'application et redirection vers la page de l'élève ou du prof après login.
+     * Création de la frame d'accueil de l'application et redirection vers la page de l'élève ou du prof après login ou de l'inscription.
      */
     public PageHome(){
 

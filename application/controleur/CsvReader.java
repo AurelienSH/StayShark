@@ -57,14 +57,25 @@ public abstract class CsvReader {
     return bloub.containsKey(login);
 }
 
+  /**
+   * Permet d'écrire dans un nouveau csv ou à la fin d'un csv ce que l'on souhaite.
+   * @param fichier le chemin relatif ou absolu du fichier dans lequel on veut écrire
+   * @param truc ce que l'on souhaite écrire
+   * @throws FileNotFoundException au cas où il y a un soucis avec le fichier
+   * @throws IOException au cas où il y a un soucis avec l'encodage par exemple
+   */
   public static void ecriture(String fichier, String truc)throws FileNotFoundException, IOException{
-
     BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichier, true),StandardCharsets.UTF_8));
 		out.write(truc);
 		out.newLine();
     out.close();
   }
 
+  /**
+   * Retourne vrai si le fichier en entrée existe ou faux s'il n'existe pas.
+   * @param fichier le chemin relatif ou absolu du fichier
+   * @return existe (vrai) ou n'existe pas (faux)
+   */
   public static boolean fileExiste (String fichier){
     File tmpDir = new File(fichier);
     return tmpDir.exists();

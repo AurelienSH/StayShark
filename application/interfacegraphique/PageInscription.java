@@ -8,7 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 import application.controleur.CsvReader;
 
+/**
+ * Créé la page d'inscription pour l'élève ou le professeur.
+ */
 public class PageInscription extends Page {
+    /**
+     * Page d'inscription qui écrit dans le bon csv (prof ou élève) toutes les informations nécessaires (nom,prénom,langue choisies).
+     */
     PageInscription(){
 
         Map<String, String> newUser = new HashMap<String,String>();
