@@ -72,7 +72,6 @@ public class PageProf extends Page {
                 JLabel choixlangueLabel = new JLabel("Choisissez la langue de votre exercice : ",SwingConstants.CENTER);
                 String[] choixlangueArray = new String[nbLangues.length+1];
                 choixlangueArray[0] = "";
-                // à revoir pour les profs qui ont plusieurs langues
                 if(nbLangues.length!=1){
                     int i = 1;
                     for(String word : nbLangues){
