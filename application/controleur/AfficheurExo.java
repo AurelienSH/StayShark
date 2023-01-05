@@ -34,6 +34,15 @@ public class AfficheurExo extends Afficheur {
             Je suis #des# prouts et #toi# ?
             Tu es un #pouet# ohlala hein !*/ 
         // [["je suis ","1_des"," prouts et ","0_toi"," ?"],[Tu es un ","1_pouet"," ohlala hein !"]] Les réponses où l'élève a eu bon sont précédées d'un 1_ (vert), les mauvaises d'un 0_ (rouge) et les NR d'un 2_ (jaune)
+
+        /*
+         * AfficheurCorrection -> ArrayList<AfficheurReeponse>
+         * 
+         * AfficheurReponse :
+         * AfficheurReponse.text -> "je suis des prouts et toi ?"
+         * AfficheurReponse.Indices -> [[8,11],[22,25]]
+         * AfficheurReponse.Couleurs -> [["RED"],["YELLOW"]]
+        */
     }
 
 

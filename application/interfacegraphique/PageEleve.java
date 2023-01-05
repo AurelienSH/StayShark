@@ -36,6 +36,15 @@ public class PageEleve extends Page {
          *                      choix du lvl✔️
          *                      exos ⚠️A VOIR⚠️
          *                      récap de toutes les fautes après l'exo ⚠️A VOIR⚠️
+         * 
+         * 
+         * A FAIRE
+         * faire récupération de l'exo du lvl à passer (liste des exos)
+         * modifieur csv en fonction de hashmap
+         * les phrases à trou pour récup les réponses à bien mettre
+         * faire un jpanel correction quand valider exo
+         * A la fin de la correction faire un bouton qui ramène l'élève au frame de exo/suivi
+         * 
          */
         
         frameAJeter.dispose();
@@ -164,7 +173,7 @@ public class PageEleve extends Page {
                         choixLvlPanel.setVisible(false);
                         validerPanel.setVisible(false);
                         JPanel testPanel = new JPanel(new GridLayout(3,1,10,10));
-                        //récupérer quel exo élève veut dnas le lvl pour le path
+                        //récupérer quel exo élève veut dans le lvl pour le path
                         // String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/"+"exo1.csv"; //à changer
                         String path = "exo1.csv";
                         HashMap methodeEval = new HashMap<String,Integer>();
@@ -239,7 +248,7 @@ public class PageEleve extends Page {
                                 /*
                                  * Apprenant a;
                                  * a.csv(); //{login : 57467, nom : Dupont, prénom : Clause, LangueExperienc : "Anglais:123&Français:18"}
-                                 * --> faire une méthode qui modifie le csv
+                                 * --> faire une méthode qui modifie le csv avec ça
                                  */
                         }});
                             }
