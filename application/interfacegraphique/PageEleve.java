@@ -179,7 +179,8 @@ public class PageEleve extends Page {
                         String choixexos[] = new String[listOfFiles.length];
                         int i = 0;
                         for(File file : listOfFiles){
-                            choixexos[i] = file.toString();
+                            String fileString = file.toString();
+                            choixexos[i] = fileString.substring(fileString.length()-8,fileString.length());
                             i++;
                         }
                         JComboBox<String> choixexosBox = new JComboBox<>(choixexos);
@@ -211,15 +212,21 @@ public class PageEleve extends Page {
                 
                         choixExoPathPanel.setVisible(true);
 
+                        choixexosBox.addActionListener(new ActionListener(){
+                            public void actionPerformed(ActionEvent e) {
+                                e.getSource();
+                                String exochoisi = (String) choixexosBox.getSelectedItem();
+                                infoExo.put("exo choisi",exochoisi);
+                        }});
+
                         // Panel qui contient l'exo en lui-même //
                         valider2.addActionListener(new ActionListener(){
                             public void actionPerformed(ActionEvent e) {
                                 choixExoPathPanel.setVisible(false);
 
                                 JPanel testPanel = new JPanel(new GridLayout(3,1,10,10));
-                                //récupérer quel exo élève veut dans le lvl pour le path
-                                // String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/"+"exo1.csv"; //à changer
-                                String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/"+"exo1.csv";
+                                String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/"+infoExo.get("exo choisi");
+                                System.out.println(path);
                                 HashMap methodeEval = new HashMap<String,Integer>();
                                 methodeEval.put("NR", 0);
                                 methodeEval.put("incorrect", -1);
