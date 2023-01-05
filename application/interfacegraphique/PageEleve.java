@@ -23,13 +23,6 @@ public class PageEleve extends Page {
 
         // TO DO
         /*
-         * 💤 PLUS LE TIME DONC SUPPRIME
-         * - plateforme de suivi de ses notes/level : 
-         *                     💤 demander langue si jamais il y en plusieurs
-         *                     💤 afficher lvl
-         *                     💤 afficher dans combien de temps le lvl est atteint --> appli pas prof
-         * 💤
-         * ⚠️faire un retour en arrière pour barre d'xp⚠️
          * - barre d'xp danc combien de temps on atteint le lvl ✔️
          * - plateforme d'exos : 
          *                      choix de la langue si plusieurs ✔️
@@ -267,7 +260,7 @@ public class PageEleve extends Page {
                 vide.setVisible(false);
                 realPanel.setVisible(false);
 
-                JPanel exoPanelMere = new JPanel(new GridLayout(7,1));
+                JPanel exoPanelMere = new JPanel(new GridLayout(7,1,10,10));
                 exoPanelMere.setBackground(Color.decode("#ffdfba"));
                 exoPanelMere.setPreferredSize(new Dimension(600, 400));
 
@@ -316,6 +309,16 @@ public class PageEleve extends Page {
                         exoPanelMere.add(barreExp5);
                     }
                 }
+
+                JButton quitter = new JButton("Quitter");
+                exoPanelMere.add(quitter);
+
+                quitter.addActionListener(new ActionListener(){
+                    public void actionPerformed(ActionEvent e) {
+                        vide.setVisible(true);
+                        realPanel.setVisible(true);
+                        exoPanelMere.setVisible(false);
+                }});
 
                 panelMere.add(exoPanelMere,BorderLayout.CENTER);
                 exoPanelMere.setVisible(true);
