@@ -17,8 +17,9 @@ public class CorrectionQuestionTrou extends Correction {
     /**
      * Constructeur de la correction de la phrase.
      *
-     * @param reponsesEleve liste des réponses données par l'apprenant
-     * @param exo           l'exercice associé à cette phrase
+     * @param q la Question à corriger
+     * @param reponsesEleve les réponses de l'élève.
+     * @param methodeEval le choix de notation de l'exercice.
      */
     public CorrectionQuestionTrou(QuestionTrou q, ArrayList<String> reponsesEleve, HashMap<String, Integer> methodeEval) {
         reponsesCorrigees = q.getReponseEleve(reponsesEleve);
@@ -45,6 +46,11 @@ public class CorrectionQuestionTrou extends Correction {
         return reponses;
     }
 
+    /**
+
+     Retourne les réponses de l'apprenant corrigées.
+     @return les réponses de l'apprenant corrigées
+     */
     public ArrayList<String> getReponsesCorrigees() {
         return reponsesCorrigees;
     }

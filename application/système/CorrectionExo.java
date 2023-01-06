@@ -41,6 +41,11 @@ public class CorrectionExo {
         }
     }
 
+    /**
+     * Retourne la correction des réponses de l'apprenant.
+     *
+     * @return la correction des réponses de l'apprenant.
+     */
     public ArrayList<ArrayList<String>> getValeursCorrigees(){
         return valeursReponsesCorrigees;
     }

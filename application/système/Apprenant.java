@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Cette classe étend la classe abstraite {@link ActeurHumain}
  * et implémente les méthodes abstraites déclarées dans cette classe.
  */
-public class Apprenant extends ActeurHumain implements Niveau {
+public class Apprenant extends ActeurHumain {
 
     /** Niveaux de l'apprenant par langue */
     protected HashMap<String,String> langueNiveau = new HashMap<>();
@@ -54,10 +54,23 @@ public class Apprenant extends ActeurHumain implements Niveau {
         return niveau;
     }
 
+    /**
+     * Retourne le niveau dans une langue donnée sous la forme d'Integer.
+     *
+     * @param langue la langue dont on souhaite avoir le niveau.
+     * @return le niveau associé à une langue donnée.
+     */
     public int getIntNiveau(String langue){
         String nivLang = this.langueNiveau.get(langue);
         return Evaluation.getNiveauVal(nivLang);
     }
+
+    /**
+     * Retourne le niveau sous la forme de String.
+     *
+     * @param points le nombre de points de l'apprenant
+     * @return le niveau associé au nombre de points de l'apprenant.
+     */
     // Méthode de classe pour déterminer le niveau de l'apprenant en fonction de ses points
     private static String determinerNiveau(int points) {
         if (points > 800) {
@@ -115,9 +128,7 @@ public class Apprenant extends ActeurHumain implements Niveau {
         return csv;
     }
 
-    public void faireExo(){
 
-    }
 
     /**
      * Retourne une chaîne de caractères représentant l'apprenant sous la forme "Apprenant[login=<login>, nom=<nom>, prenom=<prenom>, langueScore=<langueScore>]"
