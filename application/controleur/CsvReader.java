@@ -7,17 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.nio.charset.StandardCharsets;
 
-/*
- * TO DO
- * méthode : modifier csv
- * voir : http://super-csv.github.io/super-csv/examples_partial_reading.html
- * pour une meilleure lecture ptet?
- */
-
 /**
- * Contient deux méthodes traitant les fichiers Csv.
- * Les deux méthodes : <br/>- une qui permet de convertir un csv en une HashMap où la clé est le login de l'utilisateur. <br/>- une qui dit par vrai ou faux si la string prise en paramètre existe dans le fichier indiqué en paramètre.
- * Il prend donc en entrée un csv et retourne une HashMap.
+ * Contient des méthodes qui traitent les fichiers de type Csv.
  * @author Elisabeth et Aurélien
  */
 public abstract class CsvReader {
@@ -82,6 +73,12 @@ public abstract class CsvReader {
     return tmpDir.exists();
   }
 
+  /**
+   * Retourne une arraylist qui contient toutes les phrases à trou de l'exercice voulu.
+   * @param fichierCsv le chemin du csv où l'on veut extraire ses phrases
+   * @return arraylist où chaque élément est une ligne (donc phrase) du csv (l'exercice)
+   * @throws FileNotFoundException au cas où le csv n'existe pas
+   */
   public static ArrayList<String> liseurExo (String fichierCsv) throws FileNotFoundException{
     ArrayList<String> phrasesExo = new ArrayList<String>();
     FileInputStream file = new FileInputStream(fichierCsv);       
@@ -100,6 +97,13 @@ public abstract class CsvReader {
     return phrasesExo;
   }
   
+  /**
+   * Permet de récupérer la méthode de notation de l'exercice.
+   * @param path le path du fichier qui contient l'exercice et la méthode de notation
+   * @return la méthode de notation (permissive, intransigeante, aucune erreur)
+   * @throws FileNotFoundException
+   * @throws IOException
+   */
   public static String getteurDuretéNotation (String path) throws FileNotFoundException,IOException{
     String choixCorrection = "";
     FileInputStream file = new FileInputStream(path);       
@@ -117,6 +121,14 @@ public abstract class CsvReader {
     return choixCorrection;
   }
 
+  /**
+   * Permet de modifier le fichier contenant toutes les données relatives aux élèves.
+   * On pourrait utiliser cette méthode aussi pour supprimer un élève ou un professeur des données si ce dernier décide de quitter l'application définitevement. Etant optionnel nous n'avons pas implémanté cette suppression mais elle est possible.
+   * @param fichier le chemin du fichier à modifier (ici les données relatives aux élèves)
+   * @param truc ce que l'on veut changer dans le csv (par exemple mettre à jour les points de l'élève après avoir fini un exercice)
+   * @throws FileNotFoundException au cas où le fichier à modifier n'existe aps
+   * @throws IOException au cas où il y ait des soucis d'encodages entre autre
+   */
   public static void modificationCsvEleve(String fichier, String truc)throws FileNotFoundException, IOException{
 
     String csv = "";
