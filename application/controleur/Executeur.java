@@ -6,8 +6,7 @@ import application.interfacegraphique.PageHome;
 // java application.controleur.Executeur
 
 /**
- * Executeur de l'application StayShark --> sera bientôt obsolète si on le fait sous forme de .exe ehe
- * @deprecated bientôt donc pas vraiment le cas mais en avance kwe
+ * Executeur de l'application StayShark
  */
 public class Executeur {
     public static void main(String[] args) 
