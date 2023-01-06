@@ -108,7 +108,7 @@ public class PageEleve extends Page {
                 JLabel choixlvlLabel = new JLabel("Choisissez la difficulté de votre exercice : ",SwingConstants.CENTER);
                 choixlvlLabel.setFont(new Font("Apple Casual", Font.BOLD, 18));
 
-                String choix[] = { "","1","2","3","4","5"};
+                String choix[] = { "","A1","A2","B1","B2","C1"};
                 JComboBox<String> choixlvl = new JComboBox<>(choix);
                 choixlvl.setBackground(Color.decode("#ffb3ba"));
                 choixlvl.setForeground(Color.WHITE);
@@ -170,7 +170,7 @@ public class PageEleve extends Page {
                         JLabel choixexoLabel = new JLabel("Choisissez l'exercice que vous souhaitez faire : ",SwingConstants.CENTER);
                         choixexoLabel.setFont(new Font("Apple Casual", Font.BOLD, 18));
 
-                        File folder = new File("./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/");
+                        File folder = new File("./application/data/langues/"+infoExo.get("langue choisie")+"/"+Evaluation.getNiveauVal(infoExo.get("lvl choisi").toString())+"/");
                         File[] listOfFiles = folder.listFiles();
                         String choixexos[] = new String[listOfFiles.length+1];
                         choixexos[0] = "";
@@ -230,7 +230,7 @@ public class PageEleve extends Page {
                                 exerciceATrouPanel.setBackground(Color.decode("#ffdfba"));
 
 
-                                String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/"+infoExo.get("exo choisi");
+                                String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+Evaluation.getNiveauVal(infoExo.get("lvl choisi").toString())+"/"+infoExo.get("exo choisi");
 
                                 //implanter le vrai dico correction Aurélien si tu as besoin j'ai fait une méthode qui te retourne la 1ere ligne du csv (qui contient la méthode d'éval --> CsvReader.getteurDuretéNotation(path))
                                 try{ // exemple ici d'utilisation
