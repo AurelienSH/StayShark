@@ -15,7 +15,7 @@ public class Apprenant extends ActeurHumain implements Niveau {
     
     
     /** Map associant une langue à un score */
-    protected HashMap<String, Float> langueScore = new HashMap<>();
+    protected HashMap<String, Integer> langueScore = new HashMap<>();
 
     /**
      * Constructeur de l'apprenant.
@@ -33,7 +33,7 @@ public class Apprenant extends ActeurHumain implements Niveau {
 
         // Ajoute chaque langue et score à la map
         for (String ls : langueScoreList) {
-            this.langueScore.put(ls.split(":")[0], Float.parseFloat(ls.split(":")[1]));
+            this.langueScore.put(ls.split(":")[0], Integer.parseInt(ls.split(":")[1]));
         }
 
         for (String langue : this.langueScore.keySet()){
@@ -59,7 +59,7 @@ public class Apprenant extends ActeurHumain implements Niveau {
         return Evaluation.getNiveauVal(nivLang);
     }
     // Méthode de classe pour déterminer le niveau de l'apprenant en fonction de ses points
-    private static String determinerNiveau(float points) {
+    private static String determinerNiveau(int points) {
         if (points > 800) {
         return "C1";
         } else if (points > 400) {
@@ -79,8 +79,8 @@ public class Apprenant extends ActeurHumain implements Niveau {
      * @param langue la langue à laquelle on veut connaître le score de l'apprenant
      * @return le score de l'apprenant dans la langue spécifiée
      */
-    public float getScore(String langue) {
-        float score = (langueScore.get(langue));
+    public int getScore(String langue) {
+        int score = (langueScore.get(langue));
         return score;
     }
 
@@ -90,8 +90,8 @@ public class Apprenant extends ActeurHumain implements Niveau {
      * @param langue la langue à laquelle on veut ajouter un score
      * @param mod le score à ajouter
      */
-    public void addScore(String langue, float mod) {
-        float newScore = langueScore.get(langue) + mod;
+    public void addScore(String langue, int mod) {
+        int newScore = langueScore.get(langue) + mod;
         langueScore.put(langue, newScore);
     }
 

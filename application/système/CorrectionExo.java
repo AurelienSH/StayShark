@@ -10,10 +10,10 @@ import java.util.ArrayList;
 public class CorrectionExo {
 
     private ArrayList<CorrectionQuestionTrou> phrasesCorrigees; // liste de corrections de phrases
-    private float note=0; // note finale de l'exercice
+    private int note=0; // note finale de l'exercice
     private ArrayList<ArrayList<String>> valeursReponsesCorrigees = new ArrayList<>();
     private ArrayList<ArrayList<String>> valeursReponses = new ArrayList<>(); // les valeurs des réponses de l'élève pouvant etre "correct", "incorrect", ou "NR"
-    private float modifPointsApprenant; // modification des points de l'apprenant en fonction de la note de l'exercice et du bareme et du niveau de l'exercice
+    private int modifPointsApprenant; // modification des points de l'apprenant en fonction de la note de l'exercice et du bareme et du niveau de l'exercice
 
 
     public CorrectionExo(){}
@@ -47,7 +47,7 @@ public class CorrectionExo {
      * 
      * @return la modification des points de l'apprenant
      */
-    public float getModifPointsApprenant() {
+    public int getModifPointsApprenant() {
         return modifPointsApprenant;
     }
 
