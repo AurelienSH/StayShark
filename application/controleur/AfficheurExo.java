@@ -1,7 +1,10 @@
 package application.controleur;
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import application.système.*;
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
@@ -59,6 +62,7 @@ public class AfficheurExo extends Afficheur {
                     } else if (reponseEleve.equals("incorrect")) {
                         StyleConstants.setForeground(attributes, Color.RED);
                     }
+                    System.out.println("j : "+j);
                     j++;
                 }
 
@@ -67,9 +71,10 @@ public class AfficheurExo extends Afficheur {
                 } catch (Exception BadLocationException) {
                     BadLocationException.printStackTrace();
                 }
-                listeAffichage.add(textPane);
-                i++;
             }
+            listeAffichage.add(textPane);
+            System.out.println("i : "+i);
+            i++;
         }
         return listeAffichage;
     }
@@ -97,4 +102,25 @@ public class AfficheurExo extends Afficheur {
          * AfficheurReponse.Indices -> [[8,11],[22,25]]
          * AfficheurReponse.Couleurs -> [["RED"],["YELLOW"]]
         */
-    }
+        public static void main(String[] args) throws FileNotFoundException {
+            String currentDirectory = System.getProperty("user.dir");
+            System.out.println("Current working directory : " + currentDirectory);
+            ArrayList<String> reponses = new ArrayList<>();
+            reponses.add("b");
+            reponses.add("b");
+
+            HashMap methodeEval = new HashMap<String,Integer>();
+            methodeEval.put("NR", 0);
+            methodeEval.put("incorrect", -1);
+            methodeEval.put("correct", 1);
+            Exercice exo = new Exercice(CsvReader.liseurExo("./application/data/langues/Français/1/exo1.csv"), "Anglais", 0, "2", methodeEval);
+            exo.addReponseEleve(reponses);
+            exo.addReponseEleve(reponses);
+            exo.addReponseEleve(reponses);
+            reponses.add("b");
+            exo.addReponseEleve(reponses);
+            ArrayList<JTextPane> liste = listeReponses(exo);
+            System.out.println (liste);
+        }
+
+}
