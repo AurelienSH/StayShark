@@ -22,7 +22,7 @@ public abstract class Evaluation {
         int dif_niveau = Math.abs(nivApprenant-nivExercice);
 
 
-        apprenant.addScore(langue, correction.getModifPointsApprenant(exo));
+        apprenant.addScore(langue, correction.getModifPointsApprenant());
     }
 
     
