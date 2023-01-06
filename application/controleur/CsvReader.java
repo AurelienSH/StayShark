@@ -120,35 +120,30 @@ public abstract class CsvReader {
     return notation;
   }
 
-  // a voir demain
-  // public static void modificationCsvEleve(String fichier, String truc)throws FileNotFoundException, IOException{
-  //   BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichier, true),StandardCharsets.UTF_8));
-	// 	out.write(truc);
-	// 	out.newLine();
-  //   out.close();
+  public static void modificationCsvEleve(String fichier, String truc)throws FileNotFoundException, IOException{
 
-  //   //Instantiating the Scanner class to read the file
-  //   Scanner sc = new Scanner(new File(fichier),"utf-8");
-  //   //instantiating the StringBuffer class
-  //   StringBuffer buffer = new StringBuffer();
-  //   //Reading lines of the file and appending them to StringBuffer
-  //   while (sc.hasNextLine()) {
-  //      buffer.append(sc.nextLine()+System.lineSeparator());
-  //   }
-  //   String fileContents = buffer.toString();
-  //   System.out.println("Contents of the file: "+fileContents);
-  //   //closing the Scanner object
-  //   sc.close();
-  //   String oldLine = "No preconditions and no impediments. Simply Easy Learning!";
-  //   String newLine = "Enjoy the free content";
-  //   //Replacing the old line with new line
-  //   fileContents = fileContents.replaceAll(oldLine, newLine);
-  //   //instantiating the FileWriter class
-  //   FileWriter writer = new FileWriter(filePath);
-  //   System.out.println("");
-  //   System.out.println("new data: "+fileContents);
-  //   writer.append(fileContents);
-  //   writer.flush();
-  // }
+    String csv = "";
 
+    String[] trucsplit = truc.split(",");
+
+    String aChanger = "";
+
+    FileInputStream file = new FileInputStream(fichier);       
+    Scanner scanneur = new Scanner(file,"utf-8");
+    while(scanneur.hasNextLine()){ 
+        String ligne = scanneur.nextLine();
+        csv+=ligne+"\n";
+        if(ligne.contains(trucsplit[0])){
+          aChanger=ligne;
+        }
+    }
+    scanneur.close(); 
+
+    csv = csv.replaceAll(aChanger, truc);
+
+    BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichier, false),StandardCharsets.UTF_8));
+		out.write(csv);
+    out.close();
+  }
+  
 }
