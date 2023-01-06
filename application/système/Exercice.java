@@ -56,7 +56,7 @@ public class Exercice {
             questions.add(phraseQuestion.getQuestion());
             reponses.add(phraseQuestion.getReponses());
             randomReponses.addAll(phraseQuestion.getReponses());
-            bareme += (phraseQuestion.getQuestion()).size();
+            bareme += (phraseQuestion.getReponses()).size();
         }
 
         // On fixe un seuil pour réussite à au moins la moitié des réponses
