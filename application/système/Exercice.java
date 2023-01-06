@@ -76,6 +76,10 @@ public class Exercice {
         return this.phrases;
     }
 
+    public HashMap<String, Integer> getMethodeEval() {
+        return methodeEval;
+    }
+
     /**
      * Méthode permettant de mélanger l'ordre des réponses de l'exercice.
      *
@@ -132,12 +136,14 @@ public class Exercice {
      */
     public CorrectionExo corrige() {
         ArrayList<CorrectionQuestionTrou> phrasesCorrigees = new ArrayList<>(); // liste des corrections
-        ArrayList<ArrayList<String>> reponsesEleve = this.getReponsesEleve(); // récupération des réponses de l'élève
 
         // boucle sur les questions de l'exercice
-        for (QuestionTrou question : this.phrases) {
-            CorrectionQuestionTrou phraseCorrigee = new CorrectionQuestionTrou(question.getReponseEleve(), this); // création de la correction de la question
+        int i = 0;
+        for (QuestionTrou phrase : this.phrases) {
+            System.out.println(reponsesEleve.get(i));
+            CorrectionQuestionTrou phraseCorrigee = new CorrectionQuestionTrou(phrase, this.reponsesEleve.get(i), this.methodeEval); // création de la correction de la question
             phrasesCorrigees.add(phraseCorrigee); // ajout de la correction à la liste
+            i++;
         }
 
         CorrectionExo correction = new CorrectionExo(phrasesCorrigees);

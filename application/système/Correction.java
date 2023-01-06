@@ -1,8 +1,8 @@
 package application.système;
 
 public abstract class Correction {
-    float note;
-    public float getNote(){
+    int note;
+    public Integer getNote(){
         return note;
     }
 }

@@ -27,6 +27,8 @@ public class QuestionTrou implements Question {
         }
     }
 
+    public QuestionTrou(){}
+
     /**
      * Retourne la liste de tokens de la phrase.
      * 
@@ -101,8 +103,8 @@ public class QuestionTrou implements Question {
      * @return la correction de la phrase
      */
     @Override
-    public Correction correction(ArrayList<String> reponseEleve, Exercice exo) {
-        CorrectionQuestionTrou phraseCorrigée = new CorrectionQuestionTrou(reponseEleve, exo);
+    public Correction correction( ArrayList<String> reponseEleve, Exercice exo) {
+        CorrectionQuestionTrou phraseCorrigée = new CorrectionQuestionTrou(this, reponseEleve, exo.getMethodeEval());
         return phraseCorrigée;
     }
 
@@ -112,17 +114,20 @@ public class QuestionTrou implements Question {
      * 
      * @return la réponse de l'apprenant sous forme de liste
      */
-    public ArrayList<String> getReponseEleve(){
+    public ArrayList<String> getReponseEleve(ArrayList<String> reponsesNonCorrigees){
         ArrayList<String> reponsesEleve= new ArrayList<String>();
+        int i = 0;
         for (String reponse : this.reponses){
 
-            String reponseEleve = "oh"; //machin.getReponseFromInterface();
+            String reponseEleve = reponsesNonCorrigees.get(i);
+            System.out.println("Les reponses de l'eleve ici :"+ reponseEleve);
+            System.out.println("Je regarde si c'est bien un ?" + reponseEleve.equals("?"));
             /* 
             correct = 1
             incorrect = 2
             NR = 0
             */
-            if (reponseEleve != "" || reponseEleve != "?"){
+            if (!reponseEleve.equals("") && !reponseEleve.equals("?")){
                 boolean correct = (reponse.equals(reponseEleve));
                 if (correct){
                     reponsesEleve.add("correct");
@@ -132,8 +137,10 @@ public class QuestionTrou implements Question {
                 }
             }
             else{
-                reponsesEleve.add("");
+                reponsesEleve.add("NR");
+
             }
+            i++;
         }
         return reponsesEleve;
         }
@@ -158,6 +165,10 @@ public class QuestionTrou implements Question {
         }
         builder.append("]");
         return builder.toString();
+    }
+
+    public static void main(String[] args) {
+        QuestionTrou q = new QuestionTrou();
     }
     
 
