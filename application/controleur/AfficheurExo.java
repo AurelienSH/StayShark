@@ -47,13 +47,13 @@ public class AfficheurExo extends Afficheur {
         // Ajoutez chaque mot dans le document avec la couleur appropriée
         for (QuestionTrou phrase : phrases) {
             JTextPane textPane = new JTextPane();
+            textPane.setBackground(Color.decode("#ffdfba"));
             StyledDocument doc = textPane.getStyledDocument();
             ArrayList<Morceau> listeMorceaux = phrase.getTokens();
             int j = 0;
             for (Morceau m : listeMorceaux) {
                 SimpleAttributeSet attributes = new SimpleAttributeSet();
                 if (m instanceof MorceauVariable) {
-
 
                     String reponseEleve = reponsesEleve.get(i).get(j);
                     if (reponseEleve.equals("NR")) {
