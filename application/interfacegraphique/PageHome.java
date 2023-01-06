@@ -5,18 +5,14 @@ import java.awt.*;
 import javax.swing.event.*;
 import java.awt.event.*;
 
-/*
- * TO DO : 
- * ajouter espace de crédit des gifs/photos?
- */
-
 /**
- * Contient la frame et ses objets de la page d'accueil et toutes les actions qui résultent de cette page (redirection vers PageProf ou PageEleve après login ou redirection vers l'inscription).
+ * Créé la page d'accueil que l'élève et le professeur verront.
+ * Ils pourront aller vers la page qui leur est destinée (PageProf ou PageEleve) après s'être connecté. S'ils n'ont pas de login ils peuvent s'inscire sur la page.
  */
 public class PageHome extends Page
 {
     /**
-     * Création de la frame d'accueil de l'application et redirection vers la page de l'élève ou du prof après login ou de l'inscription.
+     * Accueil que le professeur ou l'élève voit (contenant un lien vers l'inscription dans l'application, un lien de log pour les professeurs et un lien de log pour les élèves).
      */
     public PageHome(){
 
@@ -30,7 +26,7 @@ public class PageHome extends Page
         labelhome.setHorizontalAlignment(JLabel.CENTER);
         framehome.add(labelhome);
 
-        // Boutons de la frame
+        // Boutons de la frame (log prof, élève et inscription)
         JButton btnprof = new JButton("Professeur.e"); 
         btnprof.setForeground(Color.white);
         btnprof.setFont(new Font("Apple Casual", Font.BOLD, 25));
@@ -59,7 +55,7 @@ public class PageHome extends Page
                 PageInscription frameinscription = new PageInscription();
 			}});
         
-        // Définition du panel
+        // Définition du panel pour ajouter le requin qui danse
         JPanel panel = new JPanel();
         panel.setBackground( Color.decode("#ffdfba") );
         panel.add(btnprof); 
@@ -68,7 +64,6 @@ public class PageHome extends Page
         JLabel shark = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage("./application/data/medias/sharkDancing.gif")));
         framehome.add(shark);
 
-        // Ajout gif et panel au frame
         framehome.setLayout(new GridLayout(3, 1));
         framehome.add(panel);
 

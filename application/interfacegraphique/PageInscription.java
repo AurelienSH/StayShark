@@ -13,21 +13,25 @@ import application.controleur.CsvReader;
  */
 public class PageInscription extends Page {
     /**
-     * Page d'inscription qui écrit dans le bon csv (prof ou élève) toutes les informations nécessaires (nom,prénom,langue choisies).
+     * Page d'inscription qui écrit dans le bon csv (prof ou élève) toutes les informations nécessaires (nom,prénom,langues choisies).
      */
     PageInscription(){
 
+        // dictionnaire qui contient les informations de l'utilisateur (professeur ou étudiant, nom, prénom, langues choisies, login assigné)
         Map<String, String> newUser = new HashMap<String,String>();
         newUser.put("rôle","");
 
+        // création de la frame et du panel qui contiennent le formulaire d'inscription 
         JFrame framebis = new JFrame("StayShark");
         Page.basefenetre(framebis,400,400);
-
         JPanel newPanel = new JPanel();
         newPanel.setBackground( Color.decode("#ffdfba") );
-        
+
+        // juste pour faire joli dans le panel
         JLabel shark = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage("./application/data/medias/sharkSwimming.gif")), SwingConstants.LEFT);
         newPanel.add(shark);
+
+        // demande si c'est un professeur ou un élève qui s'inscrit
         JLabel phrase = new JLabel("Vous vous inscrivez en tant que :", SwingConstants.CENTER);
         phrase.setFont(new Font("Apple Casual", Font.BOLD, 12));
         String choix[] = { "","professeur.e", "étudiant.e"};
@@ -41,6 +45,7 @@ public class PageInscription extends Page {
         newPanel.add(phrase);
         newPanel.add(choixBoite, BorderLayout.CENTER);
 
+        // récupération de si c'est un professeur ou un élève
         choixBoite.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
 				e.getSource();
@@ -48,6 +53,7 @@ public class PageInscription extends Page {
                 newUser.replace("rôle",role);
         }});
         
+        // demande le nom, prénom et langue à apprendre/enseigner par/à l'utilisateur
         JLabel userNom = new JLabel("Votre nom :", SwingConstants.CENTER);
         userNom.setFont(new Font("Apple Casual", Font.BOLD, 12));  
         JTextField reponseNom = new JTextField("Vador",50);
@@ -63,6 +69,7 @@ public class PageInscription extends Page {
         JTextField reponseLangue = new JTextField("Français Anglais",50);
         reponseLangue.setHorizontalAlignment(JTextField.CENTER);
         reponseLangue.setFont(new Font("Apple Casual", Font.PLAIN, 12));
+
         newPanel.add(userNom);
         newPanel.add(reponseNom);
         newPanel.add(userPrenom);
@@ -70,6 +77,7 @@ public class PageInscription extends Page {
         newPanel.add(userLangue);
         newPanel.add(reponseLangue);
 
+        // bouton de récupération de toutes les informations
         JButton inscription = new JButton("S'inscrire");
         inscription.setFont(new Font("Apple Casual", Font.BOLD, 20)); 
         inscription.setForeground(Color.white);
@@ -77,9 +85,10 @@ public class PageInscription extends Page {
         newPanel.add(new JSeparator(SwingConstants.VERTICAL));
         newPanel.add(inscription);
 
+        // quand on clique sur inscription : on récupère toutes les données de l'utilisateur, lui assigne un login et écrit toutes ses infos dans le bon csv qui contient toutes les données des utilisateurs professeurs ou élèves
         inscription.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
-                // on gère les cas comme : "patAteS" pour le nom prénom et un peu en avance pour langue
+                // récupération du nom, prénom et langue (on gère les cas comme : "patAteS" --> "Patates" pour le nom prénom et un peu en avance pour langue)
                 String temporaire=reponseNom.getText().toLowerCase();
                 temporaire = temporaire.substring(0,1).toUpperCase()+temporaire.substring(1,temporaire.length());
                 newUser.put("nom",temporaire);
@@ -87,7 +96,8 @@ public class PageInscription extends Page {
                 temporaire = temporaire.substring(0,1).toUpperCase()+temporaire.substring(1,temporaire.length());
                 newUser.put("prénom",temporaire);
                 newUser.put("langue",reponseLangue.getText().toLowerCase());
-                //traitement pour étudiant.e
+
+                // si l'utilisateur est un élève on l'inscrit dans le bon csv et lui assigne le bon rôle. On lui assigne un login.
                 if(newUser.get("rôle") == "étudiant.e"){
                     try { // on gère les cas où "Dupont" existe déjà dans les données pour lui attribuer un login différent (login=Nom1)
                         if(CsvReader.loginExiste(newUser.get("nom").replaceAll(" ","")+"1","./application/data/dataeleve.csv")){
@@ -104,13 +114,13 @@ public class PageInscription extends Page {
                     }
                     catch(Exception e){
                         System.out.println("ALERTE PROBLEME "+e.getClass());
-                    } // on va gérer les soucis comme "fRançAis"
+                    } // on récupère les langues de l'élève
                     String[] words = newUser.get("langue").split(" "); 
                     temporaire = "";
-                    for(String word : words){
+                    for(String word : words){ // on va gérer les soucis comme "fRançAis"
                         if(temporaire.contains(word.substring(0,1).toUpperCase()+word.substring(1,word.length()))){continue;} // on vérifie qu'il n'y a pas de doublons dans le choix des langues
                         word=word.substring(0,1).toUpperCase()+word.substring(1,word.length());
-                        temporaire += word+":0&"; // 0 --> on rajoute l'expérience
+                        temporaire += word+":0&"; // 0 --> on rajoute l'expérience à la langue (Français:0 points)
                     }
                     temporaire = temporaire.substring(0,temporaire.length()-1);
                     newUser.replace("langue",temporaire);
@@ -119,9 +129,10 @@ public class PageInscription extends Page {
                     }catch(Exception e){
                         System.out.println("ALERTE PROBLEME "+e.getClass());
                     } 
-                } // traitement pour professeur.e (presque pareil qu'étudiant)
+                } 
+                // traitement de l'inscription pour professeur.e (presque pareil qu'étudiant)
                 else if(newUser.get("rôle") == "professeur.e"){
-                    try {
+                    try { // attribution du login
                         if(CsvReader.loginExiste(newUser.get("nom").replaceAll(" ","")+"1","./application/data/dataprof.csv")){
                             int i=1;
                             while(true){
@@ -136,7 +147,7 @@ public class PageInscription extends Page {
                     }
                     catch(Exception e){
                         System.out.println("ALERTE PROBLEME "+e.getClass());
-                    } 
+                    }  // on récupères ses langues
                     String[] words = newUser.get("langue").split(" "); 
                     temporaire = "";
                     for(String word : words){
@@ -146,7 +157,7 @@ public class PageInscription extends Page {
                     }
                     temporaire = temporaire.substring(0,temporaire.length()-1);
                     newUser.replace("langue",temporaire);
-                    try{
+                    try{ // on écrit le nouvel utilisateur dans le csv qui a toutes les infos de tous les professeurs de l'application
                         CsvReader.ecriture("./application/data/dataprof.csv", newUser.get("login")+","+newUser.get("nom")+","+newUser.get("prénom")+","+newUser.get("langue"));
                     }catch(Exception e){
                         System.out.println("ALERTE PROBLEME "+e.getClass());

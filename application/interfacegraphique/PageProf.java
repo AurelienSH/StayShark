@@ -10,37 +10,25 @@ import java.util.Map;
 import application.controleur.CsvReader;
 
 /**
- * Créé la page que le prof verra
+ * Créé la page que le professeur verra.
+ * Le professeur pourra accéder à une page de création d'exercice et une page de suivi des notes de ses élèves.
  */
 public class PageProf extends Page {
     JFrame frame;
     /**
      * Page que le prof verra dans l'application (contenant les exos à déposer et les notes de ses élèves).
      * @param frameAJeter Jframe (PageHome) qui sera tué avant la création de la frame pour le prof
+     * @param infoUser dictionnaire contenant le login en clé et en valeur les autres infos (nom, prénom, langue et leur points)
      */
     public PageProf(JFrame frameAJeter, Map infoUser){
-
-        // TO DO
-        /*
-         * - plateforme de récupération : ✔️
-         *                  récupérer langue prof, si plusieurs langues demander pour laquelle il dépose ses exos ✔️
-         *                  demander pour quel level (si on fait système de lvl) ou alors c'est beaucoup d'exos et le système de lvl se fait seul✔️
-         *                  demander le niveau de dureté de notation ✔️
-         *                  --> les mettre sous forme de csv✔️
-         * 
-         * ⚠️A faire⚠️
-         * Ecrire le bon truc lors du choix de la difficultée de correction
-         * 
-         * - plateforme de suivi des notes/levels : 
-         *                  demander élève à checker (plus simple) ou alors tous les afficher et système de recherche(chiant à faire)? finalement affiche de tous les élèves selon la langue choisie✔️
-         */
-
+        // on se débarasse de la page d'accueil et de la page login
         frameAJeter.dispose();
 		JFrame framebis = new JFrame("StayShark");
         Page.basefenetre(framebis,800,600);
         
-        String[] nbLangues = infoUser.get("langue").toString().split("&");
+        String[] nbLangues = infoUser.get("langue").toString().split("&"); // liste des langues du prof
 
+        // création des boutons de création d'exercice et de suivi des notes des élèves
         ImageIcon image = new ImageIcon("./application/data/medias/déposExo.png");
         JButton exo = new JButton("",image);
         exo.setPreferredSize(new Dimension(390, 150));
@@ -50,6 +38,7 @@ public class PageProf extends Page {
         suivi.setPreferredSize(new Dimension(390, 150));
         suivi.setBackground(Color.decode("#ffdfba"));
         
+        // panel qui contient les boutons
         JPanel panelMere = new JPanel();
         panelMere.setBackground(Color.decode("#ffdfba"));
         JPanel realPanel = new JPanel();
@@ -62,13 +51,16 @@ public class PageProf extends Page {
         realPanel.add(exo,BorderLayout.CENTER);
         realPanel.add(suivi,BorderLayout.CENTER);
         
+        // quand on clique sur le bouton exercice : création d'un panel qui contient la page pour créer des exercices.
         exo.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
+                // création du panel qui contient le dépôt des exercices
                 JPanel exosPanel = new JPanel(new GridLayout(12,1,10,10));
                 exosPanel.setBackground(Color.decode("#ffdfba"));
 
-                Map<String, String> infoExo = new HashMap<String,String>();
+                Map<String, String> infoExo = new HashMap<String,String>(); // contient la langue de l'exercice, son level (1 : A1, 2:A2, 3:B1, etc.) et la dureté de la correction
                 
+                // choix de la langue pour laquelle on va créer l'exercice
                 JLabel choixlangueLabel = new JLabel("Choisissez la langue de votre exercice : ",SwingConstants.CENTER);
                 String[] choixlangueArray = new String[nbLangues.length+1];
                 choixlangueArray[0] = "";
@@ -90,8 +82,8 @@ public class PageProf extends Page {
                 listRenderer1.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
                 choixlangue.setRenderer(listRenderer1);
                 
+                // choix du level pour l'exercice créé
                 JLabel choixlvlLabel = new JLabel("Choisissez la difficulté de votre exercice : ",SwingConstants.CENTER);
-
                 String choix[] = { "","1","2","3","4","5"};
                 JComboBox<String> choixlvl = new JComboBox<>(choix);
                 choixlvl.setBackground(Color.decode("#ffb3ba"));
@@ -101,8 +93,8 @@ public class PageProf extends Page {
                 listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
                 choixlvl.setRenderer(listRenderer);
 
+                // choix de la dureté de correction pour l'exercice
                 JLabel choixCorrectionLabel = new JLabel("Choisissez la difficulté de votre correction : ",SwingConstants.CENTER);
-
                 String choixCorrectionArray[] = { "","permissive","intransigeante","aucune erreur"}; 
                 JComboBox<String> choixCorrection = new JComboBox<>(choixCorrectionArray);
                 choixCorrection.setBackground(Color.decode("#ffb3ba"));
@@ -112,8 +104,10 @@ public class PageProf extends Page {
                 listRenderer2.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
                 choixCorrection.setRenderer(listRenderer2);                
 
+                // va récupérer toutes les infos (langue,level et dureté de correction) sur l'exercice
                 JButton valider0 = new JButton("Valider");
 
+                // récupération des phrases qui seront dans l'exercice
                 JTextField phrases = new JTextField(65);
                 phrases.setHorizontalAlignment(JTextField.CENTER);
                 JLabel phrasesLabel1 = new JLabel("Entrez phrase par phrase votre exercice sous la forme : Je suis un #motATrouver#.",SwingConstants.CENTER);
@@ -137,18 +131,21 @@ public class PageProf extends Page {
                 suivi.setVisible(false);
                 exosPanel.setVisible(true);
 
+                // récupération de la langue de l'exercice
                 choixlangue.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                         e.getSource();
                         String langueChoisie = (String) choixlangue.getSelectedItem();
                         infoExo.put("langue choisie",langueChoisie);
                 }});
+                // récupération du level de l'exercice
                 choixlvl.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                         e.getSource();
                         String lvlchoisi = (String) choixlvl.getSelectedItem();
                         infoExo.put("lvl choisi",lvlchoisi);
                 }});
+                // récupération de la dureté/méthode de correction pour l'exercice
                 choixCorrection.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                         e.getSource();
@@ -156,6 +153,7 @@ public class PageProf extends Page {
                         infoExo.put("correction choisie",correctionChoisie);
                 }});
 
+                // quand on clique sur valider on va écrire la dureté de correction choisie dans le csv (qui stockera les phrases de l'exercice)
                 valider0.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                         //on va tester si le path de l'exo existe si oui on en créé un nouveau pour l'exo
@@ -181,9 +179,10 @@ public class PageProf extends Page {
                         choixlvl.setVisible(false);
                 }});
 
+                // quand on clique sur valider on va écrire la phrase à trou dans le csv
                 valider.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
-                        if(phrases.getText().contains("STOP")){
+                        if(phrases.getText().contains("STOP")){ // arrêt de la saisie des phrases à trous
                             exo.setVisible(true);
                             suivi.setVisible(true);
                             exosPanel.setVisible(false);
@@ -213,18 +212,22 @@ public class PageProf extends Page {
                 }});
         }});
 
+        // quand on clique sur le bouton suivi on a accès aux points que les élèves ont accumulés dans la langue qu'on enseigne
         suivi.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
+                // on se débarrasse de la page d'accueil du professeur (qui contient les boutons dépot d'exercice et suivi des notes)
                 exo.setVisible(false);
                 suivi.setVisible(false);
 
-                Map<String, String> infoSuivi = new HashMap<String,String>();
+                Map<String, String> infoSuivi = new HashMap<String,String>(); // contient la langue choisie où l'on veut voir les notes des élèves
 
+                // création du panel qui contient le choix de la langue à regarder
                 JPanel suiviPanel = new JPanel(new GridLayout(2,1,10,10));
                 suiviPanel.setBackground(Color.decode("#ffdfba"));
 
                 JLabel choixlangueLabel = new JLabel("Pour quelle langue voulez vous suivre les notes des élèves?");
 
+                // choix de la langue parmis celles qu'il enseigne
                 String[] choixlangueArray = new String[nbLangues.length+1];
                 choixlangueArray[0] = "";
                 if(nbLangues.length>1){
@@ -245,6 +248,7 @@ public class PageProf extends Page {
                 listRenderer1.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
                 choixlangue.setRenderer(listRenderer1);
 
+                // va récupérer le choix de la langue
                 JButton choixlangueButton = new JButton("Valider");
 
                 suiviPanel.add(choixlangueLabel,BorderLayout.CENTER);
@@ -254,6 +258,7 @@ public class PageProf extends Page {
                 realPanel.add(suiviPanel);
                 suiviPanel.setVisible(true);
 
+                // récupération du choix de la langue à regarder
                 choixlangue.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                         e.getSource();
@@ -261,15 +266,19 @@ public class PageProf extends Page {
                         infoSuivi.put("langue choisie",langueChoisie);
                 }});
 
+                // quand on clique sur valider on va pouvoir accéder aux points que les élèves ont dans cette langue
                 choixlangueButton.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
+                        // création du panel qui contient les points des élèves
                         JPanel suiviPanelAffiche = new JPanel();
                         suiviPanelAffiche.setBackground(Color.decode("#ffdfba"));
                         vide.setVisible(false);
                         suiviPanel.setVisible(false);
 
+                        // permet de revenir à la page d'accueil du professeur
                         JButton quitter = new JButton("Quitter");
 
+                        // quand on clique sur quitter on revient à la apge d'accueil du professeur (qui contient les boutons de dépot d'exercice et de suivi des notes)
                         quitter.addActionListener(new ActionListener(){
                             public void actionPerformed(ActionEvent e) {
                                 suiviPanelAffiche.setVisible(false);
@@ -281,8 +290,9 @@ public class PageProf extends Page {
                         try {
                             Map<String,String> infosEleves = CsvReader.liseurCsv("./application/data/dataeleve.csv");
 
-                            Map<String,String> elevesAAfficher = new HashMap<String,String>();
+                            Map<String,String> elevesAAfficher = new HashMap<String,String>(); // dictionnaire des élèves qui ont la langue voulu comme langue qu'ils apprennent
 
+                            // on affiche les élève dans un scoll panel
                             for(Map.Entry<String, String> entry : infosEleves.entrySet()){
                                 String clé = entry.getKey();
                                 String valeur = entry.getValue();

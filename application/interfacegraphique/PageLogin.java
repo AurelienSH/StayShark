@@ -9,36 +9,49 @@ import java.util.Map;
 import application.controleur.CsvReader;
 
 /**
- * Créé la petite frame qui permet de se logger pour le prof ou l'élève.
+ * Créé la page dui permet de se logger pour le prof ou l'élève.
+ * On a juste besoin d'insérer son login pour accéder à la page auquel on a le droit.
  */
 public class PageLogin extends Page {
   /**
-   * Créé une fenêtre qui permet de se logger au professeur ou à l'élève.
-   * @param frameAJeter le frame qui sera tué si jamais le login est réussi.
+   * Créé une page qui permet de se logger au professeur ou à l'élève.
+   * @param frameAJeter la page d'accueil qui sera tuée si jamais le login est réussi.
    * @param personne "prof" ou "élève" en fonction de qui se connecte
    */
     PageLogin(JFrame frameAJeter, String personne){
+      // création de la page de login
       JFrame framebis = new JFrame("StayShark");
       Page.basefenetre(framebis,400,150);
 
-      JLabel userLabel = new JLabel("Votre login", SwingConstants.CENTER);  
-      JTextField textField1 = new JTextField(15);
+      JLabel userLabel = new JLabel("Votre login", SwingConstants.CENTER);
+
+      JTextField textField1 = new JTextField(15); // le login a insérer
+      
+      // bouton qui récupère le login
       JButton connect = new JButton("Se connecter"); 
       connect.setForeground(Color.white);
       connect.setBackground(Color.decode("#ffb3ba"));
+
+      //Panel qui contient les éléments de la page login
       JPanel newPanel = new JPanel(new GridLayout(2, 1));
       newPanel.setBackground( Color.decode("#ffdfba") );  
       newPanel.add(userLabel);
       newPanel.add(textField1); 
       newPanel.add(connect); 
       framebis.add(newPanel, BorderLayout.CENTER); 
+
+      // Quand on clique sur le bouton se connecter : on vérifie que le login existe dans le csv prof ou élève, si oui, c'est bon ! 
       connect.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent ae) {
+              // on récupère le login
               String userlogin = textField1.getText();
-              if(personne == "élève"){
+
+              // on vérifie le login de l'élève dans le bon csv qui contient les données des élèves
+              if(personne == "élève"){ 
                 try{
                   if(CsvReader.loginExiste(userlogin,"./application/data/dataeleve.csv")){
                     Map<String,String> preinfoUser=CsvReader.liseurCsv("./application/data/dataeleve.csv");
+                    // on écrit dans un dictionnaire le login, nom, prénom et langues de l'élève qui sera envoyé dans la page d'accueil de l'élève (pour créer apprenant)
                     Map<String, String> infoUser = new HashMap<String,String>();
                     for(Map.Entry<String, String> entry : preinfoUser.entrySet()){
                       String login = entry.getKey();
@@ -50,10 +63,9 @@ public class PageLogin extends Page {
                         infoUser.put("langue",infos[2]);
                       }
                     }
-                    //ajouter fonction de lecture du csv pour choper nom login itout
                       JOptionPane.showMessageDialog(framebis, "Bienvenue "+infoUser.get("prénom")+" "+infoUser.get("nom")+" !");
                       framebis.dispose();
-                      PageEleve framebis = new PageEleve(frameAJeter,infoUser);
+                      PageEleve framebis = new PageEleve(frameAJeter,infoUser); // on créé la page d'accueil de l'élève et jette la page d'accueil de l'application et la page de login
                       
               }else{
                   JOptionPane.showMessageDialog(framebis, "Login incorrect");
@@ -61,10 +73,13 @@ public class PageLogin extends Page {
               catch(Exception e){
                   System.out.println("ALERTE PROBLEME "+e.getClass());
               }
+
+              // on vérifie le login du professeur qui est similaire à celui d'élève plus haut
               }else if (personne == "prof"){
                 try{
                   if(CsvReader.loginExiste(userlogin,"./application/data/dataprof.csv")){
                     Map<String,String> preinfoUser=CsvReader.liseurCsv("./application/data/dataprof.csv");
+                    // on écrit dans un dictionnaire le login, nom, prénom et langues du prof qui sera envoyé dans la page d'accueil du prof
                     Map<String, String> infoUser = new HashMap<String,String>();
                     for(Map.Entry<String, String> entry : preinfoUser.entrySet()){
                       String login = entry.getKey();
