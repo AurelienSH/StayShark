@@ -409,29 +409,30 @@ public class PageEleve extends Page {
 
                 JPanel exoPanelMere = new JPanel(new GridLayout(7,1,10,10));
                 exoPanelMere.setBackground(Color.decode("#ffdfba"));
-                exoPanelMere.setPreferredSize(new Dimension(600, 400));
-
-                JProgressBar barreExp1 = new JProgressBar(0,10);
-                JProgressBar barreExp2 = new JProgressBar(0,100);
-                JProgressBar barreExp3 = new JProgressBar(0,1000);
-                JProgressBar barreExp4 = new JProgressBar(0,10000);
-                JProgressBar barreExp5 = new JProgressBar(0,100000);
-                barreExp1.setBounds(35,40,165,30);
-                barreExp2.setBounds(35,40,165,30);
-                barreExp3.setBounds(35,40,165,30);
-                barreExp4.setBounds(35,40,165,30);
-                barreExp5.setBounds(35,40,165,30);
-                barreExp1.setStringPainted(true);
-                barreExp2.setStringPainted(true); 
-                barreExp3.setStringPainted(true); 
-                barreExp4.setStringPainted(true); 
-                barreExp5.setStringPainted(true);  
+                exoPanelMere.setPreferredSize(new Dimension(600, 400)); 
 
                 JLabel languesExp = new JLabel("Progression avant le prochain level : ",SwingConstants.CENTER);
                 languesExp.setFont(new Font("Apple Casual", Font.BOLD, 18));
                 exoPanelMere.add(languesExp);
                 
                 for(String langue : nbLangues){
+
+                    JProgressBar barreExp1 = new JProgressBar(0,10);
+                    JProgressBar barreExp2 = new JProgressBar(0,100);
+                    JProgressBar barreExp3 = new JProgressBar(0,1000);
+                    JProgressBar barreExp4 = new JProgressBar(0,10000);
+                    JProgressBar barreExp5 = new JProgressBar(0,100000);
+                    barreExp1.setBounds(35,40,165,30);
+                    barreExp2.setBounds(35,40,165,30);
+                    barreExp3.setBounds(35,40,165,30);
+                    barreExp4.setBounds(35,40,165,30);
+                    barreExp5.setBounds(35,40,165,30);
+                    barreExp1.setStringPainted(true);
+                    barreExp2.setStringPainted(true); 
+                    barreExp3.setStringPainted(true); 
+                    barreExp4.setStringPainted(true); 
+                    barreExp5.setStringPainted(true); 
+
                     String[] langueExp = langue.split(":");
                     int expEleve = Integer.parseInt(langueExp[1]);
 
