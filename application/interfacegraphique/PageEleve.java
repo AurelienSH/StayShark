@@ -28,15 +28,8 @@ public class PageEleve extends Page {
          * - plateforme d'exos : 
          *                      choix de la langue si plusieurs ✔️
          *                      choix du lvl✔️
-         *                      exos ⚠️A VOIR⚠️
+         *                      exos ✔️
          *                      récap de toutes les fautes après l'exo ⚠️A VOIR⚠️
-         * 
-         * 
-         * A FAIRE
-         * modifieur csv en fonction de hashmap
-         * les phrases à trou pour récup les réponses à bien mettre
-         * faire un jpanel correction quand valider exo
-         * A la fin de la correction faire un bouton qui ramène l'élève au frame de exo/suivi
          * 
          */
         
@@ -175,8 +168,9 @@ public class PageEleve extends Page {
 
                         File folder = new File("./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/");
                         File[] listOfFiles = folder.listFiles();
-                        String choixexos[] = new String[listOfFiles.length];
-                        int i = 0;
+                        String choixexos[] = new String[listOfFiles.length+1];
+                        choixexos[0] = "";
+                        int i = 1;
                         for(File file : listOfFiles){
                             String fileString = file.toString();
                             choixexos[i] = fileString.substring(fileString.length()-8,fileString.length());
@@ -234,7 +228,11 @@ public class PageEleve extends Page {
 
                                 String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+infoExo.get("lvl choisi")+"/"+infoExo.get("exo choisi");
 
-                                //choper le dico correction
+                                //implanter le vrai dico correction Aurélien si tu as besoin j'ai fait une méthode qui te retourne la 1ere ligne du csv (qui contient la méthode d'éval --> CsvReader.getteurDuretéNotation(path))
+                                try{ // exemple ici d'utilisation
+                                    Map<String,String> notation = CsvReader.getteurDuretéNotation(path);
+                                    System.out.println(notation);}catch(Exception FileNotFoundException){System.out.println("Probleme again");}
+                                
                                 HashMap methodeEval = new HashMap<String,Integer>();
                                 methodeEval.put("NR", 0);
                                 methodeEval.put("incorrect", -1);
@@ -247,26 +245,27 @@ public class PageEleve extends Page {
 
                                 ArrayList<ArrayList<String>> questionsTroués = AfficheurExo.listeQuestions(exoTest);
 
-                                JPanel questionsATrouPanel = new JPanel(new GridLayout(questionsTroués.size()+questionsTroués.size(),1));
+                                JPanel questionsATrouPanel = new JPanel(new GridLayout(questionsTroués.size(),1));
                                 questionsATrouPanel.setBackground(Color.decode("#ffdfba"));
 
-                                JSeparator sep = new JSeparator(SwingConstants.VERTICAL);
-                                sep.setForeground(Color.decode("#ffdfba"));
-                                sep.setBackground(Color.decode("#ffdfba"));
                                 Integer i = 1;
                                 for(ArrayList<String> innerList : questionsTroués) {
+                                    JPanel test = new JPanel();
+                                    test.setBackground(Color.decode("#ffdfba"));
+
                                     JLabel nombre = new JLabel(i.toString()+". ");
-                                    questionsATrouPanel.add(nombre);
+                                    test.add(nombre);
                                     i++;
                                     for(String words : innerList) {
                                         if(words.contains("...")){
                                             JTextField motATrouver = new JTextField("?",words.length());
-                                            questionsATrouPanel.add(motATrouver);
+                                            test.add(motATrouver);
                                         }else{
                                             JLabel mots = new JLabel(words);
-                                            questionsATrouPanel.add(mots);
+                                            test.add(mots);
                                         }
                                     }
+                                    questionsATrouPanel.add(test);
                                 }
 
                                 JButton validerATrou = new JButton("valider");
@@ -285,72 +284,92 @@ public class PageEleve extends Page {
                                 exerciceATrouPanelMere.add(questionsATrouPanel,BorderLayout.CENTER);
                                 exerciceATrouPanelMere.add(validerATrouPanel,BorderLayout.CENTER);
                                 panelMere.add(exerciceATrouPanelMere,BorderLayout.CENTER);
-                                
+                                // Panel qui contient la correction de l'exo
                                 validerATrou.addActionListener(new ActionListener(){
                                     public void actionPerformed(ActionEvent e) {
-                                    /* 
-                                    * for question in questionTrouées :
-                                    *  Elisabeth affiche une phrase à trous (avec des TextField)
-                                    *  Elles stocke les TextFields dans une ArrayList d'ArrayList de TextFields
-                                    * 
-                                    */
-                                    ArrayList<String> reponsesEleve = new ArrayList<>();
-                                    for (Component component : questionsATrouPanel.getComponents()) {
-                                        if (component instanceof JTextField) {
-                                            reponsesEleve.add(((JTextField) component).getText());
-                                        }
-                                    }
-                                    System.out.println(reponsesEleve);
-                                    ArrayList<ArrayList<String>> stockReponsesEleve = new ArrayList<>(); //mettre toutes les réponses où élève répond (textfields) --> Aurélien récupère
-                                    /* 
-                                    * for question in questionTrouées :
-                                    *  On crée une arrayList vide
-                                    *  for trou in question
-                                    *      On remplit l'arraylist de la réponse
-                                    *  On ajoute l'arrayList à stockReponsesEleve
-                                    *   
-                                    */
-                                    
-                                    /* 
-                                    * Aurélien crée un objet correction à partir des réponses
-                                    * Il doit renvoyer, les indices et couleurs des endroits à changer
-                                    */
-                                    CorrectionExo c = new CorrectionExo();
-                                    AfficheurExo.listeReponses(exoTest, c);
-                                    
-                                    /*
-                                    * AfficheurCorrection -> ArrayList<AfficheurReeponse>
-                                    * 
-                                    * AfficheurReponse :
-                                    * AfficheurReponse.text -> "je suis des prouts et toi ?"
-                                    * AfficheurReponse.Indices -> [[8,11],[22,25]]
-                                    * AfficheurReponse.Couleurs -> [["RED"],["YELLOW"]]
-                                    */
+                                        exerciceATrouPanelMere.setVisible(false);
 
-                                    //affichage correction : on montre toute les phrases et mots troués sont en vert (quand bon) et rouge(quand pas bon)
-                                        /*JLabel monLabel = new JLabel("Mon label");
-                                        Highlighter h = new DefaultHighlighter();
-                                        HighlightPainter p = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);
-                                        try {
-                                            h.addHighlight(0, 1, p);
-                                        } catch (BadLocationException e) {
-                                            e.printStackTrace();
-                                        }
-                                        monLabel.setHighlighter(h); */
+                                        JPanel correctionPanel = new JPanel();
+                                        correctionPanel.setBackground(Color.decode("#ffdfba"));
 
-                                        /*
-                                        * Apprenant a;
-                                        * a.csv(); //{login : 57467, nom : Dupont, prénom : Clause, LangueExperienc : "Anglais:123&Français:18"}
-                                        * --> faire une méthode qui modifie le csv avec ça
+                                        JLabel correctionLabel = new JLabel("Voici la correction de l'exercice : ");
+                                        correctionPanel.add(correctionLabel);
+
+                                        JButton quittercorrection = new JButton("Quitter");
+                                        JPanel quittercorrectionPanel = new JPanel();
+                                        quittercorrectionPanel.setBackground(Color.decode("#ffdfba"));
+                                        quittercorrectionPanel.setSize(new Dimension(100, 100));
+
+                                        quittercorrectionPanel.add(quittercorrection);
+                                        correctionPanel.add(quittercorrectionPanel);
+
+                                        /* 
+                                        * for question in questionTrouées :
+                                        *  Elisabeth affiche une phrase à trous (avec des TextField)
+                                        *  Elles stocke les TextFields dans une ArrayList d'ArrayList de TextFields qui est stockReponsesEleve (c'est fait ehe)
+                                        * 
                                         */
-                                }});
-                                    }
-                                    catch(Exception FileNotFoundException){
-                                        StackTraceElement[] stackTrace = FileNotFoundException.getStackTrace();
-                                        for (StackTraceElement line : stackTrace){
-                                        System.out.println("Erreur dans la méthode " + line.getMethodName() + " ligne " + line.getLineNumber());
+                                        ArrayList<ArrayList<String>> stockReponsesEleve = new ArrayList<>();
+                                        ArrayList<String> reponsesEleve = new ArrayList<>();
+                                        for (Component component : questionsATrouPanel.getComponents()) {
+                                            if (component instanceof JPanel){
+                                                reponsesEleve.clear();
+                                                for(Component panelDansPanel : ((JPanel) component).getComponents()){
+                                                    if (panelDansPanel instanceof JTextField){
+                                                        reponsesEleve.add(((JTextField) panelDansPanel).getText());}
+                                                }
+                                                stockReponsesEleve.add(new ArrayList<String>(reponsesEleve));
+                                            }
                                         }
-                                    }
+                                        /* 
+                                        * Aurélien crée un objet correction à partir des réponses
+                                        * Il doit renvoyer, les indices et couleurs des endroits à changer
+                                        */
+                                        CorrectionExo c = new CorrectionExo();
+                                        AfficheurExo.listeReponses(exoTest, c);
+                                        
+                                        /*
+                                        * AfficheurCorrection -> ArrayList<AfficheurReeponse>
+                                        * 
+                                        * AfficheurReponse :
+                                        * AfficheurReponse.text -> "je suis des prouts et toi ?"
+                                        * AfficheurReponse.Indices -> [[8,11],[22,25]]
+                                        * AfficheurReponse.Couleurs -> [["RED"],["YELLOW"]]
+                                        */
+
+                                        //affichage correction : on montre toute les phrases et mots troués sont en vert (quand bon) et rouge(quand pas bon)
+                                            /*JLabel monLabel = new JLabel("Mon label");
+                                            Highlighter h = new DefaultHighlighter();
+                                            HighlightPainter p = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);
+                                            try {
+                                                h.addHighlight(0, 1, p);
+                                            } catch (BadLocationException e) {
+                                                e.printStackTrace();
+                                            }
+                                            monLabel.setHighlighter(h); */
+
+                                            /*
+                                            * Apprenant a;
+                                            * a.csv(); //{login : 57467, nom : Dupont, prénom : Clause, LangueExperienc : "Anglais:123&Français:18"}
+                                            * --> faire une méthode qui modifie le csv avec ça
+                                            */
+
+                                            panelMere.add(correctionPanel,BorderLayout.CENTER);
+
+                                            quittercorrection.addActionListener(new ActionListener(){
+                                                public void actionPerformed(ActionEvent e) {
+                                                    correctionPanel.setVisible(false);
+                                                    vide.setVisible(true);
+                                                    realPanel.setVisible(true);
+                                            }});
+                                    }});
+                                        }
+                                        catch(Exception FileNotFoundException){
+                                            StackTraceElement[] stackTrace = FileNotFoundException.getStackTrace();
+                                            for (StackTraceElement line : stackTrace){
+                                            System.out.println("Erreur dans la méthode " + line.getMethodName() + " ligne " + line.getLineNumber());
+                                            }
+                                        }
                         }});
 
                 }});

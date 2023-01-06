@@ -98,6 +98,57 @@ public abstract class CsvReader {
     }
     scanneur.close(); 
     return phrasesExo;
-}
+  }
+  
+  public static Map getteurDuretéNotation (String path) throws FileNotFoundException,IOException{
+    Map<String,String> notation = new HashMap<String,String>();
+    FileInputStream file = new FileInputStream(path);       
+    Scanner scanneur = new Scanner(file,"utf-8");
+    int lines = 0;
+    while(scanneur.hasNextLine()){ 
+        String ligne = scanneur.nextLine();
+        if(lines==0){
+            String[] preinfosLigne = ligne.split(", ");
+            for(String word : preinfosLigne){
+              String[] infosLigne = word.split(" : ");
+              notation.put(infosLigne[0],infosLigne[1]);
+            }
+        }else{break;}
+        lines++;
+    }
+    scanneur.close(); 
+    return notation;
+  }
+
+  // a voir demain
+  // public static void modificationCsvEleve(String fichier, String truc)throws FileNotFoundException, IOException{
+  //   BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichier, true),StandardCharsets.UTF_8));
+	// 	out.write(truc);
+	// 	out.newLine();
+  //   out.close();
+
+  //   //Instantiating the Scanner class to read the file
+  //   Scanner sc = new Scanner(new File(fichier),"utf-8");
+  //   //instantiating the StringBuffer class
+  //   StringBuffer buffer = new StringBuffer();
+  //   //Reading lines of the file and appending them to StringBuffer
+  //   while (sc.hasNextLine()) {
+  //      buffer.append(sc.nextLine()+System.lineSeparator());
+  //   }
+  //   String fileContents = buffer.toString();
+  //   System.out.println("Contents of the file: "+fileContents);
+  //   //closing the Scanner object
+  //   sc.close();
+  //   String oldLine = "No preconditions and no impediments. Simply Easy Learning!";
+  //   String newLine = "Enjoy the free content";
+  //   //Replacing the old line with new line
+  //   fileContents = fileContents.replaceAll(oldLine, newLine);
+  //   //instantiating the FileWriter class
+  //   FileWriter writer = new FileWriter(filePath);
+  //   System.out.println("");
+  //   System.out.println("new data: "+fileContents);
+  //   writer.append(fileContents);
+  //   writer.flush();
+  // }
 
 }

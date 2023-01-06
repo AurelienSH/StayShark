@@ -107,7 +107,7 @@ public class Apprenant extends ActeurHumain implements Niveau {
         for (String langue : langueScore.keySet()) {
             langueScoreList.add(String.format("%s:%2f", langue, langueScore.get(langue)));
         }
-        String langueScoreString = String.join("|", langueScoreList);
+        String langueScoreString = String.join("&", langueScoreList);
         csv.put("login", login);
         csv.put("nom", nom);
         csv.put("prénom", prenom);
