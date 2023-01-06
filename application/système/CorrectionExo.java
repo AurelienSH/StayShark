@@ -28,7 +28,7 @@ public class CorrectionExo {
         for (Correction phraseCorrigee : phrasesCorrigees){
             note+=phraseCorrigee.getNote(); // calcul de la note finale de l'exercice
         }
-        modifPointsApprenant = this.note*exo.bareme*exo.niveau; // calcul de la modification des points de l'apprenant
+        modifPointsApprenant = this.note * exo.bareme * exo.getIntNiveau(); // calcul de la modification des points de l'apprenant
 
         for (CorrectionQuestionTrou p : phrasesCorrigees){
             valeursReponsesCorrigees.add(p.getReponsesCorrigees());

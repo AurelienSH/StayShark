@@ -146,7 +146,7 @@ public class Exercice {
             i++;
         }
 
-        CorrectionExo correction = new CorrectionExo(phrasesCorrigees);
+        CorrectionExo correction = new CorrectionExo(phrasesCorrigees, this);
         return correction;
     }
 
