@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.event.*;
 import java.awt.event.*;
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 import application.système.*;
@@ -268,6 +269,8 @@ public class PageEleve extends Page {
                                     questionsATrouPanel.add(test);
                                 }
 
+
+
                                 JButton validerATrou = new JButton("valider");
                                 JPanel validerATrouPanel = new JPanel();
                                 validerATrouPanel.setBackground(Color.decode("#ffdfba"));
@@ -284,6 +287,8 @@ public class PageEleve extends Page {
                                 exerciceATrouPanelMere.add(questionsATrouPanel,BorderLayout.CENTER);
                                 exerciceATrouPanelMere.add(validerATrouPanel,BorderLayout.CENTER);
                                 panelMere.add(exerciceATrouPanelMere,BorderLayout.CENTER);
+
+
                                 // Panel qui contient la correction de l'exo
                                 validerATrou.addActionListener(new ActionListener(){
                                     public void actionPerformed(ActionEvent e) {
@@ -318,15 +323,15 @@ public class PageEleve extends Page {
                                                     if (panelDansPanel instanceof JTextField){
                                                         reponsesEleve.add(((JTextField) panelDansPanel).getText());}
                                                 }
-                                                stockReponsesEleve.add(new ArrayList<String>(reponsesEleve));
+                                                exoTest.addReponseEleve(new ArrayList<String>(reponsesEleve));
                                             }
                                         }
                                         /* 
                                         * Aurélien crée un objet correction à partir des réponses
                                         * Il doit renvoyer, les indices et couleurs des endroits à changer
                                         */
-                                        CorrectionExo c = new CorrectionExo();
-                                        AfficheurExo.listeReponses(exoTest, c);
+
+                                        ArrayList<JTextPane> listeRep = AfficheurExo.listeReponses(exoTest); // Création des phrases avec les jolies couleurs
                                         
                                         /*
                                         * AfficheurCorrection -> ArrayList<AfficheurReeponse>

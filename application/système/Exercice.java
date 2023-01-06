@@ -19,7 +19,11 @@ public class Exercice {
     // Liste des phrases de l'exo
     ArrayList<QuestionTrou> phrases = new ArrayList<>();
 
-    ArrayList<String> reponses = new ArrayList<>();
+    ArrayList<ArrayList<String>> reponses = new ArrayList<>();
+
+    ArrayList<String> randomReponses = new ArrayList<>();
+
+    ArrayList<ArrayList<String>> reponsesEleve = new ArrayList<>();
 
     // Points de l'exo
     final int bareme;
@@ -52,8 +56,10 @@ public class Exercice {
             QuestionTrou phraseQuestion = parseur.parse(question);
             phrases.add(phraseQuestion);
             questions.add(phraseQuestion.getQuestion());
-            reponses.addAll(phraseQuestion.getReponses());
+            reponses.add(phraseQuestion.getReponses());
+            randomReponses.addAll(phraseQuestion.getReponses());
         }
+        Collections.shuffle(randomReponses);
     }
 
 
@@ -66,6 +72,9 @@ public class Exercice {
         return questions;
     }
 
+    public ArrayList<QuestionTrou> getPhrases(){
+        return this.phrases;
+    }
 
     /**
      * Méthode permettant de mélanger l'ordre des réponses de l'exercice.
@@ -73,8 +82,6 @@ public class Exercice {
      * @return une liste de réponses mélangées
      */
     public ArrayList<String> randomReponses() {
-        ArrayList<String> randomReponses = new ArrayList<>(reponses);
-        Collections.shuffle(randomReponses);
         return randomReponses;
     }
   
@@ -100,20 +107,20 @@ public class Exercice {
         return Evaluation.getNiveauVal(this.niveau);
     }
 
+    public ArrayList<ArrayList<String>> getReponses(){
+        return this.reponses;}
+
 
     /**
      * Récupère les réponses saisies par l'apprenant pour chaque phrase de l'exercice.
      * @return Un ArrayList de ArrayList de String contenant les réponses saisies par l'apprenant pour chaque phrase de l'exercice.
      */
     public ArrayList<ArrayList<String>> getReponsesEleve() {
-        ArrayList<ArrayList<String>> reponsesEleve = new ArrayList<>();
-        // Pour chaque phrase de l'exercice, récupère les réponses de l'apprenant
-        // en appelant la méthode getReponseEleve de l'objet QuestionTrou correspondant,
-        // puis ajoute ces réponses à la liste de réponses de l'exercice.
-        for (QuestionTrou question : this.phrases) {
-            reponsesEleve.add(question.getReponseEleve());
-        }
         return reponsesEleve;
+    }
+
+    public void addReponseEleve(ArrayList<String> reponse){
+        reponsesEleve.add(reponse);
     }
 
 
@@ -123,8 +130,8 @@ public class Exercice {
      * 
      * @return la liste de corrections de l'exercice
      */
-    public ArrayList<Correction> corrige() {
-        ArrayList<Correction> phrasesCorrigees = new ArrayList<>(); // liste des corrections
+    public CorrectionExo corrige() {
+        ArrayList<CorrectionQuestionTrou> phrasesCorrigees = new ArrayList<>(); // liste des corrections
         ArrayList<ArrayList<String>> reponsesEleve = this.getReponsesEleve(); // récupération des réponses de l'élève
 
         // boucle sur les questions de l'exercice
@@ -133,7 +140,8 @@ public class Exercice {
             phrasesCorrigees.add(phraseCorrigee); // ajout de la correction à la liste
         }
 
-        return phrasesCorrigees;
+        CorrectionExo correction = new CorrectionExo(phrasesCorrigees);
+        return correction;
     }
 
     /**
