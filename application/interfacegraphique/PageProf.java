@@ -168,8 +168,7 @@ public class PageProf extends Page {
                             }else{break;}
                         }
                             try{
-
-                                CsvReader.ecriture(path, ""); // à voir avec le dico d'Aurélien
+                                CsvReader.ecriture(path, infoExo.get("correction choisie").toString());
                             }catch(Exception IOException){
                                 System.out.println("PROBLEME");
                             }
