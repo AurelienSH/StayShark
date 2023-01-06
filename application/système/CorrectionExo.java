@@ -1,5 +1,6 @@
 package application.système;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -10,6 +11,8 @@ public class CorrectionExo {
 
     private ArrayList<CorrectionQuestionTrou> phrasesCorrigees; // liste de corrections de phrases
     private float note=0; // note finale de l'exercice
+
+    private ArrayList<ArrayList<String>> valeursReponses = new ArrayList<>(); // les valeurs des réponses de l'élève pouvant etre "correct", "incorrect", ou "NR"
     private float modifPointsApprenant; // modification des points de l'apprenant en fonction de la note de l'exercice et du bareme et du niveau de l'exercice
 
 
@@ -25,6 +28,14 @@ public class CorrectionExo {
             note+=phraseCorrigee.getNote(); // calcul de la note finale de l'exercice
         }
         // modifPointsApprenant = this.note*exo.bareme*exo.niveau; // calcul de la modification des points de l'apprenant
+
+        for (CorrectionQuestionTrou p : phrasesCorrigees){
+            valeursReponses.add(p.getReponses());
+        }
+    }
+
+    public ArrayList<ArrayList<String>> getValeursCorrigees(){
+        return valeursReponses;
     }
 
 

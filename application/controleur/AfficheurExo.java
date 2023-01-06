@@ -38,8 +38,9 @@ public class AfficheurExo extends Afficheur {
 
     public static ArrayList<JTextPane> listeReponses(Exercice exo){
         ArrayList<QuestionTrou> phrases = exo.getPhrases();
-        ArrayList<ArrayList<String>> reponsesEleve = exo.getReponsesEleve();
 
+        CorrectionExo corr = exo.corrige();
+        ArrayList<ArrayList<String>> reponsesEleve = corr.getValeursCorrigees();
         ArrayList<JTextPane> listeAffichage = new ArrayList<>();
 
         int i = 0;
@@ -62,7 +63,6 @@ public class AfficheurExo extends Afficheur {
                     } else if (reponseEleve.equals("incorrect")) {
                         StyleConstants.setForeground(attributes, Color.RED);
                     }
-                    System.out.println("j : "+j);
                     j++;
                 }
 
@@ -73,7 +73,6 @@ public class AfficheurExo extends Afficheur {
                 }
             }
             listeAffichage.add(textPane);
-            System.out.println("i : "+i);
             i++;
         }
         return listeAffichage;
@@ -119,6 +118,7 @@ public class AfficheurExo extends Afficheur {
             exo.addReponseEleve(reponses);
             reponses.add("b");
             exo.addReponseEleve(reponses);
+
             ArrayList<JTextPane> liste = listeReponses(exo);
             System.out.println (liste);
         }

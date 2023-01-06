@@ -122,7 +122,7 @@ public class QuestionTrou implements Question {
             incorrect = 2
             NR = 0
             */
-            if (reponseEleve != ""){
+            if (reponseEleve != "" && reponseEleve != "?"){
                 boolean correct = (reponse.equals(reponseEleve));
                 if (correct){
                     reponsesEleve.add("correct");

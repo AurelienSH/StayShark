@@ -32,7 +32,7 @@ public class Exercice {
     final String niveau;
 
     // Methode d'évaluation de l'exo
-    final HashMap<String,Float> methodeEval;
+    final HashMap<String,Integer> methodeEval;
 
     /**
      * Crée un nouvel objet Exercice avec la liste des questions données, la langue, le niveau, le bareme et la méthode d'évaluation.
@@ -43,7 +43,7 @@ public class Exercice {
      * @param niveauVal le niveau de difficulté de l'exercice
      * @param methodeEvalVal la méthode d'évaluation de l'exercice
      */
-    public Exercice(ArrayList<String> textePhrases, String langVal, int baremeVal, String niveauVal, HashMap<String,Float> methodeEvalVal){
+    public Exercice(ArrayList<String> textePhrases, String langVal, int baremeVal, String niveauVal, HashMap<String,Integer> methodeEvalVal){
         // Initialisation des champs de la classe
         methodeEval = methodeEvalVal;
         niveau = niveauVal;

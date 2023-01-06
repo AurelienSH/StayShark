@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class CorrectionQuestionTrou extends Correction {
     private ArrayList<String> reponses; // liste des résultats des réponses données par l'apprenant
-    private float note=0; // note obtenue pour cette phrase
+    private int note=0; // note obtenue pour cette phrase
 
     /**
      * Constructeur de la correction de la phrase.
