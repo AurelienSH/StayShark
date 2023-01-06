@@ -10,6 +10,30 @@ public abstract class Evaluation {
         put("C1",5);
     }};
 
+    private static HashMap<String, Integer> methodePermissive= new HashMap<>(){{
+        put("NR",0);
+        put("correct",1);
+        put("incorrect",0);
+    }};
+
+    private static HashMap<String, Integer> methodeIntransigeante = new HashMap<>(){{
+        put("NR",0);
+        put("correct",1);
+        put("incorrect",-1);
+    }};
+
+    private static HashMap<String, Integer> methodeAucuneErreur= new HashMap<>(){{
+        put("NR",-1);
+        put("correct",1);
+        put("incorrect",-1);
+    }};
+
+    private static Map<String,HashMap<String, Integer>> choixCorrectionDict = new HashMap<>(){{
+        put("permissive",methodePermissive);
+        put("intransigeante",methodeIntransigeante);
+        put("aucune erreur",methodeAucuneErreur);
+    }};
+
     public static Integer getNiveauVal(String niv){
         return dictNiveaux.get(niv);
     }
@@ -23,6 +47,10 @@ public abstract class Evaluation {
 
 
         apprenant.addScore(langue, correction.getModifPointsApprenant());
+    }
+
+    public static HashMap<String, Integer> getChoixCorrectionDict(String choix){
+        return choixCorrectionDict.get(choix);
     }
 
     
