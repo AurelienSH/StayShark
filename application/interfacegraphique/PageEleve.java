@@ -14,30 +14,23 @@ import java.io.File;
 
 /**
  * Créé la page que l'élève verra.
+ * L'élève pourra accéder aux exercices et au suivi de sa progression.
  */
 public class PageEleve extends Page {
     JFrame frame;
     /**
-     * Page que l'élève verra dans l'application (contenant les exos et ses notes)
+     * Page que l'élève verra dans l'application (contenant les exos et sa barre d'expérience jusqu'au prochain level)
      * @param frameAJeter Jframe (PageHome) qui sera tué avant la création de la frame pour l'élève
+     * @param infoUser dictionnaire contenant le login en clé et en valeur les autres infos (nom, prénom, langue et leur points)
      */
     public PageEleve(JFrame frameAJeter, Map infoUser){
-
-        // TO DO
-        /*
-         * - barre d'xp danc combien de temps on atteint le lvl ✔️
-         * - plateforme d'exos : 
-         *                      choix de la langue si plusieurs ✔️
-         *                      choix du lvl✔️
-         *                      exos ✔️
-         *                      récap de toutes les fautes après l'exo ⚠️A VOIR⚠️
-         * 
-         */
         
-        frameAJeter.dispose();
+        frameAJeter.dispose(); // on jette la page Home
 
+        // création de l'apprenant
         Apprenant eleve = new Apprenant(infoUser.get("login").toString(), infoUser.get("nom").toString(), infoUser.get("prénom").toString(), infoUser.get("langue").toString());
 
+        // création de la frame et tout son style
 		JFrame framebis = new JFrame("StayShark");
         Page.basefenetre(framebis,800,600);
         JPanel panelMere = new JPanel();
@@ -49,6 +42,7 @@ public class PageEleve extends Page {
         vide.setBackground(Color.decode("#ffdfba"));
         vide.setPreferredSize(new Dimension(800, 200));
 
+        // création des boutons exercice et suivi de l'expérience
         ImageIcon image = new ImageIcon("./application/data/medias/exercice.png");
         JButton exo = new JButton("",image);
         exo.setPreferredSize(new Dimension(390, 150));
@@ -61,20 +55,23 @@ public class PageEleve extends Page {
         realPanel.add(exo,BorderLayout.CENTER);
         realPanel.add(suivi,BorderLayout.CENTER);
 
-        String[] nbLangues = infoUser.get("langue").toString().split("&");
+        String[] nbLangues = infoUser.get("langue").toString().split("&"); // liste des langues apprises par l'apprenant
         
-        // Panel qui contient le choix de la langue et du level de l'exo //
+        // Quand on clique sur le bouton exercice : création d'un panel qui contient le choix de la langue et du level de l'exercice par l'apprenant
         exo.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
+                //on se débarasse des boutons exercice et suivi
                 vide.setVisible(false);
                 realPanel.setVisible(false);
 
-                Map<String, String> infoExo = new HashMap<String,String>();
-
+                // création du panel de choix
                 JPanel exoPanelMere = new JPanel(new GridLayout(10,1));
                 exoPanelMere.setBackground(Color.decode("#ffdfba"));
                 exoPanelMere.setPreferredSize(new Dimension(600, 400));
 
+                Map<String, String> infoExo = new HashMap<String,String>(); // dico qui va contenir le choix de la langue de l'exercice, son level et le choix de l'exercice
+
+                // choix de la langue pour l'exercice
                 JLabel choixlangueLabel = new JLabel("Choisissez la langue de votre exercice : ",SwingConstants.CENTER);
                 choixlangueLabel.setFont(new Font("Apple Casual", Font.BOLD, 18));
                 String[] choixlangueArray = new String[nbLangues.length+1];
@@ -105,6 +102,7 @@ public class PageEleve extends Page {
 
                 choixLanguePanel.add(choixlangue);
 
+                // choix du level de l'exercice
                 JLabel choixlvlLabel = new JLabel("Choisissez la difficulté de votre exercice : ",SwingConstants.CENTER);
                 choixlvlLabel.setFont(new Font("Apple Casual", Font.BOLD, 18));
 
@@ -123,6 +121,7 @@ public class PageEleve extends Page {
 
                 choixLvlPanel.add(choixlvl);
 
+                // bouton récupérateur des informations de choix et de langue de l'exercice
                 JButton valider = new JButton("Valider");
 
                 JPanel validerPanel = new JPanel();
@@ -131,6 +130,7 @@ public class PageEleve extends Page {
 
                 validerPanel.add(valider);
 
+                // juste pour faire plus joli dans le panel
                 JSeparator sep = new JSeparator(SwingConstants.VERTICAL);
                 sep.setForeground(Color.decode("#ffdfba"));
                 sep.setBackground(Color.decode("#ffdfba"));
@@ -145,12 +145,14 @@ public class PageEleve extends Page {
                 
                 exoPanelMere.setVisible(true);
 
+                // récupération de la langue de l'exercice
                 choixlangue.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                         e.getSource();
                         String langueChoisie = (String) choixlangue.getSelectedItem();
                         infoExo.put("langue choisie",langueChoisie);
                 }});
+                // récupération du level de l'exercice
                 choixlvl.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                         e.getSource();
@@ -158,18 +160,21 @@ public class PageEleve extends Page {
                         infoExo.put("lvl choisi",lvlchoisi);
                 }});
 
-                // Panel qui contient le choix de l'exo //
+                // Quand on clique sur le bouton valider : création d'un panel qui contient le choix de l'exercice (si jamais les prosseurs de langue ont mis plusieurs exercices l'élève pourra choisir lequel faire)
                 valider.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
+                        //on se débarasse de l'affichage d'avant
                         exoPanelMere.setVisible(false);
                         vide.setVisible(true);
 
+                        // création du panel de choix de l'exercice
                         JPanel choixExoPathPanel = new JPanel(new GridLayout(3,1,10,10));
                         choixExoPathPanel.setBackground(Color.decode("#ffdfba"));
 
                         JLabel choixexoLabel = new JLabel("Choisissez l'exercice que vous souhaitez faire : ",SwingConstants.CENTER);
                         choixexoLabel.setFont(new Font("Apple Casual", Font.BOLD, 18));
 
+                        // création du choix de l'exercice à faire parmis tous les exercices qui existent
                         File folder = new File("./application/data/langues/"+infoExo.get("langue choisie")+"/"+Evaluation.getNiveauVal(infoExo.get("lvl choisi").toString())+"/");
                         File[] listOfFiles = folder.listFiles();
                         String choixexos[] = new String[listOfFiles.length+1];
@@ -194,6 +199,7 @@ public class PageEleve extends Page {
 
                         choixexoPanel.add(choixexosBox);
 
+                        // bouton qui récupèrera le choix de l'exercice
                         JButton valider2 = new JButton("Valider");
 
                         JPanel validerPanel2 = new JPanel();
@@ -209,6 +215,7 @@ public class PageEleve extends Page {
                 
                         choixExoPathPanel.setVisible(true);
 
+                        // récupération de l'exercice choisi par l'apprenant
                         choixexosBox.addActionListener(new ActionListener(){
                             public void actionPerformed(ActionEvent e) {
                                 e.getSource();
@@ -216,37 +223,41 @@ public class PageEleve extends Page {
                                 infoExo.put("exo choisi",exochoisi);
                         }});
 
-                        // Panel qui contient l'exo en lui-même //
+                        // Quand on clique sur valdier : création d'un panel qui contient l'exercice à faire
                         valider2.addActionListener(new ActionListener(){
                             public void actionPerformed(ActionEvent e) {
+                                // on se débarasse de l'affichage d'avant
                                 choixExoPathPanel.setVisible(false);
                                 vide.setVisible(false);
 
+                                // création du panel qui contient l'exercice
                                 JPanel exerciceATrouPanelMere = new JPanel(new GridLayout(3,1,10,10));
                                 exerciceATrouPanelMere.setBackground(Color.decode("#ffdfba"));
                                 
-
+                                // création du panel qui contient l'énoncé
                                 JPanel exerciceATrouPanel = new JPanel(new GridLayout(2,1,10,10));
                                 exerciceATrouPanel.setBackground(Color.decode("#ffdfba"));
 
-
+                                //chemin du fichier de l'exercice
                                 String path = "./application/data/langues/"+infoExo.get("langue choisie")+"/"+Evaluation.getNiveauVal(infoExo.get("lvl choisi").toString())+"/"+infoExo.get("exo choisi");
 
-                                //implanter le vrai dico correction Aurélien si tu as besoin j'ai fait une méthode qui te retourne la 1ere ligne du csv (qui contient la méthode d'éval --> CsvReader.getteurDuretéNotation(path))
-                                try{ // exemple ici d'utilisation
+                                try{
+                                    // on récupère la dureté de notation choisie par le prof qui a créé l'exercice
                                     String notation = CsvReader.getteurDuretéNotation(path);
-                                
-                                HashMap methodeEval = Evaluation.getChoixCorrectionDict(notation);
+                                    HashMap methodeEval = Evaluation.getChoixCorrectionDict(notation);
+
+                                    //on créé l'exercice
                                     Exercice exoTest = new Exercice(CsvReader.liseurExo(path), infoExo.get("langue choisie"), infoExo.get("lvl choisi"), methodeEval); // Aurélien gogogo
 
+                                String motsTroués = AfficheurExo.randomReponses(exoTest); // contient tous les mots à placer dans les trous
 
-                                String motsTroués = AfficheurExo.randomReponses(exoTest);
+                                ArrayList<ArrayList<String>> questionsTroués = AfficheurExo.listeQuestions(exoTest); //liste de liste des mots troués et non troués de chaque phrase
 
-                                ArrayList<ArrayList<String>> questionsTroués = AfficheurExo.listeQuestions(exoTest);
-
+                                // création du panel qui contient les phrases à trou
                                 JPanel questionsATrouPanel = new JPanel(new GridLayout(questionsTroués.size(),1));
                                 questionsATrouPanel.setBackground(Color.decode("#ffdfba"));
 
+                                // on créé les phrases troués en transformant les mots troués en Jtextfield et les mots non troués en label
                                 Integer i = 1;
                                 for(ArrayList<String> innerList : questionsTroués) {
                                     JPanel test = new JPanel();
@@ -267,8 +278,7 @@ public class PageEleve extends Page {
                                     questionsATrouPanel.add(test);
                                 }
 
-
-
+                                // bouton qui va récupérer les réponses de l'élève
                                 JButton validerATrou = new JButton("valider");
                                 JPanel validerATrouPanel = new JPanel();
                                 validerATrouPanel.setBackground(Color.decode("#ffdfba"));
@@ -276,6 +286,7 @@ public class PageEleve extends Page {
 
                                 validerATrouPanel.add(validerATrou);
 
+                                // énoncé de l'exercice
                                 JLabel enonceATrou = new JLabel("Ecrivez le bon mot dans le bon trou dans les phrases suivantes en utilisant ces mots : ");
                                 JLabel labelATrou = new JLabel(motsTroués);
 
@@ -286,17 +297,20 @@ public class PageEleve extends Page {
                                 exerciceATrouPanelMere.add(validerATrouPanel,BorderLayout.CENTER);
                                 panelMere.add(exerciceATrouPanelMere,BorderLayout.CENTER);
 
-                                // Panel qui contient la correction de l'exo
+                                // Quand on clique sur valider : création du panel qui contient la correction de l'exo
                                 validerATrou.addActionListener(new ActionListener(){
                                     public void actionPerformed(ActionEvent e) {
+                                        // on jette l'ancien affichage
                                         exerciceATrouPanelMere.setVisible(false);
 
+                                        // création du panel qui contient la correction de l'exrcice
                                         JPanel correctionPanel = new JPanel(new GridLayout(3,1,10,10));
                                         correctionPanel.setBackground(Color.decode("#ffdfba"));
 
                                         JLabel correctionLabel = new JLabel("Voici la correction de l'exercice : ");
                                         correctionPanel.add(correctionLabel);
 
+                                        // bouton qui permet de revenir à la page d'acceuil de l'élève (avec les boutons exercice et suivre)
                                         JButton quittercorrection = new JButton("Quitter");
                                         JPanel quittercorrectionPanel = new JPanel();
                                         quittercorrectionPanel.setBackground(Color.decode("#ffdfba"));
@@ -304,84 +318,45 @@ public class PageEleve extends Page {
 
                                         quittercorrectionPanel.add(quittercorrection);
 
-                                        /* 
-                                        * for question in questionTrouées :
-                                        *  Elisabeth affiche une phrase à trous (avec des TextField)
-                                        *  Elles stocke les TextFields dans une ArrayList d'ArrayList de TextFields qui est stockReponsesEleve (c'est fait ehe)
-                                        * 
-                                        */
-                                        ArrayList<ArrayList<String>> stockReponsesEleve = new ArrayList<>();
-                                        ArrayList<String> reponsesEleve = new ArrayList<>();
+                                        ArrayList<String> reponsesEleve = new ArrayList<>(); // liste qui contient les réponses de l'apprenant
+
+                                        // on récupère toutes les réponses de l'apprenant (chaque phrase est contenu dans un panel et toutes les phrases sont dans un gros panel d'où la méthode de passer par les component du panel principal des phrases pour accéder aux réponses)
                                         for (Component component : questionsATrouPanel.getComponents()) {
                                             if (component instanceof JPanel){
-                                                reponsesEleve.clear();
+                                                reponsesEleve.clear(); // on réinitialise la variable
                                                 for(Component panelDansPanel : ((JPanel) component).getComponents()){
-                                                    if (panelDansPanel instanceof JTextField){
+                                                    if (panelDansPanel instanceof JTextField){ // on récupère les réponses pour chaque phrase
                                                         reponsesEleve.add(((JTextField) panelDansPanel).getText());}
                                                 }
                                                 exoTest.addReponseEleve(new ArrayList<String>(reponsesEleve));
                                             }
                                         }
 
+                                        // liste de toutes les corrections pour chaque mot troué de chaque phrase
                                         ArrayList<JTextPane> listeRep = AfficheurExo.listeReponses(exoTest);
 
+                                        // création du panel qui aura toutes les corrections
                                         JPanel listeRepPanel = new JPanel(new GridLayout(listeRep.size(),1,10,10));
                                         listeRepPanel.setBackground(Color.decode("#ffdfba"));
 
-                                        for(JTextPane bloub : listeRep){
-                                            listeRepPanel.add(bloub);
+                                        for(JTextPane correctionJTextPane : listeRep){
+                                            listeRepPanel.add(correctionJTextPane);
                                        }
 
                                        correctionPanel.add(listeRepPanel);
                                        correctionPanel.add(quittercorrectionPanel);
 
+                                       // création de l'évaluation de l'apprenant et donc son changement de points
                                        Evaluation.evalue(eleve, exoTest);
 
+                                       // changements de points que l'élève a dans la langue qu'il a appris à l'instant
                                        Map<String, String> infosUserChange = eleve.csv();   
                                        String aChangerCsv = infosUserChange.get("login")+","+infosUserChange.get("nom")+","+infosUserChange.get("prénom")+","+infosUserChange.get("LangueExpérience");
                                        try{CsvReader.modificationCsvEleve("./application/data/dataeleve.csv",aChangerCsv);}catch(Exception IOException){System.out.println("Problème au niveau du csv ");}
                                                                            
-                                       
-                                        /* 
-                                        * Aurélien crée un objet correction à partir des réponses
-                                        * Il doit renvoyer, les indices et couleurs des endroits à changer
-                                        */
-
-                                        // ArrayList<JTextPane> listeRep = AfficheurExo.listeReponses(exoTest); // Création des phrases avec les jolies couleurs
-
-                                        // for(JTextPane bloub : listeRep){
-                                        //     // correctionPanel.add(bloub);
-                                        //     System.out.println(bloub);
-                                        // }
-                                        
-                                        /*
-                                        * AfficheurCorrection -> ArrayList<AfficheurReeponse>
-                                        * 
-                                        * AfficheurReponse :
-                                        * AfficheurReponse.text -> "je suis des prouts et toi ?"
-                                        * AfficheurReponse.Indices -> [[8,11],[22,25]]
-                                        * AfficheurReponse.Couleurs -> [["RED"],["YELLOW"]]
-                                        */
-
-                                        //affichage correction : on montre toute les phrases et mots troués sont en vert (quand bon) et rouge(quand pas bon)
-                                            /*JLabel monLabel = new JLabel("Mon label");
-                                            Highlighter h = new DefaultHighlighter();
-                                            HighlightPainter p = new DefaultHighlighter.DefaultHighlightPainter(Color.RED);
-                                            try {
-                                                h.addHighlight(0, 1, p);
-                                            } catch (BadLocationException e) {
-                                                e.printStackTrace();
-                                            }
-                                            monLabel.setHighlighter(h); */
-
-                                            /*
-                                            * Apprenant a;
-                                            * a.csv(); //{login : 57467, nom : Dupont, prénom : Clause, LangueExperienc : "Anglais:123&Français:18"}
-                                            * --> faire une méthode qui modifie le csv avec ça
-                                            */
-
                                             panelMere.add(correctionPanel,BorderLayout.CENTER);
 
+                                            // quand on clique sur quitter on revient à la page d'accueil de l'élève (avec les boutons exercice et suivre)
                                             quittercorrection.addActionListener(new ActionListener(){
                                                 public void actionPerformed(ActionEvent e) {
                                                     correctionPanel.setVisible(false);
@@ -402,11 +377,14 @@ public class PageEleve extends Page {
                 
         }});
 
+        // Quand on clique sur suivi : création d'un panel qui montre la barre d'xp de l'élève (dans combien de temps il augmente de niveau linguistique)
         suivi.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
+                // on se débarasse de la page d'accueil
                 vide.setVisible(false);
                 realPanel.setVisible(false);
 
+                // création du panel qui contient les barre d'expérience de l'élève dans ses langues
                 JPanel exoPanelMere = new JPanel(new GridLayout(7,1,10,10));
                 exoPanelMere.setBackground(Color.decode("#ffdfba"));
                 exoPanelMere.setPreferredSize(new Dimension(600, 400)); 
@@ -415,13 +393,14 @@ public class PageEleve extends Page {
                 languesExp.setFont(new Font("Apple Casual", Font.BOLD, 18));
                 exoPanelMere.add(languesExp);
                 
+                // boucle qui créé la barre d'xp en fonction des points que l'élève a accumulé dans la langue qu'il apprend (créé une barre d'xp pour chaque langue)
                 for(String langue : nbLangues){
 
-                    JProgressBar barreExp1 = new JProgressBar(0,10);
-                    JProgressBar barreExp2 = new JProgressBar(0,100);
-                    JProgressBar barreExp3 = new JProgressBar(0,1000);
-                    JProgressBar barreExp4 = new JProgressBar(0,10000);
-                    JProgressBar barreExp5 = new JProgressBar(0,100000);
+                    JProgressBar barreExp1 = new JProgressBar(0,10); //A1
+                    JProgressBar barreExp2 = new JProgressBar(0,100); //A2
+                    JProgressBar barreExp3 = new JProgressBar(0,1000); //B1
+                    JProgressBar barreExp4 = new JProgressBar(0,10000); //B2
+                    JProgressBar barreExp5 = new JProgressBar(0,100000); //C1
                     barreExp1.setBounds(35,40,165,30);
                     barreExp2.setBounds(35,40,165,30);
                     barreExp3.setBounds(35,40,165,30);
@@ -433,6 +412,7 @@ public class PageEleve extends Page {
                     barreExp4.setStringPainted(true); 
                     barreExp5.setStringPainted(true); 
 
+                    // on récupère les points de l'élève dans la langue traitée
                     String[] langueExp = langue.split(":");
                     int expEleve = Integer.parseInt(langueExp[1]);
 
@@ -458,9 +438,11 @@ public class PageEleve extends Page {
                     }
                 }
 
+                // bouton qui permet de revenir à l'accueil et quitter cette page
                 JButton quitter = new JButton("Quitter");
                 exoPanelMere.add(quitter);
 
+                // quand on clique sur quitter on revient à l'accueil de l'élève (avec le bouton exercice et suivi)
                 quitter.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
                         vide.setVisible(true);
