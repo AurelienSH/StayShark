@@ -35,6 +35,9 @@ public class PageEleve extends Page {
          */
         
         frameAJeter.dispose();
+
+        Apprenant eleve = new Apprenant(infoUser.get("login").toString(), infoUser.get("nom").toString(), infoUser.get("prénom").toString(), infoUser.get("langue").toString());
+
 		JFrame framebis = new JFrame("StayShark");
         Page.basefenetre(framebis,800,600);
         JPanel panelMere = new JPanel();
@@ -288,7 +291,6 @@ public class PageEleve extends Page {
                                 exerciceATrouPanelMere.add(validerATrouPanel,BorderLayout.CENTER);
                                 panelMere.add(exerciceATrouPanelMere,BorderLayout.CENTER);
 
-
                                 // Panel qui contient la correction de l'exo
                                 validerATrou.addActionListener(new ActionListener(){
                                     public void actionPerformed(ActionEvent e) {
@@ -337,6 +339,10 @@ public class PageEleve extends Page {
 
                                        correctionPanel.add(listeRepPanel);
                                        correctionPanel.add(quittercorrectionPanel);
+
+                                       Evaluation.evalue(eleve, exoTest);
+                                    //    System.out.println(eleve.csv());
+                                       
                                         /* 
                                         * Aurélien crée un objet correction à partir des réponses
                                         * Il doit renvoyer, les indices et couleurs des endroits à changer
