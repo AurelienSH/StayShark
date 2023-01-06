@@ -169,7 +169,7 @@ public class PageProf extends Page {
                         }
                             try{
 
-                                CsvReader.ecriture(path, "truc à écrire pour la correction"); // à voir avec le dico d'Aurélien
+                                CsvReader.ecriture(path, ""); // à voir avec le dico d'Aurélien
                             }catch(Exception IOException){
                                 System.out.println("PROBLEME");
                             }

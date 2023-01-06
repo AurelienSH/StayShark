@@ -235,17 +235,13 @@ public class PageEleve extends Page {
 
                                 //implanter le vrai dico correction Aurélien si tu as besoin j'ai fait une méthode qui te retourne la 1ere ligne du csv (qui contient la méthode d'éval --> CsvReader.getteurDuretéNotation(path))
                                 try{ // exemple ici d'utilisation
-                                    Map<String,String> notation = CsvReader.getteurDuretéNotation(path);
-                                    System.out.println(notation);}catch(Exception FileNotFoundException){System.out.println("Probleme again");}
+                                    String notation = CsvReader.getteurDuretéNotation(path);
+                                    System.out.println(notation);
                                 
-                                HashMap methodeEval = new HashMap<String,Integer>();
-                                methodeEval.put("NR", 0);
-                                methodeEval.put("incorrect", -1);
-                                methodeEval.put("correct", 1);
-                                try{
+                                HashMap methodeEval = Evaluation.getChoixCorrectionDict(notation);
                                     Exercice exoTest = new Exercice(CsvReader.liseurExo(path), infoExo.get("langue choisie"), 1, infoExo.get("lvl choisi"), methodeEval); // Aurélien gogogo
 
-                                
+
                                 String motsTroués = AfficheurExo.randomReponses(exoTest);
 
                                 ArrayList<ArrayList<String>> questionsTroués = AfficheurExo.listeQuestions(exoTest);
@@ -342,6 +338,7 @@ public class PageEleve extends Page {
                                        correctionPanel.add(quittercorrectionPanel);
 
                                        Evaluation.evalue(eleve, exoTest);
+
                                        Map<String, String> infosUserChange = eleve.csv();   
                                        String aChangerCsv = infosUserChange.get("login")+","+infosUserChange.get("nom")+","+infosUserChange.get("prénom")+","+infosUserChange.get("LangueExpérience");
                                        try{CsvReader.modificationCsvEleve("./application/data/dataeleve.csv",aChangerCsv);}catch(Exception IOException){System.out.println("Problème au niveau du csv ");}

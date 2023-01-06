@@ -100,24 +100,21 @@ public abstract class CsvReader {
     return phrasesExo;
   }
   
-  public static Map getteurDuretéNotation (String path) throws FileNotFoundException,IOException{
-    Map<String,String> notation = new HashMap<String,String>();
+  public static String getteurDuretéNotation (String path) throws FileNotFoundException,IOException{
+    String choixCorrection = "";
     FileInputStream file = new FileInputStream(path);       
     Scanner scanneur = new Scanner(file,"utf-8");
     int lines = 0;
     while(scanneur.hasNextLine()){ 
         String ligne = scanneur.nextLine();
         if(lines==0){
-            String[] preinfosLigne = ligne.split(", ");
-            for(String word : preinfosLigne){
-              String[] infosLigne = word.split(" : ");
-              notation.put(infosLigne[0],infosLigne[1]);
-            }
+            choixCorrection = ligne;
+            System.out.println(choixCorrection);
         }else{break;}
         lines++;
     }
     scanneur.close(); 
-    return notation;
+    return choixCorrection;
   }
 
   public static void modificationCsvEleve(String fichier, String truc)throws FileNotFoundException, IOException{
