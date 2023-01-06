@@ -294,7 +294,7 @@ public class PageEleve extends Page {
                                     public void actionPerformed(ActionEvent e) {
                                         exerciceATrouPanelMere.setVisible(false);
 
-                                        JPanel correctionPanel = new JPanel();
+                                        JPanel correctionPanel = new JPanel(new GridLayout(3,1,10,10));
                                         correctionPanel.setBackground(Color.decode("#ffdfba"));
 
                                         JLabel correctionLabel = new JLabel("Voici la correction de l'exercice : ");
@@ -306,7 +306,6 @@ public class PageEleve extends Page {
                                         quittercorrectionPanel.setSize(new Dimension(100, 100));
 
                                         quittercorrectionPanel.add(quittercorrection);
-                                        correctionPanel.add(quittercorrectionPanel);
 
                                         /* 
                                         * for question in questionTrouées :
@@ -326,12 +325,23 @@ public class PageEleve extends Page {
                                                 exoTest.addReponseEleve(new ArrayList<String>(reponsesEleve));
                                             }
                                         }
+
+                                        JPanel listeRepPanel = new JPanel(new GridLayout(3,1,10,10));
+                                        listeRepPanel.setBackground(Color.decode("#ffdfba"));
+
+                                        ArrayList<JTextPane> listeRep = AfficheurExo.listeReponses(exoTest);
+                                        for(JTextPane bloub : listeRep){
+                                            listeRepPanel.add(bloub);
+                                       }
+
+                                       correctionPanel.add(listeRepPanel);
+                                       correctionPanel.add(quittercorrectionPanel);
                                         /* 
                                         * Aurélien crée un objet correction à partir des réponses
                                         * Il doit renvoyer, les indices et couleurs des endroits à changer
                                         */
 
-                                        ArrayList<JTextPane> listeRep = AfficheurExo.listeReponses(exoTest); // Création des phrases avec les jolies couleurs
+                                        // ArrayList<JTextPane> listeRep = AfficheurExo.listeReponses(exoTest); // Création des phrases avec les jolies couleurs
 
                                         // for(JTextPane bloub : listeRep){
                                         //     // correctionPanel.add(bloub);
