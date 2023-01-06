@@ -28,7 +28,6 @@ public class CorrectionExo {
         for (Correction phraseCorrigee : phrasesCorrigees){
             note+=phraseCorrigee.getNote(); // calcul de la note finale de l'exercice
         }
-        System.out.println("voilà ta note : " + note +"et le bareme de l'exo : " + exo.bareme);
         if (note>=exo.bareme) {
             modifPointsApprenant = this.note * exo.getIntNiveau();
         }// calcul de la modification des points de l'apprenant

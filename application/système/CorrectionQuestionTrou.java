@@ -22,7 +22,6 @@ public class CorrectionQuestionTrou extends Correction {
      */
     public CorrectionQuestionTrou(QuestionTrou q, ArrayList<String> reponsesEleve, HashMap<String, Integer> methodeEval) {
         reponsesCorrigees = q.getReponseEleve(reponsesEleve);
-        System.out.println(reponsesCorrigees);
         // Calcul de la note en fonction des réponses données par l'apprenant et de la méthode d'évaluation de l'exercice
         for (String rep : reponsesCorrigees) {
             note += methodeEval.get(rep);

@@ -103,7 +103,6 @@ public class AfficheurExo extends Afficheur {
         */
         public static void main(String[] args) throws FileNotFoundException {
             String currentDirectory = System.getProperty("user.dir");
-            System.out.println("Current working directory : " + currentDirectory);
             ArrayList<String> reponses = new ArrayList<>();
             reponses.add("b");
             reponses.add("b");
@@ -120,7 +119,6 @@ public class AfficheurExo extends Afficheur {
             exo.addReponseEleve(reponses);
 
             ArrayList<JTextPane> liste = listeReponses(exo);
-            System.out.println (liste);
         }
 
 }

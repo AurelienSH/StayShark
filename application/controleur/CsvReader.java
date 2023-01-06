@@ -113,7 +113,6 @@ public abstract class CsvReader {
         String ligne = scanneur.nextLine();
         if(lines==0){
             choixCorrection = ligne;
-            System.out.println(choixCorrection);
         }else{break;}
         lines++;
     }

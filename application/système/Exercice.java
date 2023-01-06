@@ -144,7 +144,6 @@ public class Exercice {
         // boucle sur les questions de l'exercice
         int i = 0;
         for (QuestionTrou phrase : this.phrases) {
-            System.out.println(reponsesEleve.get(i));
             CorrectionQuestionTrou phraseCorrigee = new CorrectionQuestionTrou(phrase, this.reponsesEleve.get(i), this.methodeEval); // création de la correction de la question
             phrasesCorrigees.add(phraseCorrigee); // ajout de la correction à la liste
             i++;
@@ -154,25 +153,6 @@ public class Exercice {
         return correction;
     }
 
-    /**
-     * Affiche la correction de l'exercice dans la console.
-     */
-    public void afficherCorrection() {
-        // On affiche un saut de ligne pour séparer la correction du reste du programme
-        System.out.println("");
-        // On affiche un message indiquant le début de la correction
-        System.out.println("Voici la correction :");
-
-        // On initialise un compteur pour numéroter les phrases de l'exercice
-        int i = 1;
-        // Pour chaque phrase de l'exercice...
-        for (QuestionTrou p : phrases) {
-            // On affiche le numéro de la phrase suivi de la chaîne de caractères correcte
-            System.out.println(i + ". " + p.stringCorrecte());
-            // On incrémente le compteur
-            i++;
-        }
-    }
 
     /**
      * Retourne une représentation sous forme de chaîne de caractères de l'exercice.
