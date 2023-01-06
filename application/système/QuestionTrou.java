@@ -120,8 +120,6 @@ public class QuestionTrou implements Question {
         for (String reponse : this.reponses){
 
             String reponseEleve = reponsesNonCorrigees.get(i);
-            System.out.println("Les reponses de l'eleve ici :"+ reponseEleve);
-            System.out.println("Je regarde si c'est bien un ?" + reponseEleve.equals("?"));
             /* 
             correct = 1
             incorrect = 2

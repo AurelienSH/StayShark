@@ -105,7 +105,7 @@ public class Apprenant extends ActeurHumain implements Niveau {
         HashMap<String, String> csv = new HashMap<>();
         ArrayList<String> langueScoreList = new ArrayList<>();
         for (String langue : langueScore.keySet()) {
-            langueScoreList.add(String.format("%s:%2f", langue, langueScore.get(langue)));
+            langueScoreList.add(String.format("%s:%d", langue, langueScore.get(langue)));
         }
         String langueScoreString = String.join("&", langueScoreList);
         csv.put("login", login);
