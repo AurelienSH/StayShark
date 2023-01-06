@@ -332,6 +332,11 @@ public class PageEleve extends Page {
                                         */
 
                                         ArrayList<JTextPane> listeRep = AfficheurExo.listeReponses(exoTest); // Création des phrases avec les jolies couleurs
+
+                                        // for(JTextPane bloub : listeRep){
+                                        //     // correctionPanel.add(bloub);
+                                        //     System.out.println(bloub);
+                                        // }
                                         
                                         /*
                                         * AfficheurCorrection -> ArrayList<AfficheurReeponse>
