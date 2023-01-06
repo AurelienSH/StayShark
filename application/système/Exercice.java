@@ -26,7 +26,7 @@ public class Exercice {
     ArrayList<ArrayList<String>> reponsesEleve = new ArrayList<>();
 
     // Points de l'exo
-    final int bareme;
+    int bareme = 0;
 
     // Niveau de l'exo
     final String niveau;
@@ -39,16 +39,14 @@ public class Exercice {
      *
      * @param textePhrases liste de chaînes de caractères représentant les questions de l'exercice
      * @param langVal la langue de l'exercice
-     * @param baremeVal le nombre de points maximum de l'exercice
      * @param niveauVal le niveau de difficulté de l'exercice
      * @param methodeEvalVal la méthode d'évaluation de l'exercice
      */
-    public Exercice(ArrayList<String> textePhrases, String langVal, int baremeVal, String niveauVal, HashMap<String,Integer> methodeEvalVal){
+    public Exercice(ArrayList<String> textePhrases, String langVal,  String niveauVal, HashMap<String,Integer> methodeEvalVal){
         // Initialisation des champs de la classe
         methodeEval = methodeEvalVal;
         niveau = niveauVal;
         langue = langVal;
-        bareme = baremeVal;
 
         // Création de la liste d'objets phrases
         ParseurExoTrou parseur = new ParseurExoTrou();
@@ -58,7 +56,13 @@ public class Exercice {
             questions.add(phraseQuestion.getQuestion());
             reponses.add(phraseQuestion.getReponses());
             randomReponses.addAll(phraseQuestion.getReponses());
+            bareme += (phraseQuestion.getQuestion()).size();
         }
+
+        // On fixe un seuil pour réussite à au moins la moitié des réponses
+        bareme = bareme/2;
+
+
         Collections.shuffle(randomReponses);
     }
 

@@ -28,13 +28,17 @@ public class CorrectionExo {
         for (Correction phraseCorrigee : phrasesCorrigees){
             note+=phraseCorrigee.getNote(); // calcul de la note finale de l'exercice
         }
-        modifPointsApprenant = this.note * exo.bareme * exo.getIntNiveau(); // calcul de la modification des points de l'apprenant
+        if (note>=exo.bareme) {
+            modifPointsApprenant = this.note * exo.getIntNiveau();
+        }// calcul de la modification des points de l'apprenant
+        else{
+            modifPointsApprenant = -1; // pour traiter le cas d'un échec on utilise une valeur tampon
+        }
 
-        for (CorrectionQuestionTrou p : phrasesCorrigees){
+        for (CorrectionQuestionTrou p : phrasesCorrigees) {
             valeursReponsesCorrigees.add(p.getReponsesCorrigees());
             valeursReponses.add(p.getReponses());
         }
-        System.out.println(valeursReponsesCorrigees);
     }
 
     public ArrayList<ArrayList<String>> getValeursCorrigees(){

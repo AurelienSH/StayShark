@@ -236,10 +236,9 @@ public class PageEleve extends Page {
                                 //implanter le vrai dico correction Aurélien si tu as besoin j'ai fait une méthode qui te retourne la 1ere ligne du csv (qui contient la méthode d'éval --> CsvReader.getteurDuretéNotation(path))
                                 try{ // exemple ici d'utilisation
                                     String notation = CsvReader.getteurDuretéNotation(path);
-                                    System.out.println(notation);
                                 
                                 HashMap methodeEval = Evaluation.getChoixCorrectionDict(notation);
-                                    Exercice exoTest = new Exercice(CsvReader.liseurExo(path), infoExo.get("langue choisie"), 1, infoExo.get("lvl choisi"), methodeEval); // Aurélien gogogo
+                                    Exercice exoTest = new Exercice(CsvReader.liseurExo(path), infoExo.get("langue choisie"), infoExo.get("lvl choisi"), methodeEval); // Aurélien gogogo
 
 
                                 String motsTroués = AfficheurExo.randomReponses(exoTest);

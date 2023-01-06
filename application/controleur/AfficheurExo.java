@@ -112,7 +112,7 @@ public class AfficheurExo extends Afficheur {
             methodeEval.put("NR", 0);
             methodeEval.put("incorrect", -1);
             methodeEval.put("correct", 1);
-            Exercice exo = new Exercice(CsvReader.liseurExo("./application/data/langues/Français/1/exo1.csv"), "Anglais", 0, "2", methodeEval);
+            Exercice exo = new Exercice(CsvReader.liseurExo("./application/data/langues/Français/1/exo1.csv"), "Anglais", "2", methodeEval);
             exo.addReponseEleve(reponses);
             exo.addReponseEleve(reponses);
             exo.addReponseEleve(reponses);

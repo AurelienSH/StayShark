@@ -43,10 +43,14 @@ public abstract class Evaluation {
         String langue = exo.getLangue();
         Integer nivApprenant = apprenant.getIntNiveau(langue);
         Integer nivExercice = exo.getIntNiveau();
-        int dif_niveau = Math.abs(nivApprenant-nivExercice);
-
-
-        apprenant.addScore(langue, correction.getModifPointsApprenant());
+        int dif_niveau = nivExercice-nivApprenant;
+        Integer pointsApprenant = correction.getModifPointsApprenant();
+        if (pointsApprenant != -1) {
+            apprenant.addScore(langue, pointsApprenant *10^dif_niveau);// ajout d'une valorisation pour la réussite de niveaux plus élevés que le sien
+        }
+        else{
+            apprenant.addScore(langue, pointsApprenant * Math.max(5 * Math.abs(dif_niveau),1)); // On pénalise peu l'échec a un niveau supérieur que le sien, mais beaucoup sinon
+        }
     }
 
     public static HashMap<String, Integer> getChoixCorrectionDict(String choix){
