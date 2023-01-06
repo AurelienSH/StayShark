@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="StayShark:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/StayShark_jar</output-path>
+    <root id="archive" name="StayShark.jar">
+      <element id="module-output" name="StayShark" />
+    </root>
+  </artifact>
+</component>
