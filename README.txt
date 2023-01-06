@@ -1,5 +1,6 @@
 Cette application permet d'apprendre la langue que l'on souhaite ou d'enseigner la langue que l'on souhaite.
-Pour la lancer :  pouet
+
+Pour la lancer se placer dans le dossier StayShark et lancer : java -jar out/artifacts/StayShark_jar/StayShark.jar
 
 Lorsque vous êtes dans l'application quatres choix s'imposent : 
 - s'inscrire en tant qu'élève ou professeur
