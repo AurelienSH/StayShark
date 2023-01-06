@@ -326,10 +326,11 @@ public class PageEleve extends Page {
                                             }
                                         }
 
-                                        JPanel listeRepPanel = new JPanel(new GridLayout(3,1,10,10));
+                                        ArrayList<JTextPane> listeRep = AfficheurExo.listeReponses(exoTest);
+
+                                        JPanel listeRepPanel = new JPanel(new GridLayout(listeRep.size(),1,10,10));
                                         listeRepPanel.setBackground(Color.decode("#ffdfba"));
 
-                                        ArrayList<JTextPane> listeRep = AfficheurExo.listeReponses(exoTest);
                                         for(JTextPane bloub : listeRep){
                                             listeRepPanel.add(bloub);
                                        }
