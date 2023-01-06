@@ -75,11 +75,20 @@ public class Exercice {
     public ArrayList<ArrayList<String>> getQuestions() {
         return questions;
     }
-
+    /**
+     * Récupère la liste QuestionTrou de l'exercice.
+     *
+     * @return La liste QuestionTrou de l'exercice.
+     */
     public ArrayList<QuestionTrou> getPhrases(){
         return this.phrases;
     }
 
+    /**
+     * Récupère la méthode d'évaluation de l'exercice.
+     *
+     * @return La méthode d'évaluation de l'exercice.
+     */
     public HashMap<String, Integer> getMethodeEval() {
         return methodeEval;
     }
@@ -110,11 +119,20 @@ public class Exercice {
     public String getNiveau() {
         return this.niveau;
     }
-
+    /**
+     * Renvoie le niveau de l'exercice en chiffre.
+     *
+     * @return le niveau de l'exercice en chiffre.
+     */
     public int getIntNiveau() {
         return Evaluation.getNiveauVal(this.niveau);
     }
 
+    /**
+     * Renvoie les réponses de l'exercice.
+     *
+     * @return les réponses de l'exercice.
+     */
     public ArrayList<ArrayList<String>> getReponses(){
         return this.reponses;}
 
@@ -127,6 +145,11 @@ public class Exercice {
         return reponsesEleve;
     }
 
+    /**
+     *
+     * methode permettant de récupérer les réponses de l'élève.
+     *
+     */
     public void addReponseEleve(ArrayList<String> reponse){
         reponsesEleve.add(reponse);
     }
@@ -179,45 +202,4 @@ public class Exercice {
     sb.append("Réponses de l'exercice : ").append(reponses).append("\n");
     return sb.toString();
 }
-
-
-    /* Méthode d'affichage de l'exo (avec plusieurs questions) à l'élève
-    public void montrerExo (){
-        ArrayList<String> randomreponses = new ArrayList<>(reponses);//copie de la liste avec les réponses
-        Collections.shuffle(randomreponses); // liste avec les réponses dans un ordre aléatoire
-        System.out.println("Voici les réponses à utiliser :");
-        // On affiche les réponses à utiliser de manière random
-        int i = 0;
-        int longueur = randomreponses.size();
-        for (String randomreponse : randomreponses){
-            if(i == 0){
-                System.out.print(randomreponse);
-            }
-            else if(i==longueur-1){
-                System.out.println(", "+randomreponse+".");}
-            else{
-                    System.out.print(", "+randomreponse);}
-                i++;
-        }
-        System.out.println("");
-        //On affiche les questions à répondre
-        i = 1;
-        for (QuestionTrou phrase : phrases){
-            System.out.println(i+". "+phrase.stringEleve());
-            i++; 
-        }
-        
-    }
-    */ 
 }
-/* Proposer aux professeurs de donner plusieurs propositions pour chaque réponses en séparant avec | parce que c'est mieux pour nous
-
-// dicoExo {
-//     IndiceQuestion: {
-//         texte: contenu de la question, reponses: dicoReponse{
-//             IndiceReponse: Bonne réponse} 
-//         }
-//     }
-
-
-// methode*/

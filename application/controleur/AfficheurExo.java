@@ -10,8 +10,18 @@ import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+/**
+ * Classe qui permet d'afficher un exercice de manière graphique.
+ *
+ */
+public abstract class AfficheurExo {
 
-public class AfficheurExo extends Afficheur {
+    /**
+     * Génère une chaîne de caractères contenant les réponses de l'exercice exo séparées par des virgules.
+     *
+     * @param exo l'exercice à afficher
+     * @return une chaîne de caractères contenant les réponses de l'exercice séparées par des virgules
+     */
     public static String randomReponses(Exercice exo){
         StringBuilder sb = new StringBuilder();
         for (String rep : exo.randomReponses()) {
@@ -28,6 +38,13 @@ public class AfficheurExo extends Afficheur {
             */
     }
 
+    /**
+     * Génère une liste de listes de chaînes de caractères représentant les phrases de l'exercice exo,
+     * chaque liste contenant les mots de chaque phrase.
+     *
+     * @param exo l'exercice à afficher
+     * @return une liste de listes de chaînes de caractères représentant les phrases de l'exercice exo sous forme de question
+     */
     public static ArrayList<ArrayList<String>> listeQuestions(Exercice exo){
         return exo.getQuestions();
         /* pour l'exo : 
@@ -36,6 +53,13 @@ public class AfficheurExo extends Afficheur {
         // [["je suis ","..."," prouts et ","..."," ?"],[Tu es un ","..."," ohlala hein !"]]
     }
 
+    /**
+     * Génère une liste de panneaux de texte graphiques (JTextPane) contenant les phrases corrigées de l'exercice exo,
+     * chaque mot étant de la couleur appropriée en fonction de sa correction.
+     *
+     * @param exo l'exercice à afficher
+     * @return une liste de panneaux de texte graphiques contenant les phrases corrigées et colorisées
+     */
     public static ArrayList<JTextPane> listeReponses(Exercice exo){
         ArrayList<QuestionTrou> phrases = exo.getPhrases();
 

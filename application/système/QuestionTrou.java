@@ -9,9 +9,11 @@ import java.util.ArrayList;
  */
 public class QuestionTrou implements Question {
 
-    private ArrayList<Morceau> tokens; //tous les tokens splités sur "#"
+    //tous les tokens splités sur "#"
+    private ArrayList<Morceau> tokens;
 
-    private ArrayList<String> reponses = new ArrayList<>(); //liste des réponses dans l'ordre
+    //liste des réponses dans l'ordre
+    private ArrayList<String> reponses = new ArrayList<>();
 
     /**
      * Constructeur de la phrase.
@@ -27,6 +29,9 @@ public class QuestionTrou implements Question {
         }
     }
 
+    /**
+     * Constructeur vide de QuestionTrou.
+     */
     public QuestionTrou(){}
 
     /**
@@ -164,11 +169,4 @@ public class QuestionTrou implements Question {
         builder.append("]");
         return builder.toString();
     }
-
-    public static void main(String[] args) {
-        QuestionTrou q = new QuestionTrou();
-    }
-    
-
-    
 }
