@@ -11,6 +11,7 @@ import application.système.*;
 import application.controleur.*;
 import java.util.ArrayList;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Créé la page que l'élève verra.
@@ -341,7 +342,10 @@ public class PageEleve extends Page {
                                        correctionPanel.add(quittercorrectionPanel);
 
                                        Evaluation.evalue(eleve, exoTest);
-                                       System.out.println(eleve.csv());
+                                       Map<String, String> infosUserChange = eleve.csv();   
+                                       String aChangerCsv = infosUserChange.get("login")+","+infosUserChange.get("nom")+","+infosUserChange.get("prénom")+","+infosUserChange.get("LangueExpérience");
+                                       try{CsvReader.modificationCsvEleve("./application/data/dataeleve.csv",aChangerCsv);}catch(Exception IOException){System.out.println("Problème au niveau du csv ");}
+                                                                           
                                        
                                         /* 
                                         * Aurélien crée un objet correction à partir des réponses
