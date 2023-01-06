@@ -11,7 +11,6 @@ import application.système.*;
 import application.controleur.*;
 import java.util.ArrayList;
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Créé la page que l'élève verra.
