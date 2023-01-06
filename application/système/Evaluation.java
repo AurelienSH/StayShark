@@ -15,7 +15,7 @@ public abstract class Evaluation {
     }
 
     public static void evalue(Apprenant apprenant, Exercice exo){
-        CorrectionExo correction = new CorrectionExo(exo);
+        CorrectionExo correction = exo.corrige();
         String langue = exo.getLangue();
         Integer nivApprenant = apprenant.getIntNiveau(langue);
         Integer nivExercice = exo.getIntNiveau();
