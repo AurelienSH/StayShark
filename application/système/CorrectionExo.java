@@ -22,13 +22,13 @@ public class CorrectionExo {
      *
      * @param phrasesCorrigees l'exercice à corriger
      */
-    public CorrectionExo(ArrayList<CorrectionQuestionTrou> phrasesCorrigees){
+    public CorrectionExo(ArrayList<CorrectionQuestionTrou> phrasesCorrigees, Exercice exo){
         this.phrasesCorrigees = phrasesCorrigees;
         // récupération de la liste de corrections de phrases
         for (Correction phraseCorrigee : phrasesCorrigees){
             note+=phraseCorrigee.getNote(); // calcul de la note finale de l'exercice
         }
-        // modifPointsApprenant = this.note*exo.bareme*exo.niveau; // calcul de la modification des points de l'apprenant
+        modifPointsApprenant = this.note*exo.bareme*exo.niveau; // calcul de la modification des points de l'apprenant
 
         for (CorrectionQuestionTrou p : phrasesCorrigees){
             valeursReponsesCorrigees.add(p.getReponsesCorrigees());

@@ -242,7 +242,7 @@ public class PageEleve extends Page {
                                 methodeEval.put("incorrect", -1);
                                 methodeEval.put("correct", 1);
                                 try{
-                                    Exercice exoTest = new Exercice(CsvReader.liseurExo(path), infoExo.get("langue choisie"), 0, infoExo.get("lvl choisi"), methodeEval); // Aurélien gogogo
+                                    Exercice exoTest = new Exercice(CsvReader.liseurExo(path), infoExo.get("langue choisie"), 1, infoExo.get("lvl choisi"), methodeEval); // Aurélien gogogo
 
                                 
                                 String motsTroués = AfficheurExo.randomReponses(exoTest);
@@ -341,7 +341,7 @@ public class PageEleve extends Page {
                                        correctionPanel.add(quittercorrectionPanel);
 
                                        Evaluation.evalue(eleve, exoTest);
-                                    //    System.out.println(eleve.csv());
+                                       System.out.println(eleve.csv());
                                        
                                         /* 
                                         * Aurélien crée un objet correction à partir des réponses
